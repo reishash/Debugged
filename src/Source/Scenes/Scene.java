@@ -37,7 +37,7 @@ public class Scene extends JFrame {
 
         // Music
         Audio music = new Audio();
-        music.playSFX("src/Assets/Sounds/start_click.wav");
+        music.playSFX("src/Assets/Sounds/menu_select.wav");
 
         // Frame
         setTitle("Scene");
@@ -69,7 +69,7 @@ public class Scene extends JFrame {
 
         saveButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                music.playSFX("src/Assets/Sounds/start_click.wav");
+                music.playSFX("src/Assets/Sounds/menu_select.wav");
                 gameEngine.saveGame(sceneID);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -119,7 +119,7 @@ public class Scene extends JFrame {
 
         settingButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                music.playSFX("src/Assets/Sounds/start_click.wav");
+                music.playSFX("src/Assets/Sounds/menu_select.wav");
                 Setting setting = new Setting(music);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -196,7 +196,7 @@ public class Scene extends JFrame {
                 hideUIButton.setForeground(Color.WHITE);
             }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                music.playSFX("src/Assets/Sounds/start_click.wav");
+                music.playSFX("src/Assets/Sounds/menu_select.wav");
                 for (Component component : panel.getComponents()) {
                     if (component != hideUIButton) {
                         component.setVisible(!component.isVisible());
@@ -250,7 +250,7 @@ public class Scene extends JFrame {
                 logButton.setForeground(Color.WHITE);
             }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                music.playSFX("src/Assets/Sounds/start_click.wav");
+                music.playSFX("src/Assets/Sounds/menu_select.wav");
                 LogWindow logWindow = new LogWindow(sceneID);
             }
         });
@@ -267,7 +267,7 @@ public class Scene extends JFrame {
 
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                music.playSFX("src/Assets/Sounds/start_click.wav");
+                music.playSFX("src/Assets/Sounds/menu_select.wav");
                 sceneID++;
                 updateScene(panel);
             }

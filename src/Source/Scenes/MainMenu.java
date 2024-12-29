@@ -101,7 +101,7 @@ public class MainMenu extends JFrame {
             }
             
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                audio.playSFX("src/Assets/Sounds/start_click.wav");
+                audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 audio.stopMusic();
                 game = new GameEngine();
                 game.startGame();
@@ -119,7 +119,7 @@ public class MainMenu extends JFrame {
         loadButton.setFocusPainted(false);
         loadButton.setBorderPainted(false);
         loadButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        loadButton.setBounds(100, 500, 180, 75);
+        loadButton.setBounds(100, 510, 180, 75);
         loadButton.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(Color.BLACK, 2),
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
@@ -158,7 +158,7 @@ public class MainMenu extends JFrame {
             }
             
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                audio.playSFX("src/Assets/Sounds/start_click.wav");
+                audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 audio.stopMusic();
                 game = new GameEngine();
                 game.loadGame();
@@ -176,7 +176,7 @@ public class MainMenu extends JFrame {
         settingButton.setFocusPainted(false);
         settingButton.setBorderPainted(false);
         settingButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        settingButton.setBounds(100, 550, 125, 75);
+        settingButton.setBounds(100, 570, 125, 75);
         settingButton.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(Color.BLACK, 2),
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
@@ -215,8 +215,10 @@ public class MainMenu extends JFrame {
             }
             
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                audio.playSFX("src/Assets/Sounds/start_click.wav");
+                audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 Setting setting = new Setting(audio);
+                audio.stopMusic();
+                dispose();
             }
         });
         panel.add(settingButton);
@@ -230,7 +232,7 @@ public class MainMenu extends JFrame {
         exitButton.setFocusPainted(false);
         exitButton.setBorderPainted(false);
         exitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        exitButton.setBounds(100, 600, 160, 75);
+        exitButton.setBounds(100, 630, 160, 75);
         exitButton.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(Color.BLACK, 2),
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
@@ -269,7 +271,7 @@ public class MainMenu extends JFrame {
             }
             
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                audio.playSFX("src/Assets/Sounds/start_click.wav");
+                audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 UIManager.put("OptionPane.background", Color.BLACK);
                 UIManager.put("Panel.background", Color.BLACK);
                 UIManager.put("OptionPane.messageForeground", Color.WHITE);
@@ -285,17 +287,11 @@ public class MainMenu extends JFrame {
         ImageIcon backgroundImage = new ImageIcon("src/Assets/Images/main_menu_background.jpg");
         JLabel backgroundLabel = new JLabel(backgroundImage);
         panel.add(backgroundLabel);
-
-        // Make the frame visible
         setVisible(true);
-
-        // Set the bounds of the background label after the frame is displayed
         backgroundLabel.setBounds(0, 0, getWidth(), getHeight());
         backgroundLabel.setIcon(new ImageIcon(backgroundImage.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH)));
 
         add(panel);
-
-        // Make the frame visible
         setVisible(true);
     }
 }

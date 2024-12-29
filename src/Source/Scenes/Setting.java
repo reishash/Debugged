@@ -13,13 +13,18 @@ import java.io.File;
 import java.io.IOException;
 
 import Source.Logic.Audio;
+import Source.Logic.GameEngine;
 
 public class Setting extends JFrame {
+    private GameEngine gameEngine = new GameEngine();
     private Audio audio;
     private Font helvetiHandFont;
 
     public Setting(Audio audio) {
         this.audio = audio;
+        
+        // Music
+        audio.playMusic("src/Assets/Sounds/setting_music.wav");
 
         // Load Font
         try {
@@ -44,7 +49,7 @@ public class Setting extends JFrame {
 
         // Title Image
         JLabel titleLabel = new JLabel("Settings");
-        titleLabel.setBounds(525, -50, 500, 200);
+        titleLabel.setBounds(525, 0, 500, 200);
         titleLabel.setFont(helvetiHandFont.deriveFont(60f));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -52,14 +57,14 @@ public class Setting extends JFrame {
 
         // Music Volume Label
         JLabel musicVolumeLabel = new JLabel("Music Volume:");
-        musicVolumeLabel.setBounds(100, 150, 400, 30);
+        musicVolumeLabel.setBounds(100, 200, 400, 30);
         musicVolumeLabel.setFont(helvetiHandFont);
         musicVolumeLabel.setForeground(Color.WHITE);
         panel.add(musicVolumeLabel);
 
         // Music Volume Slider
         JSlider musicVolumeSlider = new JSlider(0, 100, (int) Audio.getMusicVolume());
-        musicVolumeSlider.setBounds(1125, 150, 300, 50);
+        musicVolumeSlider.setBounds(1125, 200, 300, 50);
         musicVolumeSlider.setFont(helvetiHandFont);
         musicVolumeSlider.addChangeListener(e -> {
             int volume = musicVolumeSlider.getValue();
@@ -99,14 +104,14 @@ public class Setting extends JFrame {
 
         // Voice Volume Label
         JLabel voiceVolumeLabel = new JLabel("Voice Volume:");
-        voiceVolumeLabel.setBounds(100, 450, 400, 30);
+        voiceVolumeLabel.setBounds(100, 400, 400, 30);
         voiceVolumeLabel.setFont(helvetiHandFont);
         voiceVolumeLabel.setForeground(Color.WHITE);
         panel.add(voiceVolumeLabel);
 
         // Voice Volume Slider
         JSlider voiceVolumeSlider = new JSlider(0, 100, (int) Audio.getVoiceVolume());
-        voiceVolumeSlider.setBounds(1125, 450, 300, 50);
+        voiceVolumeSlider.setBounds(1125, 400, 300, 50);
         voiceVolumeSlider.setFont(helvetiHandFont);
         voiceVolumeSlider.addChangeListener(e -> {
             int volume = voiceVolumeSlider.getValue();
@@ -122,11 +127,32 @@ public class Setting extends JFrame {
             audio.playSFX("src/Assets/Sounds/voice.wav");
         });
 
+        // Brightness Label
+        JLabel brightnessLabel = new JLabel("Brightness:");
+        brightnessLabel.setBounds(100, 500, 400, 30);
+        brightnessLabel.setFont(helvetiHandFont);
+        brightnessLabel.setForeground(Color.WHITE);
+        panel.add(brightnessLabel);
+
+        // Brightness Slider
+        JSlider brightnessSlider = new JSlider(0, 100, 50);
+        brightnessSlider.setBounds(1125, 500, 300, 50);
+        brightnessSlider.setFont(helvetiHandFont);
+        brightnessSlider.addChangeListener(e -> {
+            int brightness = brightnessSlider.getValue();
+            float[] hsb = Color.RGBtoHSB(255, 255, 255, null);
+            Color color = Color.getHSBColor(hsb[0], hsb[1], brightness / 100.0f);
+            panel.setBackground(color);
+        });
+        brightnessSlider.setOpaque(false);
+        brightnessSlider.setForeground(Color.WHITE);
+        panel.add(brightnessSlider);
+
         // Back Button
         JLabel backButtonLabel = new JLabel("Back");
         backButtonLabel.setFont(helvetiHandFont.deriveFont(30f));
         backButtonLabel.setForeground(Color.WHITE);
-        backButtonLabel.setBounds(10, 650, 250, 75);
+        backButtonLabel.setBounds(10, 700, 250, 75);
         backButtonLabel.setHorizontalAlignment(SwingConstants.CENTER);
         backButtonLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         backButtonLabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -140,33 +166,23 @@ public class Setting extends JFrame {
             }
 
             public void mouseClicked(java.awt.event.MouseEvent evt) {
+                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.stopMusic();
+                gameEngine.initializeMainMenu();
                 dispose();
             }
         });
         panel.add(backButtonLabel);
-        
-        // Semi-transparent Box
-        JPanel transparentBox = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.setColor(new Color(0, 0, 0, 100));
-            g.fillRoundRect(0, 0, getWidth(), getHeight(), 50, 50); 
-            }
-        };
-        transparentBox.setBounds(50, 100, 1425, 700);
-        transparentBox.setOpaque(false);
-        panel.add(transparentBox);
-
-        setVisible(true);
 
         // Background Image
-        ImageIcon backgroundImage = new ImageIcon("src/Assets/Images/main_menu_background.jpg");
+        ImageIcon backgroundImage = new ImageIcon("src/Assets/Images/setting_background.jpg");
         JLabel backgroundLabel = new JLabel(backgroundImage);
+        panel.add(backgroundLabel);
+        setVisible(true);
         backgroundLabel.setBounds(0, 0, getWidth(), getHeight());
         backgroundLabel.setIcon(new ImageIcon(backgroundImage.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH)));
-        panel.add(backgroundLabel);
 
         add(panel);
+        setVisible(true);
     }
 }
