@@ -21,6 +21,7 @@ public class Scene extends JFrame {
     private Font helvetiHandFont;
     private int sceneID;
     private boolean isFirstScene;
+    private JLabel backgroundLabel;
 
     public Scene(int SceneID) {
         sceneID = SceneID;
@@ -36,8 +37,8 @@ public class Scene extends JFrame {
         }
 
         // Music
-        Audio music = new Audio();
-        music.playSFX("src/Assets/Sounds/menu_select.wav");
+        Audio audio = new Audio();
+        audio.stopMusic();
 
         // Frame
         setTitle("Scene");
@@ -51,6 +52,11 @@ public class Scene extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
+        // Background Label
+        backgroundLabel = new JLabel();
+        backgroundLabel.setBounds(0, 0, getWidth(), getHeight());
+        panel.add(backgroundLabel);
+
         // Save Button
         JButton saveButton = new JButton("Save");
         saveButton.setFont(helvetiHandFont);
@@ -60,7 +66,7 @@ public class Scene extends JFrame {
         saveButton.setFocusPainted(false);
         saveButton.setBorderPainted(false);
         saveButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        saveButton.setBounds(50, 25, 200, 50);
+        saveButton.setBounds(100, 50, 200, 50);
         saveButton.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(Color.BLACK, 2),
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
@@ -69,12 +75,12 @@ public class Scene extends JFrame {
 
         saveButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                music.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 gameEngine.saveGame(sceneID);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 saveButton.setForeground(Color.YELLOW);
-                music.playSFX("src/Assets/Sounds/menu_hover.wav");
+                audio.playSFX("src/Assets/Sounds/menu_hover.wav");
                 Point originalLocation = saveButton.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -110,7 +116,7 @@ public class Scene extends JFrame {
         settingButton.setFocusPainted(false);
         settingButton.setBorderPainted(false);
         settingButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        settingButton.setBounds(250, 25, 200, 50);
+        settingButton.setBounds(300, 50, 200, 50);
         settingButton.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(Color.BLACK, 2),
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
@@ -119,12 +125,12 @@ public class Scene extends JFrame {
 
         settingButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                music.playSFX("src/Assets/Sounds/menu_select.wav");
-                Setting setting = new Setting(music);
+                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                Setting setting = new Setting(audio, Scene.this);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 settingButton.setForeground(Color.YELLOW);
-                music.playSFX("src/Assets/Sounds/menu_hover.wav");
+                audio.playSFX("src/Assets/Sounds/menu_hover.wav");
                 Point originalLocation = settingButton.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -160,7 +166,7 @@ public class Scene extends JFrame {
         hideUIButton.setFocusPainted(false);
         hideUIButton.setBorderPainted(false);
         hideUIButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        hideUIButton.setBounds(500, 25, 200, 50);
+        hideUIButton.setBounds(500, 50, 200, 50);
         hideUIButton.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(Color.BLACK, 2),
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
@@ -170,7 +176,7 @@ public class Scene extends JFrame {
         hideUIButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 hideUIButton.setForeground(Color.YELLOW);
-                music.playSFX("src/Assets/Sounds/menu_hover.wav");
+                audio.playSFX("src/Assets/Sounds/menu_hover.wav");
                 Point originalLocation = hideUIButton.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -196,7 +202,7 @@ public class Scene extends JFrame {
                 hideUIButton.setForeground(Color.WHITE);
             }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                music.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 for (Component component : panel.getComponents()) {
                     if (component != hideUIButton) {
                         component.setVisible(!component.isVisible());
@@ -214,7 +220,7 @@ public class Scene extends JFrame {
         logButton.setFocusPainted(false);
         logButton.setBorderPainted(false);
         logButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        logButton.setBounds(700, 25, 200, 50);
+        logButton.setBounds(700, 50, 200, 50);
         logButton.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(Color.BLACK, 2),
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
@@ -224,7 +230,7 @@ public class Scene extends JFrame {
         logButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 logButton.setForeground(Color.YELLOW);
-                music.playSFX("src/Assets/Sounds/menu_hover.wav");
+                audio.playSFX("src/Assets/Sounds/menu_hover.wav");
                 Point originalLocation = logButton.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -250,7 +256,7 @@ public class Scene extends JFrame {
                 logButton.setForeground(Color.WHITE);
             }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                music.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 LogWindow logWindow = new LogWindow(sceneID);
             }
         });
@@ -267,7 +273,7 @@ public class Scene extends JFrame {
 
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                music.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 sceneID++;
                 updateScene(panel);
             }
@@ -305,15 +311,33 @@ public class Scene extends JFrame {
             }
         }
     
+        // Set story text
         if (storyText != null) {
             storyText.setFont(helvetiHandFont);
             storyText.setForeground(Color.WHITE);
-            storyText.setBounds(50, 450, 1400, 800);
+            storyText.setBounds(100, 450, 1400, 800);
             storyText.setVerticalAlignment(SwingConstants.TOP);
             panel.add(storyText, Integer.valueOf(0)); // Add on top of background
             previousComponent = storyText;
         }
-    
+
+        // Set background image
+        String imagePath;
+        if (sceneID >= 1 && sceneID <= 5) {
+            imagePath = "src/Assets/Images/1.jpg";
+        } else if (sceneID >= 6 && sceneID <= 10) {
+            imagePath = "src/Assets/Images/2.jpg";
+        } else {
+            imagePath = "src/Assets/Images/3.jpg";
+        }
+
+        ImageIcon backgroundImage = new ImageIcon(imagePath);
+        backgroundLabel.setIcon(backgroundImage);
+        panel.add(backgroundLabel);
+        setVisible(true);
+        backgroundLabel.setBounds(0, 0, getWidth(), getHeight());
+        backgroundLabel.setIcon(new ImageIcon(backgroundImage.getImage().getScaledInstance(getWidth(), getHeight(), java.awt.Image.SCALE_SMOOTH)));
+
         panel.setBackground(Color.BLACK);
         panel.revalidate();
         panel.repaint();

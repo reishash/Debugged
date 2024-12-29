@@ -216,8 +216,8 @@ public class MainMenu extends JFrame {
             
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
-                Setting setting = new Setting(audio);
                 audio.stopMusic();
+                Setting setting = new Setting(audio, MainMenu.this);
                 dispose();
             }
         });

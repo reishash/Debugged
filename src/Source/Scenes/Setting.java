@@ -20,7 +20,7 @@ public class Setting extends JFrame {
     private Audio audio;
     private Font helvetiHandFont;
 
-    public Setting(Audio audio) {
+    public Setting(Audio audio, Object parent) {
         this.audio = audio;
         
         // Music
@@ -168,7 +168,10 @@ public class Setting extends JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 audio.stopMusic();
-                gameEngine.initializeMainMenu();
+                if (parent instanceof MainMenu) {
+                    gameEngine.initializeMainMenu();
+                    audio.playMusic("src/Assets/Sounds/main_menu_music.wav");
+                }
                 dispose();
             }
         });
