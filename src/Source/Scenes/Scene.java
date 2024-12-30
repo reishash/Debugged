@@ -171,24 +171,19 @@ public class Scene extends JFrame {
         saveButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
-
                 JDialog dialog = new JDialog();
                 dialog.setUndecorated(true);
                 dialog.setModal(true);
-
                 JPanel panel = new JPanel();
                 panel.setBackground(Color.BLACK);
                 panel.setLayout(new BorderLayout());
-
                 JLabel messageLabel = new JLabel("Are you sure you want to go back to the main menu?", JLabel.CENTER);
                 messageLabel.setForeground(Color.WHITE);
                 messageLabel.setFont(helvetiHandFont);
                 panel.add(messageLabel, BorderLayout.CENTER);
-
                 JPanel buttonPanel = new JPanel();
                 buttonPanel.setBackground(Color.BLACK);
                 buttonPanel.setLayout(new FlowLayout());
-
                 JButton yesButton = new JButton("Yes");
                 yesButton.addActionListener(e -> {
                     gameEngine.initializeMainMenu();
