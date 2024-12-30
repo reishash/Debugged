@@ -1,6 +1,5 @@
 package Source.Scenes;
 
-import javax.swing.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
@@ -12,6 +11,16 @@ import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.Spring;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
+import javax.swing.SpringLayout;
 
 import Source.Logic.Audio;
 import Source.Logic.GameEngine;
@@ -24,6 +33,7 @@ public class Scene extends JFrame {
     private boolean isFirstScene;
     private JLabel backgroundLabel, characterLabel;
     private Audio audio;
+    private SpringLayout layout = new SpringLayout();
 
     public Scene(int SceneID) {
         sceneID = SceneID;
@@ -43,7 +53,7 @@ public class Scene extends JFrame {
         audio.stopMusic();
 
         // Frame
-        setTitle("Scene");
+        setTitle("Debugged");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,7 +62,8 @@ public class Scene extends JFrame {
 
         // Panel
         JPanel panel = new JPanel();
-        panel.setLayout(null);
+        layout = new SpringLayout();
+        panel.setLayout(layout);
 
         // Background Label
         backgroundLabel = new JLabel();
@@ -69,13 +80,13 @@ public class Scene extends JFrame {
         saveButton.setFocusPainted(false);
         saveButton.setBorderPainted(false);
         saveButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        saveButton.setBounds(100, 50, 200, 50);
         saveButton.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(Color.BLACK, 2),
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
         panel.add(saveButton);
-
+        layout.putConstraint(SpringLayout.WEST, saveButton, 100, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, saveButton, 50, SpringLayout.NORTH, panel);
         saveButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
@@ -119,13 +130,13 @@ public class Scene extends JFrame {
         settingButton.setFocusPainted(false);
         settingButton.setBorderPainted(false);
         settingButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        settingButton.setBounds(300, 50, 200, 50);
         settingButton.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(Color.BLACK, 2),
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
         panel.add(settingButton);
-
+        layout.putConstraint(SpringLayout.WEST, settingButton, 250, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, settingButton, 50, SpringLayout.NORTH, panel);
         settingButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
@@ -169,12 +180,13 @@ public class Scene extends JFrame {
         hideUIButton.setFocusPainted(false);
         hideUIButton.setBorderPainted(false);
         hideUIButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        hideUIButton.setBounds(500, 50, 200, 50);
         hideUIButton.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(Color.BLACK, 2),
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
         panel.add(hideUIButton);
+        layout.putConstraint(SpringLayout.WEST, hideUIButton, 400, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, hideUIButton, 50, SpringLayout.NORTH, panel);
 
         hideUIButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -223,12 +235,13 @@ public class Scene extends JFrame {
         logButton.setFocusPainted(false);
         logButton.setBorderPainted(false);
         logButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        logButton.setBounds(700, 50, 200, 50);
         logButton.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(Color.BLACK, 2),
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
         panel.add(logButton);
+        layout.putConstraint(SpringLayout.WEST, logButton, 550, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, logButton, 50, SpringLayout.NORTH, panel);
 
         logButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -266,14 +279,12 @@ public class Scene extends JFrame {
 
         // Scene updater
         JPanel sceneUpdater = new JPanel();
-        sceneUpdater.setBounds(0, 0, 1920, 1080);
         sceneUpdater.setOpaque(false);
         sceneUpdater.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 sceneUpdater.setCursor(new Cursor(Cursor.HAND_CURSOR));
             }
-
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
@@ -282,6 +293,11 @@ public class Scene extends JFrame {
             }
         });
         panel.add(sceneUpdater);
+        layout.putConstraint(SpringLayout.WEST, sceneUpdater, 0, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, sceneUpdater, 0, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.EAST, sceneUpdater, 0, SpringLayout.EAST, panel);
+        layout.putConstraint(SpringLayout.SOUTH, sceneUpdater, 0, SpringLayout.SOUTH, panel);
+
     
         updateScene(panel);
         add(panel);
@@ -302,12 +318,9 @@ public class Scene extends JFrame {
         } else {
             isFirstScene = false;
         }
-    
         String[] storyTexts = Script.storyTexts;
-    
         JLabel storyText = null;
         Audio audio = new Audio();
-    
         if (sceneID > 0 && sceneID <= storyTexts.length) {
             storyText = new JLabel(storyTexts[sceneID - 1]);
             switch (sceneID) {
@@ -334,12 +347,14 @@ public class Scene extends JFrame {
         if (storyText != null) {
             storyText.setFont(helvetiHandFont);
             storyText.setForeground(new Color(255, 255, 197));
-            storyText.setBounds(0, 600, 1600, 800);
             storyText.setVerticalAlignment(SwingConstants.TOP);
             storyText.setHorizontalAlignment(SwingConstants.LEFT);
-            storyText.setBorder(BorderFactory.createEmptyBorder(50, 100, 0, 200));
             panel.add(storyText, Integer.valueOf(0));
             previousComponent = storyText;
+            layout.putConstraint(SpringLayout.WEST, storyText, 200, SpringLayout.WEST, panel);
+            layout.putConstraint(SpringLayout.NORTH, storyText, 650, SpringLayout.NORTH, panel);
+            layout.putConstraint(SpringLayout.EAST, storyText, -200, SpringLayout.EAST, panel);
+            layout.putConstraint(SpringLayout.SOUTH, storyText, 0, SpringLayout.SOUTH, panel);
         }
         else {
             gameEngine.initializeMainMenu();
@@ -370,9 +385,11 @@ public class Scene extends JFrame {
         }
         ImageIcon characterImage = new ImageIcon(charPath);
         characterLabel.setIcon(characterImage);
-        characterLabel.setBounds(400, 100, 800, 800);
         characterLabel.setIcon(new ImageIcon(characterImage.getImage().getScaledInstance(800, 800, java.awt.Image.SCALE_FAST)));
         panel.add(characterLabel);
+        layout.putConstraint(SpringLayout.WEST, characterLabel, 400, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, characterLabel, 100, SpringLayout.NORTH, panel);
+
 
         // Set background image
         String bgPath;
@@ -383,9 +400,12 @@ public class Scene extends JFrame {
         }
         ImageIcon backgroundImage = new ImageIcon(bgPath);
         backgroundLabel.setIcon(backgroundImage);
-        backgroundLabel.setBounds(0, 0, getWidth(), getHeight());
         backgroundLabel.setIcon(new ImageIcon(backgroundImage.getImage().getScaledInstance(getWidth(), getHeight(), java.awt.Image.SCALE_FAST)));
         panel.add(backgroundLabel);
+        layout.putConstraint(SpringLayout.WEST, backgroundLabel, 0, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, backgroundLabel, 0, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.EAST, backgroundLabel, 0, SpringLayout.EAST, panel);
+        layout.putConstraint(SpringLayout.SOUTH, backgroundLabel, 0, SpringLayout.SOUTH, panel);
 
         panel.setBackground(Color.BLACK);
         panel.revalidate();

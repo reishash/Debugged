@@ -1,12 +1,28 @@
 package Source.Scenes;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.io.File;
 import java.io.IOException;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.Spring;
+import javax.swing.SwingConstants;
+import javax.swing.SpringLayout;
+import javax.swing.Timer;
+import javax.swing.UIManager;
 
 import Source.Logic.Audio;
 import Source.Logic.GameEngine;
@@ -27,7 +43,7 @@ public class MainMenu extends JFrame {
         }
 
         // Frame
-        setTitle("Main Menu");
+        setTitle("Debugged");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,16 +57,18 @@ public class MainMenu extends JFrame {
 
         // Panel
         JPanel panel = new JPanel();
-        panel.setLayout(null);
+        SpringLayout layout = new SpringLayout();
+        panel.setLayout(layout);
 
         // Title Image
         ImageIcon titleImage = new ImageIcon("src/Assets/Images/title_image.png");
         JLabel titleLabel = new JLabel(titleImage);
-        titleLabel.setBounds(525, 25, titleImage.getIconWidth(), titleImage.getIconHeight());
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         titleLabel.setIcon(new ImageIcon(titleImage.getImage().getScaledInstance(500,200, Image.SCALE_SMOOTH)));
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, titleLabel, 0, SpringLayout.HORIZONTAL_CENTER, panel);
+        layout.putConstraint(SpringLayout.NORTH, titleLabel, 25, SpringLayout.NORTH, panel);
         panel.add(titleLabel);
-
+        
         // Start Button
         JButton startButton = new JButton("Start Game");
         startButton.setFont(helvetiHandFont);
@@ -60,7 +78,6 @@ public class MainMenu extends JFrame {
         startButton.setFocusPainted(false);
         startButton.setBorderPainted(false);
         startButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        startButton.setBounds(100, 450, 180, 75);
         startButton.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(Color.BLACK, 2),
             BorderFactory.createCompoundBorder(
@@ -68,7 +85,8 @@ public class MainMenu extends JFrame {
                 BorderFactory.createEmptyBorder(5, 5, 5, 5)
             )
         ));
-
+        layout.putConstraint(SpringLayout.WEST, startButton, 100, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, startButton, 450, SpringLayout.NORTH, panel);
         startButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 startButton.setForeground(Color.YELLOW);
@@ -77,7 +95,6 @@ public class MainMenu extends JFrame {
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
                     boolean moveRight = true;
-
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (moveRight) {
@@ -96,11 +113,9 @@ public class MainMenu extends JFrame {
                 });
                 timer.start();
             }
-
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 startButton.setForeground(Color.WHITE);
             }
-            
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 audio.stopMusic();
@@ -120,12 +135,12 @@ public class MainMenu extends JFrame {
         loadButton.setFocusPainted(false);
         loadButton.setBorderPainted(false);
         loadButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        loadButton.setBounds(100, 510, 180, 75);
         loadButton.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(Color.BLACK, 2),
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
-
+        layout.putConstraint(SpringLayout.WEST, loadButton, 100, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, loadButton, 510, SpringLayout.NORTH, panel);
         loadButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 loadButton.setForeground(Color.YELLOW);
@@ -134,7 +149,6 @@ public class MainMenu extends JFrame {
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
                     boolean moveRight = true;
-
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (moveRight) {
@@ -153,11 +167,9 @@ public class MainMenu extends JFrame {
                 });
                 timer.start();
             }
-
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 loadButton.setForeground(Color.WHITE);
             }
-            
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 audio.stopMusic();
@@ -177,12 +189,12 @@ public class MainMenu extends JFrame {
         settingButton.setFocusPainted(false);
         settingButton.setBorderPainted(false);
         settingButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        settingButton.setBounds(100, 570, 125, 75);
         settingButton.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(Color.BLACK, 2),
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
-
+        layout.putConstraint(SpringLayout.WEST, settingButton, 100, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, settingButton, 570, SpringLayout.NORTH, panel);
         settingButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 settingButton.setForeground(Color.YELLOW);
@@ -191,7 +203,6 @@ public class MainMenu extends JFrame {
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
                     boolean moveRight = true;
-
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (moveRight) {
@@ -210,11 +221,9 @@ public class MainMenu extends JFrame {
                 });
                 timer.start();
             }
-
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 settingButton.setForeground(Color.WHITE);
             }
-            
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 audio.stopMusic();
@@ -233,12 +242,12 @@ public class MainMenu extends JFrame {
         exitButton.setFocusPainted(false);
         exitButton.setBorderPainted(false);
         exitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        exitButton.setBounds(100, 630, 160, 75);
         exitButton.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(Color.BLACK, 2),
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
-
+        layout.putConstraint(SpringLayout.WEST, exitButton, 100, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, exitButton, 630, SpringLayout.NORTH, panel);
         exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 exitButton.setForeground(Color.RED);
@@ -289,7 +298,10 @@ public class MainMenu extends JFrame {
         JLabel backgroundLabel = new JLabel(backgroundImage);
         panel.add(backgroundLabel);
         setVisible(true);
-        backgroundLabel.setBounds(0, 0, getWidth(), getHeight());
+        layout.putConstraint(SpringLayout.WEST, backgroundLabel, 0, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, backgroundLabel, 0, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.EAST, backgroundLabel, 0, SpringLayout.EAST, panel);
+        layout.putConstraint(SpringLayout.SOUTH, backgroundLabel, 0, SpringLayout.SOUTH, panel);
         backgroundLabel.setIcon(new ImageIcon(backgroundImage.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH)));
 
         add(panel);
