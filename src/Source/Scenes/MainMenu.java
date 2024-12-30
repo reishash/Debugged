@@ -64,7 +64,7 @@ public class MainMenu extends JFrame {
         ImageIcon titleImage = new ImageIcon("src/Assets/Images/title_image.png");
         JLabel titleLabel = new JLabel(titleImage);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        titleLabel.setIcon(new ImageIcon(titleImage.getImage().getScaledInstance(500,200, Image.SCALE_SMOOTH)));
+        titleLabel.setIcon(new ImageIcon(titleImage.getImage().getScaledInstance(500,200, Image.SCALE_FAST)));
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, titleLabel, 0, SpringLayout.HORIZONTAL_CENTER, panel);
         layout.putConstraint(SpringLayout.NORTH, titleLabel, 25, SpringLayout.NORTH, panel);
         panel.add(titleLabel);
@@ -86,7 +86,7 @@ public class MainMenu extends JFrame {
             )
         ));
         layout.putConstraint(SpringLayout.WEST, startButton, 100, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, startButton, 450, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.SOUTH, startButton, -325, SpringLayout.SOUTH, panel);
         startButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 startButton.setForeground(Color.YELLOW);
@@ -140,7 +140,7 @@ public class MainMenu extends JFrame {
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
         layout.putConstraint(SpringLayout.WEST, loadButton, 100, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, loadButton, 510, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.SOUTH, loadButton, -250, SpringLayout.SOUTH, panel);
         loadButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 loadButton.setForeground(Color.YELLOW);
@@ -194,7 +194,7 @@ public class MainMenu extends JFrame {
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
         layout.putConstraint(SpringLayout.WEST, settingButton, 100, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, settingButton, 570, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.SOUTH, settingButton, -175, SpringLayout.SOUTH, panel);
         settingButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 settingButton.setForeground(Color.YELLOW);
@@ -247,7 +247,7 @@ public class MainMenu extends JFrame {
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
         layout.putConstraint(SpringLayout.WEST, exitButton, 100, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, exitButton, 630, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.SOUTH, exitButton, -100, SpringLayout.SOUTH, panel);
         exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 exitButton.setForeground(Color.RED);
@@ -301,7 +301,6 @@ public class MainMenu extends JFrame {
                 yesButton.addActionListener(e -> {
                     System.exit(0);
                 });
-
                 JButton noButton = new JButton("No");
                 noButton.setFont(helvetiHandFont);
                 noButton.setForeground(Color.WHITE);
@@ -330,7 +329,7 @@ public class MainMenu extends JFrame {
         layout.putConstraint(SpringLayout.NORTH, backgroundLabel, 0, SpringLayout.NORTH, panel);
         layout.putConstraint(SpringLayout.EAST, backgroundLabel, 0, SpringLayout.EAST, panel);
         layout.putConstraint(SpringLayout.SOUTH, backgroundLabel, 0, SpringLayout.SOUTH, panel);
-        backgroundLabel.setIcon(new ImageIcon(backgroundImage.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH)));
+        backgroundLabel.setIcon(new ImageIcon(backgroundImage.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_FAST)));
 
         add(panel);
         setVisible(true);

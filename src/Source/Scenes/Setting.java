@@ -139,7 +139,7 @@ public class Setting extends JFrame {
         backButtonLabel.setHorizontalAlignment(SwingConstants.CENTER);
         backButtonLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         layout.putConstraint(SpringLayout.WEST, backButtonLabel, 100, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, backButtonLabel, 700, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.SOUTH, backButtonLabel, -100, SpringLayout.SOUTH, panel);
         backButtonLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 backButtonLabel.setForeground(Color.YELLOW);
