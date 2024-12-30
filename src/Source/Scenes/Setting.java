@@ -75,7 +75,7 @@ public class Setting extends JFrame {
         musicVolumeSlider.setOpaque(false);
         musicVolumeSlider.setForeground(Color.WHITE);
         panel.add(musicVolumeSlider);
-        layout.putConstraint(SpringLayout.WEST, musicVolumeSlider, 1125, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.EAST, musicVolumeSlider, -100, SpringLayout.EAST, panel);
         layout.putConstraint(SpringLayout.NORTH, musicVolumeSlider, 200, SpringLayout.NORTH, panel);
 
         // SFX Volume Label
@@ -96,7 +96,7 @@ public class Setting extends JFrame {
         sfxVolumeSlider.setOpaque(false);
         sfxVolumeSlider.setForeground(Color.WHITE);
         panel.add(sfxVolumeSlider);
-        layout.putConstraint(SpringLayout.WEST, sfxVolumeSlider, 1125, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.EAST, sfxVolumeSlider, -100, SpringLayout.EAST, panel);
         layout.putConstraint(SpringLayout.NORTH, sfxVolumeSlider, 300, SpringLayout.NORTH, panel);
         sfxVolumeSlider.addChangeListener(e -> {
             int volume = sfxVolumeSlider.getValue();
@@ -124,7 +124,7 @@ public class Setting extends JFrame {
         voiceVolumeSlider.setOpaque(false);
         voiceVolumeSlider.setForeground(Color.WHITE);
         panel.add(voiceVolumeSlider);
-        layout.putConstraint(SpringLayout.WEST, voiceVolumeSlider, 1125, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.EAST, voiceVolumeSlider, -100, SpringLayout.EAST, panel);
         layout.putConstraint(SpringLayout.NORTH, voiceVolumeSlider, 400, SpringLayout.NORTH, panel);
         voiceVolumeSlider.addChangeListener(e -> {
             int volume = voiceVolumeSlider.getValue();

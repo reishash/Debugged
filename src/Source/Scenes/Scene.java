@@ -92,17 +92,36 @@ public class Scene extends JFrame {
         backButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
-                UIManager.put("OptionPane.background", Color.BLACK);
-                UIManager.put("OptionPane.messageFont", helvetiHandFont);
-                UIManager.put("Panel.background", Color.BLACK);
-                UIManager.put("OptionPane.messageForeground", Color.WHITE);
-                int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to go back to the main menu?", "Confirm Back", JOptionPane.YES_NO_OPTION);
-                if (response == JOptionPane.YES_OPTION) {
+                JDialog dialog = new JDialog();
+                dialog.setUndecorated(true);
+                dialog.setModal(true);
+                JPanel panel = new JPanel();
+                panel.setBackground(Color.BLACK);
+                panel.setLayout(new BorderLayout());
+                JLabel messageLabel = new JLabel("Are you sure you want to go back to the main menu?", JLabel.CENTER);
+                messageLabel.setForeground(Color.WHITE);
+                messageLabel.setFont(helvetiHandFont);
+                panel.add(messageLabel, BorderLayout.CENTER);
+                JPanel buttonPanel = new JPanel();
+                buttonPanel.setBackground(Color.BLACK);
+                buttonPanel.setLayout(new FlowLayout());
+                JButton yesButton = new JButton("Yes");
+                yesButton.addActionListener(e -> {
                     gameEngine.initializeMainMenu();
+                    dialog.dispose();
                     dispose();
-                }
-                gameEngine.initializeMainMenu();
-                dispose();
+                });
+                buttonPanel.add(yesButton);
+                JButton noButton = new JButton("No");
+                noButton.addActionListener(e -> {
+                    dialog.dispose();
+                });
+                buttonPanel.add(noButton);
+                panel.add(buttonPanel, BorderLayout.SOUTH);
+                dialog.getContentPane().add(panel);
+                dialog.pack();
+                dialog.setLocationRelativeTo(null);
+                dialog.setVisible(true);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 backButton.setForeground(Color.YELLOW);
