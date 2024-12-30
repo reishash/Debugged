@@ -537,12 +537,18 @@ public class Scene extends JFrame {
         if (storyText != null) {
             storyText.setFont(helvetiHandFont);
             storyText.setForeground(new Color(255, 255, 197));
-            storyText.setVerticalAlignment(SwingConstants.TOP);
-            storyText.setHorizontalAlignment(SwingConstants.LEFT);
+            if (sceneID == 1 || sceneID == 39 || sceneID == 86 || sceneID == 128) {
+                storyText.setVerticalAlignment(SwingConstants.CENTER);
+                storyText.setHorizontalAlignment(SwingConstants.CENTER);
+                layout.putConstraint(SpringLayout.VERTICAL_CENTER, storyText, 0, SpringLayout.VERTICAL_CENTER, panel);
+            } else {
+                storyText.setVerticalAlignment(SwingConstants.TOP);
+                storyText.setHorizontalAlignment(SwingConstants.LEFT);
+                layout.putConstraint(SpringLayout.SOUTH, storyText, -100, SpringLayout.SOUTH, panel);
+            }
             panel.add(storyText, Integer.valueOf(0));
             previousComponent = storyText;
             layout.putConstraint(SpringLayout.WEST, storyText, 200, SpringLayout.WEST, panel);
-            layout.putConstraint(SpringLayout.SOUTH, storyText, -100, SpringLayout.SOUTH, panel);
             layout.putConstraint(SpringLayout.EAST, storyText, -200, SpringLayout.EAST, panel);
         }
         else {
@@ -613,7 +619,7 @@ public class Scene extends JFrame {
         triangleButton.setForeground(Color.WHITE);
         triangleButton.setContentAreaFilled(false);
         triangleButton.setBorderPainted(false);
-        if (sceneID != 1 && sceneID != 19 && sceneID != 86 && sceneID != 128) {
+        if (sceneID != 1 && sceneID != 39 && sceneID != 86 && sceneID != 128) {
             panel.add(triangleButton);
         }
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, triangleButton, 0, SpringLayout.HORIZONTAL_CENTER, panel);
