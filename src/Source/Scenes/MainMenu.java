@@ -291,17 +291,26 @@ public class MainMenu extends JFrame {
                 messageLabel.setFont(helvetiHandFont);
                 panel.add(messageLabel, BorderLayout.CENTER);
                 JPanel buttonPanel = new JPanel();
-                buttonPanel.setBackground(Color.BLACK);
+                buttonPanel.setOpaque(false);
                 buttonPanel.setLayout(new FlowLayout());
                 JButton yesButton = new JButton("Yes");
+                yesButton.setFont(helvetiHandFont);
+                yesButton.setForeground(Color.WHITE);
+                yesButton.setContentAreaFilled(false);
+                yesButton.setBorderPainted(false);
                 yesButton.addActionListener(e -> {
                     System.exit(0);
                 });
-                buttonPanel.add(yesButton);
+
                 JButton noButton = new JButton("No");
+                noButton.setFont(helvetiHandFont);
+                noButton.setForeground(Color.WHITE);
+                noButton.setContentAreaFilled(false);
+                noButton.setBorderPainted(false);
                 noButton.addActionListener(e -> {
                     dialog.dispose();
                 });
+                buttonPanel.add(yesButton);
                 buttonPanel.add(noButton);
                 panel.add(buttonPanel, BorderLayout.SOUTH);
                 dialog.getContentPane().add(panel);

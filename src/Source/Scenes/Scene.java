@@ -101,16 +101,24 @@ public class Scene extends JFrame {
                 messageLabel.setFont(helvetiHandFont);
                 panel.add(messageLabel, BorderLayout.CENTER);
                 JPanel buttonPanel = new JPanel();
-                buttonPanel.setBackground(Color.BLACK);
+                buttonPanel.setOpaque(false);
                 buttonPanel.setLayout(new FlowLayout());
-                JButton yesButton = new JButton("Yes");
+                JButton yesButton = new JButton("<html><h2>Yes</h2></html>");
+                yesButton.setFont(helvetiHandFont);
+                yesButton.setForeground(Color.WHITE);
+                yesButton.setContentAreaFilled(false);
+                yesButton.setBorderPainted(false);
                 yesButton.addActionListener(e -> {
                     gameEngine.initializeMainMenu();
                     dialog.dispose();
                     dispose();
                 });
                 buttonPanel.add(yesButton);
-                JButton noButton = new JButton("No");
+                JButton noButton = new JButton("<html><h2>No</h2></html>");
+                noButton.setFont(helvetiHandFont);
+                noButton.setForeground(Color.WHITE);
+                noButton.setContentAreaFilled(false);
+                noButton.setBorderPainted(false);
                 noButton.addActionListener(e -> {
                     dialog.dispose();
                 });
@@ -195,9 +203,7 @@ public class Scene extends JFrame {
                     dialog.dispose();
                 });
                 buttonPanel.add(noButton);
-
                 panel.add(buttonPanel, BorderLayout.SOUTH);
-
                 dialog.getContentPane().add(panel);
                 dialog.pack();
                 dialog.setLocationRelativeTo(null);
@@ -298,7 +304,6 @@ public class Scene extends JFrame {
         panel.add(hideUIButton);
         layout.putConstraint(SpringLayout.WEST, hideUIButton, 550, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, hideUIButton, 50, SpringLayout.NORTH, panel);
-
         hideUIButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 hideUIButton.setForeground(Color.YELLOW);
@@ -399,7 +404,53 @@ public class Scene extends JFrame {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
-                sceneID++;
+                if (sceneID == 1000) {
+                    // Choice
+                    JDialog choiceDialog = new JDialog();
+                    choiceDialog.setUndecorated(true);
+                    choiceDialog.setModal(true);
+                    JPanel choicePanel = new JPanel();
+                    choicePanel.setBackground(Color.BLACK);
+                    choicePanel.setLayout(new BorderLayout());
+                    JLabel choiceLabel = new JLabel("[Choice:]", JLabel.CENTER);
+                    choiceLabel.setForeground(Color.WHITE);
+                    choiceLabel.setFont(helvetiHandFont);
+                    choicePanel.add(choiceLabel, BorderLayout.CENTER);
+                    JPanel choiceButtonPanel = new JPanel();
+                    choiceButtonPanel.setBackground(Color.BLACK);
+                    choiceButtonPanel.setLayout(new FlowLayout());
+                    JButton choiceAButton = new JButton("<html><h2>Sacrifice Byte to leave Nullspace.</h2></html>");
+                    choiceAButton.setFont(helvetiHandFont);
+                    choiceAButton.setForeground(Color.WHITE);
+                    choiceAButton.setContentAreaFilled(false);
+                    choiceAButton.setBorderPainted(false);
+                    choiceAButton.addActionListener(e -> {
+                        sceneID = 2000; 
+                        choiceAButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                        choiceDialog.dispose();
+                        updateScene(panel);
+                    });
+                    choiceButtonPanel.add(choiceAButton);
+                    JButton choiceBButton = new JButton("<html><h2>Refuse to leave, staying with Byte.</h2></html>");
+                    choiceBButton.setFont(helvetiHandFont);
+                    choiceBButton.setForeground(Color.WHITE);
+                    choiceBButton.setContentAreaFilled(false);
+                    choiceBButton.setBorderPainted(false);
+                    choiceBButton.addActionListener(e -> {
+                        sceneID = 3000; 
+                        choiceBButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                        choiceDialog.dispose();
+                        updateScene(panel);
+                    });
+                    choiceButtonPanel.add(choiceBButton);
+                    choicePanel.add(choiceButtonPanel, BorderLayout.SOUTH);
+                    choiceDialog.getContentPane().add(choicePanel);
+                    choiceDialog.pack();
+                    choiceDialog.setLocationRelativeTo(null);
+                    choiceDialog.setVisible(true);
+                } else {
+                    sceneID++;
+                }
                 updateScene(panel);
             }
         });
