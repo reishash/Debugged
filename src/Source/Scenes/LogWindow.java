@@ -52,10 +52,12 @@ public class LogWindow extends JFrame {
 
     // Get the last checkpoint ID based on the current scene
     private int getLastCheckpointID(int sceneID) {
-        if (sceneID >= 39) {
+        if (sceneID >= 39 && sceneID < 86) {
             return 39;
-        } else if (sceneID >= 86) {
+        } else if (sceneID >= 86 && sceneID < 128) {
             return 86;
+        } else if (sceneID >= 128) {
+            return 128;
         } else {
             return 1;
         }
