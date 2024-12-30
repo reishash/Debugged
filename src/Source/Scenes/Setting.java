@@ -45,26 +45,28 @@ public class Setting extends JFrame {
 
         // Panel
         JPanel panel = new JPanel();
-        panel.setLayout(null);
+        SpringLayout layout = new SpringLayout();
+        panel.setLayout(layout);
 
         // Title Image
         JLabel titleLabel = new JLabel("Settings");
-        titleLabel.setBounds(525, 0, 500, 200);
         titleLabel.setFont(helvetiHandFont.deriveFont(60f));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(titleLabel);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, titleLabel, 0, SpringLayout.HORIZONTAL_CENTER, panel);
+        layout.putConstraint(SpringLayout.NORTH, titleLabel, 25, SpringLayout.NORTH, panel);
 
         // Music Volume Label
         JLabel musicVolumeLabel = new JLabel("Music Volume:");
-        musicVolumeLabel.setBounds(100, 200, 400, 30);
         musicVolumeLabel.setFont(helvetiHandFont);
         musicVolumeLabel.setForeground(Color.WHITE);
         panel.add(musicVolumeLabel);
+        layout.putConstraint(SpringLayout.WEST, musicVolumeLabel, 100, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, musicVolumeLabel, 200, SpringLayout.NORTH, panel);
 
         // Music Volume Slider
         JSlider musicVolumeSlider = new JSlider(0, 100, (int) Audio.getMusicVolume());
-        musicVolumeSlider.setBounds(1125, 200, 300, 50);
         musicVolumeSlider.setFont(helvetiHandFont);
         musicVolumeSlider.addChangeListener(e -> {
             int volume = musicVolumeSlider.getValue();
@@ -73,17 +75,19 @@ public class Setting extends JFrame {
         musicVolumeSlider.setOpaque(false);
         musicVolumeSlider.setForeground(Color.WHITE);
         panel.add(musicVolumeSlider);
+        layout.putConstraint(SpringLayout.WEST, musicVolumeSlider, 1125, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, musicVolumeSlider, 200, SpringLayout.NORTH, panel);
 
         // SFX Volume Label
         JLabel sfxVolumeLabel = new JLabel("SFX Volume:");
-        sfxVolumeLabel.setBounds(100, 300, 400, 30);
         sfxVolumeLabel.setFont(helvetiHandFont);
         sfxVolumeLabel.setForeground(Color.WHITE);
         panel.add(sfxVolumeLabel);
+        layout.putConstraint(SpringLayout.WEST, sfxVolumeLabel, 100, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, sfxVolumeLabel, 300, SpringLayout.NORTH, panel);
 
         // SFX Volume Slider
         JSlider sfxVolumeSlider = new JSlider(0, 100, (int) Audio.getSFXVolume());
-        sfxVolumeSlider.setBounds(1125, 300, 300, 50);
         sfxVolumeSlider.setFont(helvetiHandFont);
         sfxVolumeSlider.addChangeListener(e -> {
             int volume = sfxVolumeSlider.getValue();
@@ -92,8 +96,8 @@ public class Setting extends JFrame {
         sfxVolumeSlider.setOpaque(false);
         sfxVolumeSlider.setForeground(Color.WHITE);
         panel.add(sfxVolumeSlider);
-        // Add sound effect to sliders
-
+        layout.putConstraint(SpringLayout.WEST, sfxVolumeSlider, 1125, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, sfxVolumeSlider, 300, SpringLayout.NORTH, panel);
         sfxVolumeSlider.addChangeListener(e -> {
             int volume = sfxVolumeSlider.getValue();
             audio.setSFXVolume(volume);
@@ -104,14 +108,14 @@ public class Setting extends JFrame {
 
         // Voice Volume Label
         JLabel voiceVolumeLabel = new JLabel("Voice Volume:");
-        voiceVolumeLabel.setBounds(100, 400, 400, 30);
         voiceVolumeLabel.setFont(helvetiHandFont);
         voiceVolumeLabel.setForeground(Color.WHITE);
         panel.add(voiceVolumeLabel);
+        layout.putConstraint(SpringLayout.WEST, voiceVolumeLabel, 100, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, voiceVolumeLabel, 400, SpringLayout.NORTH, panel);
 
         // Voice Volume Slider
         JSlider voiceVolumeSlider = new JSlider(0, 100, (int) Audio.getVoiceVolume());
-        voiceVolumeSlider.setBounds(1125, 400, 300, 50);
         voiceVolumeSlider.setFont(helvetiHandFont);
         voiceVolumeSlider.addChangeListener(e -> {
             int volume = voiceVolumeSlider.getValue();
@@ -120,51 +124,30 @@ public class Setting extends JFrame {
         voiceVolumeSlider.setOpaque(false);
         voiceVolumeSlider.setForeground(Color.WHITE);
         panel.add(voiceVolumeSlider);
-
+        layout.putConstraint(SpringLayout.WEST, voiceVolumeSlider, 1125, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, voiceVolumeSlider, 400, SpringLayout.NORTH, panel);
         voiceVolumeSlider.addChangeListener(e -> {
             int volume = voiceVolumeSlider.getValue();
             audio.setVoiceVolume(volume);
             audio.playSFX("src/Assets/Sounds/voice.wav");
         });
 
-        // Brightness Label
-        JLabel brightnessLabel = new JLabel("Brightness:");
-        brightnessLabel.setBounds(100, 500, 400, 30);
-        brightnessLabel.setFont(helvetiHandFont);
-        brightnessLabel.setForeground(Color.WHITE);
-        panel.add(brightnessLabel);
-
-        // Brightness Slider
-        JSlider brightnessSlider = new JSlider(0, 100, 50);
-        brightnessSlider.setBounds(1125, 500, 300, 50);
-        brightnessSlider.setFont(helvetiHandFont);
-        brightnessSlider.addChangeListener(e -> {
-            int brightness = brightnessSlider.getValue();
-            float[] hsb = Color.RGBtoHSB(255, 255, 255, null);
-            Color color = Color.getHSBColor(hsb[0], hsb[1], brightness / 100.0f);
-            panel.setBackground(color);
-        });
-        brightnessSlider.setOpaque(false);
-        brightnessSlider.setForeground(Color.WHITE);
-        panel.add(brightnessSlider);
-
         // Back Button
         JLabel backButtonLabel = new JLabel("Back");
         backButtonLabel.setFont(helvetiHandFont.deriveFont(30f));
         backButtonLabel.setForeground(Color.WHITE);
-        backButtonLabel.setBounds(10, 700, 250, 75);
         backButtonLabel.setHorizontalAlignment(SwingConstants.CENTER);
         backButtonLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        layout.putConstraint(SpringLayout.WEST, backButtonLabel, 100, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, backButtonLabel, 700, SpringLayout.NORTH, panel);
         backButtonLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 backButtonLabel.setForeground(Color.YELLOW);
                 audio.playSFX("src/Assets/Sounds/menu_hover.wav");
             }
-
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 backButtonLabel.setForeground(Color.WHITE);
             }
-
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 audio.stopMusic();
@@ -183,6 +166,10 @@ public class Setting extends JFrame {
         setVisible(true);
         backgroundLabel.setBounds(0, 0, getWidth(), getHeight());
         backgroundLabel.setIcon(new ImageIcon(backgroundImage.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH)));
+        layout.putConstraint(SpringLayout.WEST, backgroundLabel, 0, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, backgroundLabel, 0, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.EAST, backgroundLabel, 0, SpringLayout.EAST, panel);
+        layout.putConstraint(SpringLayout.SOUTH, backgroundLabel, 0, SpringLayout.SOUTH, panel);
 
         add(panel);
         setVisible(true);

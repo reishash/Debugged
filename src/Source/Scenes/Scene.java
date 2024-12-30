@@ -1,26 +1,28 @@
 package Source.Scenes;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.GraphicsEnvironment;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.FlowLayout;
+import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.Spring;
+import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
-import javax.swing.SpringLayout;
+import javax.swing.UIManager;
 
 import Source.Logic.Audio;
 import Source.Logic.GameEngine;
@@ -33,7 +35,7 @@ public class Scene extends JFrame {
     private boolean isFirstScene;
     private JLabel backgroundLabel, characterLabel;
     private Audio audio;
-    private SpringLayout layout = new SpringLayout();
+    private SpringLayout layout;
 
     public Scene(int SceneID) {
         sceneID = SceneID;
@@ -71,6 +73,66 @@ public class Scene extends JFrame {
         // Character Label
         characterLabel = new JLabel();
 
+        // Back Button
+        JButton backButton = new JButton("Back");
+        backButton.setFont(helvetiHandFont);
+        backButton.setForeground(Color.WHITE);
+        backButton.setContentAreaFilled(false);
+        backButton.setHorizontalAlignment(SwingConstants.LEFT);
+        backButton.setFocusPainted(false);
+        backButton.setBorderPainted(false);
+        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        backButton.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(Color.BLACK, 2),
+            BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+        panel.add(backButton);
+        layout.putConstraint(SpringLayout.WEST, backButton, 100, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, backButton, 50, SpringLayout.NORTH, panel);
+        backButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                UIManager.put("OptionPane.background", Color.BLACK);
+                UIManager.put("OptionPane.messageFont", helvetiHandFont);
+                UIManager.put("Panel.background", Color.BLACK);
+                UIManager.put("OptionPane.messageForeground", Color.WHITE);
+                int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to go back to the main menu?", "Confirm Back", JOptionPane.YES_NO_OPTION);
+                if (response == JOptionPane.YES_OPTION) {
+                    gameEngine.initializeMainMenu();
+                    dispose();
+                }
+                gameEngine.initializeMainMenu();
+                dispose();
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                backButton.setForeground(Color.YELLOW);
+                audio.playSFX("src/Assets/Sounds/menu_hover.wav");
+                Point originalLocation = backButton.getLocation();
+                Timer timer = new Timer(50, new ActionListener() {
+                    int count = 0;
+                    boolean moveRight = true;
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (moveRight) {
+                            backButton.setLocation(originalLocation.x + 1, originalLocation.y + 1);
+                        } else {
+                            backButton.setLocation(originalLocation.x - 1, originalLocation.y - 1);
+                        }
+                        moveRight = !moveRight;
+                        count++;
+                        if (count >= 2) {
+                            ((Timer) e.getSource()).stop();
+                            backButton.setLocation(originalLocation);
+                        }
+                    }
+                });
+                timer.start();
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backButton.setForeground(Color.WHITE);
+            }
+        });
+
         // Save Button
         JButton saveButton = new JButton("Save");
         saveButton.setFont(helvetiHandFont);
@@ -85,12 +147,49 @@ public class Scene extends JFrame {
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
         panel.add(saveButton);
-        layout.putConstraint(SpringLayout.WEST, saveButton, 100, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.WEST, saveButton, 250, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, saveButton, 50, SpringLayout.NORTH, panel);
         saveButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
-                gameEngine.saveGame(sceneID);
+
+                JDialog dialog = new JDialog();
+                dialog.setUndecorated(true);
+                dialog.setModal(true);
+
+                JPanel panel = new JPanel();
+                panel.setBackground(Color.BLACK);
+                panel.setLayout(new BorderLayout());
+
+                JLabel messageLabel = new JLabel("Are you sure you want to go back to the main menu?", JLabel.CENTER);
+                messageLabel.setForeground(Color.WHITE);
+                messageLabel.setFont(helvetiHandFont);
+                panel.add(messageLabel, BorderLayout.CENTER);
+
+                JPanel buttonPanel = new JPanel();
+                buttonPanel.setBackground(Color.BLACK);
+                buttonPanel.setLayout(new FlowLayout());
+
+                JButton yesButton = new JButton("Yes");
+                yesButton.addActionListener(e -> {
+                    gameEngine.initializeMainMenu();
+                    dialog.dispose();
+                    dispose();
+                });
+                buttonPanel.add(yesButton);
+
+                JButton noButton = new JButton("No");
+                noButton.addActionListener(e -> {
+                    dialog.dispose();
+                });
+                buttonPanel.add(noButton);
+
+                panel.add(buttonPanel, BorderLayout.SOUTH);
+
+                dialog.getContentPane().add(panel);
+                dialog.pack();
+                dialog.setLocationRelativeTo(null);
+                dialog.setVisible(true);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 saveButton.setForeground(Color.YELLOW);
@@ -135,7 +234,7 @@ public class Scene extends JFrame {
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
         panel.add(settingButton);
-        layout.putConstraint(SpringLayout.WEST, settingButton, 250, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.WEST, settingButton, 400, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, settingButton, 50, SpringLayout.NORTH, panel);
         settingButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -185,7 +284,7 @@ public class Scene extends JFrame {
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
         panel.add(hideUIButton);
-        layout.putConstraint(SpringLayout.WEST, hideUIButton, 400, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.WEST, hideUIButton, 550, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, hideUIButton, 50, SpringLayout.NORTH, panel);
 
         hideUIButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -240,7 +339,7 @@ public class Scene extends JFrame {
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
         panel.add(logButton);
-        layout.putConstraint(SpringLayout.WEST, logButton, 550, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.WEST, logButton, 700, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, logButton, 50, SpringLayout.NORTH, panel);
 
         logButton.addMouseListener(new java.awt.event.MouseAdapter() {

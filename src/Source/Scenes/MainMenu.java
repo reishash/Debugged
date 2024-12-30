@@ -9,20 +9,20 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.Spring;
 import javax.swing.SwingConstants;
 import javax.swing.SpringLayout;
 import javax.swing.Timer;
-import javax.swing.UIManager;
 
 import Source.Logic.Audio;
 import Source.Logic.GameEngine;
@@ -256,7 +256,6 @@ public class MainMenu extends JFrame {
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
                     boolean moveRight = true;
-
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (moveRight) {
@@ -275,20 +274,40 @@ public class MainMenu extends JFrame {
                 });
                 timer.start();
             }
-
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 exitButton.setForeground(Color.WHITE);
             }
-            
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
-                UIManager.put("OptionPane.background", Color.BLACK);
-                UIManager.put("Panel.background", Color.BLACK);
-                UIManager.put("OptionPane.messageForeground", Color.WHITE);
-                int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", "Confirm Exit", JOptionPane.YES_NO_OPTION);
-                if (response == JOptionPane.YES_OPTION) {
+                JDialog dialog = new JDialog();
+                dialog.setUndecorated(true);
+                dialog.setModal(true);
+                JPanel panel = new JPanel();
+                panel.setBackground(Color.BLACK);
+                panel.setLayout(new BorderLayout());
+                JLabel messageLabel = new JLabel("Are you sure you want to exit?", JLabel.CENTER);
+                messageLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+                messageLabel.setForeground(Color.WHITE);
+                messageLabel.setFont(helvetiHandFont);
+                panel.add(messageLabel, BorderLayout.CENTER);
+                JPanel buttonPanel = new JPanel();
+                buttonPanel.setBackground(Color.BLACK);
+                buttonPanel.setLayout(new FlowLayout());
+                JButton yesButton = new JButton("Yes");
+                yesButton.addActionListener(e -> {
                     System.exit(0);
-                }
+                });
+                buttonPanel.add(yesButton);
+                JButton noButton = new JButton("No");
+                noButton.addActionListener(e -> {
+                    dialog.dispose();
+                });
+                buttonPanel.add(noButton);
+                panel.add(buttonPanel, BorderLayout.SOUTH);
+                dialog.getContentPane().add(panel);
+                dialog.pack();
+                dialog.setLocationRelativeTo(null);
+                dialog.setVisible(true);
             }
         });
         panel.add(exitButton);

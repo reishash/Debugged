@@ -1,7 +1,13 @@
 package Source.Scenes;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
 import Assets.Scripts.ScriptRaw;
 
 public class LogWindow extends JFrame {
