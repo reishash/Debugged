@@ -38,4 +38,18 @@ public class GameEngine {
             e.printStackTrace();
         }
     }
+
+    public boolean isGameSaved(int sceneID) {
+        try (FileReader reader = new FileReader("src/Assets/SaveData/savegame.txt")) {
+            int sceneSave = reader.read();
+            if (sceneSave == sceneID) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

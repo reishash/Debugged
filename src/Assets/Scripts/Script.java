@@ -1,8 +1,4 @@
-package Assets.Scripts;
-
-public class Script {
-    public static final String[] storyTexts = {
-        "<html><b>BOOTING UP.</b></html>",
+package Assets.Scripts; public class Script { public static final String[] storyTexts = { "<html><b>BOOTING UP.</b></html>",
         "<html><i>Black screen.</i></html>",
         "<html><i>The sound of rapid typing fills the air, accompanied by the soft hum of a laptop.</i></html>",
         "<html><i>The sound of typing continues. A soft click as Elara presses a key.</i></html>",

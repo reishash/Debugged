@@ -76,7 +76,7 @@ public class Scene extends JFrame {
         backButton.setFont(helvetiHandFont);
         backButton.setForeground(Color.WHITE);
         backButton.setContentAreaFilled(false);
-        backButton.setHorizontalAlignment(SwingConstants.LEFT);
+        backButton.setHorizontalAlignment(SwingConstants.CENTER);
         backButton.setFocusPainted(false);
         backButton.setBorderPainted(false);
         backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -163,7 +163,7 @@ public class Scene extends JFrame {
         saveButton.setFont(helvetiHandFont);
         saveButton.setForeground(Color.WHITE);
         saveButton.setContentAreaFilled(false);
-        saveButton.setHorizontalAlignment(SwingConstants.LEFT);
+        saveButton.setHorizontalAlignment(SwingConstants.CENTER);
         saveButton.setFocusPainted(false);
         saveButton.setBorderPainted(false);
         saveButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -183,7 +183,7 @@ public class Scene extends JFrame {
                 JPanel panel = new JPanel();
                 panel.setBackground(Color.BLACK);
                 panel.setLayout(new BorderLayout());
-                JLabel messageLabel = new JLabel("Are you sure you want to go back to the main menu?", JLabel.CENTER);
+                JLabel messageLabel = new JLabel("Do you want to save your progress?", JLabel.CENTER);
                 messageLabel.setForeground(Color.WHITE);
                 messageLabel.setFont(helvetiHandFont);
                 panel.add(messageLabel, BorderLayout.CENTER);
@@ -192,9 +192,39 @@ public class Scene extends JFrame {
                 buttonPanel.setLayout(new FlowLayout());
                 JButton yesButton = new JButton("Yes");
                 yesButton.addActionListener(e -> {
-                    gameEngine.initializeMainMenu();
+                    gameEngine.saveGame(sceneID);
                     dialog.dispose();
-                    dispose();
+                    if (gameEngine.isGameSaved(sceneID)) {
+                        JLabel savedLabel = new JLabel("Game Saved Successfully!", JLabel.CENTER);
+                        savedLabel.setForeground(Color.GREEN);
+                        savedLabel.setFont(helvetiHandFont);
+                        panel.add(savedLabel, BorderLayout.CENTER);
+                        Timer timer = new Timer(2000, new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                panel.remove(savedLabel);
+                                panel.revalidate();
+                                panel.repaint();
+                            }
+                        });
+                        timer.setRepeats(false);
+                        timer.start();
+                    } else {
+                        JLabel errorLabel = new JLabel("Failed to Save Game!", JLabel.CENTER);
+                        errorLabel.setForeground(Color.RED);
+                        errorLabel.setFont(helvetiHandFont);
+                        panel.add(errorLabel, BorderLayout.CENTER);
+                        Timer timer = new Timer(2000, new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                panel.remove(errorLabel);
+                                panel.revalidate();
+                                panel.repaint();
+                            }
+                        });
+                        timer.setRepeats(false);
+                        timer.start();
+                    }
                 });
                 buttonPanel.add(yesButton);
 
@@ -243,7 +273,7 @@ public class Scene extends JFrame {
         settingButton.setFont(helvetiHandFont);
         settingButton.setForeground(Color.WHITE);
         settingButton.setContentAreaFilled(false);
-        settingButton.setHorizontalAlignment(SwingConstants.LEFT);
+        settingButton.setHorizontalAlignment(SwingConstants.CENTER);
         settingButton.setFocusPainted(false);
         settingButton.setBorderPainted(false);
         settingButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -293,7 +323,7 @@ public class Scene extends JFrame {
         hideUIButton.setFont(helvetiHandFont);
         hideUIButton.setForeground(Color.WHITE);
         hideUIButton.setContentAreaFilled(false);
-        hideUIButton.setHorizontalAlignment(SwingConstants.LEFT);
+        hideUIButton.setHorizontalAlignment(SwingConstants.CENTER);
         hideUIButton.setFocusPainted(false);
         hideUIButton.setBorderPainted(false);
         hideUIButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -347,7 +377,7 @@ public class Scene extends JFrame {
         logButton.setFont(helvetiHandFont);
         logButton.setForeground(Color.WHITE);
         logButton.setContentAreaFilled(false);
-        logButton.setHorizontalAlignment(SwingConstants.LEFT);
+        logButton.setHorizontalAlignment(SwingConstants.CENTER);
         logButton.setFocusPainted(false);
         logButton.setBorderPainted(false);
         logButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -358,7 +388,6 @@ public class Scene extends JFrame {
         panel.add(logButton);
         layout.putConstraint(SpringLayout.WEST, logButton, 700, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, logButton, 50, SpringLayout.NORTH, panel);
-
         logButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 logButton.setForeground(Color.YELLOW);
@@ -460,12 +489,11 @@ public class Scene extends JFrame {
         layout.putConstraint(SpringLayout.EAST, sceneUpdater, 0, SpringLayout.EAST, panel);
         layout.putConstraint(SpringLayout.SOUTH, sceneUpdater, 0, SpringLayout.SOUTH, panel);
 
-    
         updateScene(panel);
         add(panel);
         setVisible(true);
     }
-
+    
     private Component previousComponent;
 
     // Update scene based on scene ID
@@ -514,9 +542,8 @@ public class Scene extends JFrame {
             panel.add(storyText, Integer.valueOf(0));
             previousComponent = storyText;
             layout.putConstraint(SpringLayout.WEST, storyText, 200, SpringLayout.WEST, panel);
-            layout.putConstraint(SpringLayout.NORTH, storyText, 650, SpringLayout.NORTH, panel);
+            layout.putConstraint(SpringLayout.SOUTH, storyText, -100, SpringLayout.SOUTH, panel);
             layout.putConstraint(SpringLayout.EAST, storyText, -200, SpringLayout.EAST, panel);
-            layout.putConstraint(SpringLayout.SOUTH, storyText, 0, SpringLayout.SOUTH, panel);
         }
         else {
             gameEngine.initializeMainMenu();
@@ -549,8 +576,8 @@ public class Scene extends JFrame {
         characterLabel.setIcon(characterImage);
         characterLabel.setIcon(new ImageIcon(characterImage.getImage().getScaledInstance(800, 800, java.awt.Image.SCALE_FAST)));
         panel.add(characterLabel);
-        layout.putConstraint(SpringLayout.WEST, characterLabel, 400, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, characterLabel, 100, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, characterLabel, 0, SpringLayout.HORIZONTAL_CENTER, panel);
+        layout.putConstraint(SpringLayout.SOUTH, characterLabel, 0, SpringLayout.SOUTH, panel);
 
 
         // Set background image
@@ -559,11 +586,14 @@ public class Scene extends JFrame {
             case 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15:
                 bgPath = "src/Assets/Images/bg_roomelara.jpg";
                 break;
-            case 16, 17:
+            case 16, 17, 61, 62, 63, 64, 65:
                 bgPath = "src/Assets/Images/bg_glitch.jpg";
                 break;
-            case 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37:
+            case 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 45, 46, 47, 48, 49, 50, 51, 52:
                 bgPath = "src/Assets/Images/bg_nullspace.jpg";
+                break;
+            case 53, 54, 55, 56, 57, 58, 59, 60:
+                bgPath = "src/Assets/Images/bg_nullspace2.jpg";
                 break;
             default:
                 bgPath = "";
@@ -577,6 +607,17 @@ public class Scene extends JFrame {
         layout.putConstraint(SpringLayout.NORTH, backgroundLabel, 0, SpringLayout.NORTH, panel);
         layout.putConstraint(SpringLayout.EAST, backgroundLabel, 0, SpringLayout.EAST, panel);
         layout.putConstraint(SpringLayout.SOUTH, backgroundLabel, 0, SpringLayout.SOUTH, panel);
+
+        // Triangle Button
+        JButton triangleButton = new JButton("<html><h2>▼</h2></html>");
+        triangleButton.setForeground(Color.WHITE);
+        triangleButton.setContentAreaFilled(false);
+        triangleButton.setBorderPainted(false);
+        if (sceneID != 1 && sceneID != 19 && sceneID != 86 && sceneID != 128) {
+            panel.add(triangleButton);
+        }
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, triangleButton, 0, SpringLayout.HORIZONTAL_CENTER, panel);
+        layout.putConstraint(SpringLayout.SOUTH, triangleButton, -10, SpringLayout.SOUTH, panel);
 
         panel.setBackground(Color.BLACK);
         panel.revalidate();
