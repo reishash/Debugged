@@ -9,7 +9,6 @@ import Source.Scenes.MainMenu;
 import Source.Scenes.Scene;
 
 public class GameEngine {
-    
     public GameEngine() {
     }
 

@@ -36,6 +36,7 @@ public class MainMenu extends JFrame {
 
         // Music
         audio = new Audio();
+        audio.stopMusic();
         audio.playMusic("src/Assets/Sounds/main_menu_music.wav");
 
         // Panel

@@ -170,7 +170,6 @@ public class Setting extends JFrame {
                 audio.stopMusic();
                 if (parent instanceof MainMenu) {
                     gameEngine.initializeMainMenu();
-                    audio.playMusic("src/Assets/Sounds/main_menu_music.wav");
                 }
                 dispose();
             }

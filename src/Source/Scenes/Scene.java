@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.awt.Component;
@@ -21,7 +22,8 @@ public class Scene extends JFrame {
     private Font helvetiHandFont;
     private int sceneID;
     private boolean isFirstScene;
-    private JLabel backgroundLabel;
+    private JLabel backgroundLabel, characterLabel;
+    private Audio audio;
 
     public Scene(int SceneID) {
         sceneID = SceneID;
@@ -54,8 +56,9 @@ public class Scene extends JFrame {
 
         // Background Label
         backgroundLabel = new JLabel();
-        backgroundLabel.setBounds(0, 0, getWidth(), getHeight());
-        panel.add(backgroundLabel);
+
+        // Character Label
+        characterLabel = new JLabel();
 
         // Save Button
         JButton saveButton = new JButton("Save");
@@ -204,7 +207,7 @@ public class Scene extends JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 for (Component component : panel.getComponents()) {
-                    if (component != hideUIButton) {
+                    if (component != hideUIButton && component != backgroundLabel && component != characterLabel) {
                         component.setVisible(!component.isVisible());
                     }
                 }
@@ -260,7 +263,7 @@ public class Scene extends JFrame {
                 LogWindow logWindow = new LogWindow(sceneID);
             }
         });
-        
+
         // Scene updater
         JPanel sceneUpdater = new JPanel();
         sceneUpdater.setBounds(0, 0, 1920, 1080);
@@ -289,6 +292,7 @@ public class Scene extends JFrame {
 
     // Update scene based on scene ID
     private void updateScene(JPanel panel) {
+        setVisible(true);
         if (!isFirstScene) {
             for (Component component : panel.getComponents()) {
                 if (component == previousComponent) {
@@ -306,37 +310,82 @@ public class Scene extends JFrame {
     
         if (sceneID > 0 && sceneID <= storyTexts.length) {
             storyText = new JLabel(storyTexts[sceneID - 1]);
-            if (sceneID == 1) {
-                audio.stopMusic();
+            switch (sceneID) {
+                case 1:
+                    audio.stopMusic();
+                    audio.playMusic("src/Assets/Sounds/1.wav");
+                    break;
+                case 39:
+                    audio.stopMusic();
+                    audio.playMusic("src/Assets/Sounds/2.wav");
+                    break;
+                case 86:
+                    audio.stopMusic();
+                    audio.playMusic("src/Assets/Sounds/3.wav");
+                    break;
+                case 128:
+                    audio.stopMusic();
+                    audio.playMusic("src/Assets/Sounds/4.wav");
+                    break;
             }
         }
     
         // Set story text
         if (storyText != null) {
             storyText.setFont(helvetiHandFont);
-            storyText.setForeground(Color.WHITE);
-            storyText.setBounds(100, 450, 1400, 800);
+            storyText.setForeground(new Color(255, 255, 197));
+            storyText.setBounds(0, 600, 1600, 800);
             storyText.setVerticalAlignment(SwingConstants.TOP);
-            panel.add(storyText, Integer.valueOf(0)); // Add on top of background
+            storyText.setHorizontalAlignment(SwingConstants.LEFT);
+            storyText.setBorder(BorderFactory.createEmptyBorder(50, 100, 0, 200));
+            panel.add(storyText, Integer.valueOf(0));
             previousComponent = storyText;
         }
-
-        // Set background image
-        String imagePath;
-        if (sceneID >= 1 && sceneID <= 5) {
-            imagePath = "src/Assets/Images/1.jpg";
-        } else if (sceneID >= 6 && sceneID <= 10) {
-            imagePath = "src/Assets/Images/2.jpg";
-        } else {
-            imagePath = "src/Assets/Images/3.jpg";
+        else {
+            gameEngine.initializeMainMenu();
+            dispose();
         }
 
-        ImageIcon backgroundImage = new ImageIcon(imagePath);
+        // Set character image
+        String charPath;
+        switch (sceneID) {
+            case 63, 64:
+                charPath = "src/Assets/Images/raina.png";
+                break;
+            case 102, 105, 142, 143, 145, 153:
+                charPath = "src/Assets/Images/elara_young.png";
+                break;
+            case 104, 111:
+                charPath = "src/Assets/Images/grandma.png";
+                break;
+            case 160:
+                charPath = "src/Assets/Images/elara_old.png";
+                break;
+            case 23, 25, 28, 30, 34, 35, 36, 47, 49, 50, 52, 55, 56, 74, 75, 78, 79, 81, 122, 124:
+                charPath = "src/Assets/Images/byte.png";
+                break;
+            default:
+                charPath = "";
+                break;
+        }
+        ImageIcon characterImage = new ImageIcon(charPath);
+        characterLabel.setIcon(characterImage);
+        characterLabel.setBounds(400, 100, 800, 800);
+        characterLabel.setIcon(new ImageIcon(characterImage.getImage().getScaledInstance(800, 800, java.awt.Image.SCALE_FAST)));
+        panel.add(characterLabel);
+
+        // Set background image
+        String bgPath;
+        switch (sceneID) {
+            default:
+                bgPath = "";
+                break;
+        }
+        ImageIcon backgroundImage = new ImageIcon(bgPath);
         backgroundLabel.setIcon(backgroundImage);
-        panel.add(backgroundLabel);
-        setVisible(true);
         backgroundLabel.setBounds(0, 0, getWidth(), getHeight());
-        backgroundLabel.setIcon(new ImageIcon(backgroundImage.getImage().getScaledInstance(getWidth(), getHeight(), java.awt.Image.SCALE_SMOOTH)));
+        backgroundLabel.setIcon(new ImageIcon(backgroundImage.getImage().getScaledInstance(getWidth(), getHeight(), java.awt.Image.SCALE_FAST)));
+        panel.add(backgroundLabel);
 
         panel.setBackground(Color.BLACK);
         panel.revalidate();
