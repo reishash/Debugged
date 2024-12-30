@@ -3,6 +3,7 @@
 ## Assets
 
 - Design and add character images for main characters.
+  - Remaining: Byte, Bestfriend, Friend 1, 2, 3.
 - Create and integrate background images for different scenes.
 - Develop and include specific images for key scenes.
 - Add voice for various actions.
@@ -10,7 +11,8 @@
 
 ## Story
 
-- Write and integrate the story for Chapter 3 and subsequent chapters.
+- Write the story for Chapter 6 and subsequent chapters.
+- Integrate the story for Chapter 3 and subsequent chapters.
 
 ## Source
 
