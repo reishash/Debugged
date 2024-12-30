@@ -160,7 +160,7 @@ public class Setting extends JFrame {
         panel.add(backButtonLabel);
 
         // Background Image
-        ImageIcon backgroundImage = new ImageIcon("src/Assets/Images/setting_background.jpg");
+        ImageIcon backgroundImage = new ImageIcon("src/Assets/Images/bg_setting.jpg");
         JLabel backgroundLabel = new JLabel(backgroundImage);
         panel.add(backgroundLabel);
         setVisible(true);

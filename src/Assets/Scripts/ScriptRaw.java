@@ -1,8 +1,4 @@
-package Assets.Scripts;
-
-public class ScriptRaw {
-    public static final String[] storyTexts = {
-        "BOOTING UP.",
+package Assets.Scripts; public class ScriptRaw { public static final String[] storyTexts = { "BOOTING UP.",
         "Black screen.",
         "The sound of rapid typing fills the air, accompanied by the soft hum of a laptop.",
         "The sound of typing continues. A soft click as Elara presses a key.",
