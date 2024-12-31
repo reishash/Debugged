@@ -436,53 +436,53 @@ public class Scene extends JFrame {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
-                if (sceneID == 1000) {
-                    // Choice
-                    JDialog choiceDialog = new JDialog();
-                    choiceDialog.setUndecorated(true);
-                    choiceDialog.setModal(true);
-                    JPanel choicePanel = new JPanel();
-                    choicePanel.setBackground(Color.BLACK);
-                    choicePanel.setLayout(new BorderLayout());
-                    JLabel choiceLabel = new JLabel("[Choice:]", JLabel.CENTER);
-                    choiceLabel.setForeground(Color.WHITE);
-                    choiceLabel.setFont(helvetiHandFont);
-                    choicePanel.add(choiceLabel, BorderLayout.CENTER);
-                    JPanel choiceButtonPanel = new JPanel();
-                    choiceButtonPanel.setBackground(Color.BLACK);
-                    choiceButtonPanel.setLayout(new FlowLayout());
-                    JButton choiceAButton = new JButton("<html><h2>Sacrifice Byte to leave Nullspace.</h2></html>");
-                    choiceAButton.setFont(helvetiHandFont);
-                    choiceAButton.setForeground(Color.WHITE);
-                    choiceAButton.setContentAreaFilled(false);
-                    choiceAButton.setBorderPainted(false);
-                    choiceAButton.addActionListener(e -> {
-                        sceneID = 2000; 
-                        choiceAButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                        choiceDialog.dispose();
-                        updateScene(panel);
-                    });
-                    choiceButtonPanel.add(choiceAButton);
-                    JButton choiceBButton = new JButton("<html><h2>Refuse to leave, staying with Byte.</h2></html>");
-                    choiceBButton.setFont(helvetiHandFont);
-                    choiceBButton.setForeground(Color.WHITE);
-                    choiceBButton.setContentAreaFilled(false);
-                    choiceBButton.setBorderPainted(false);
-                    choiceBButton.addActionListener(e -> {
-                        sceneID = 3000; 
-                        choiceBButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                        choiceDialog.dispose();
-                        updateScene(panel);
-                    });
-                    choiceButtonPanel.add(choiceBButton);
-                    choicePanel.add(choiceButtonPanel, BorderLayout.SOUTH);
-                    choiceDialog.getContentPane().add(choicePanel);
-                    choiceDialog.pack();
-                    choiceDialog.setLocationRelativeTo(null);
-                    choiceDialog.setVisible(true);
-                } else {
+                // if (sceneID == 9999) {
+                //     // Choice
+                //     JDialog choiceDialog = new JDialog();
+                //     choiceDialog.setUndecorated(true);
+                //     choiceDialog.setModal(true);
+                //     JPanel choicePanel = new JPanel();
+                //     choicePanel.setBackground(Color.BLACK);
+                //     choicePanel.setLayout(new BorderLayout());
+                //     JLabel choiceLabel = new JLabel("[Choice:]", JLabel.CENTER);
+                //     choiceLabel.setForeground(Color.WHITE);
+                //     choiceLabel.setFont(helvetiHandFont);
+                //     choicePanel.add(choiceLabel, BorderLayout.CENTER);
+                //     JPanel choiceButtonPanel = new JPanel();
+                //     choiceButtonPanel.setBackground(Color.BLACK);
+                //     choiceButtonPanel.setLayout(new FlowLayout());
+                //     JButton choiceAButton = new JButton("<html><h2>Sacrifice Byte to leave Nullspace.</h2></html>");
+                //     choiceAButton.setFont(helvetiHandFont);
+                //     choiceAButton.setForeground(Color.WHITE);
+                //     choiceAButton.setContentAreaFilled(false);
+                //     choiceAButton.setBorderPainted(false);
+                //     choiceAButton.addActionListener(e -> {
+                //         sceneID = 10000; 
+                //         choiceAButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                //         choiceDialog.dispose();
+                //         updateScene(panel);
+                //     });
+                //     choiceButtonPanel.add(choiceAButton);
+                //     JButton choiceBButton = new JButton("<html><h2>Refuse to leave, staying with Byte.</h2></html>");
+                //     choiceBButton.setFont(helvetiHandFont);
+                //     choiceBButton.setForeground(Color.WHITE);
+                //     choiceBButton.setContentAreaFilled(false);
+                //     choiceBButton.setBorderPainted(false);
+                //     choiceBButton.addActionListener(e -> {
+                //         sceneID = 11000; 
+                //         choiceBButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                //         choiceDialog.dispose();
+                //         updateScene(panel);
+                //     });
+                //     choiceButtonPanel.add(choiceBButton);
+                //     choicePanel.add(choiceButtonPanel, BorderLayout.SOUTH);
+                //     choiceDialog.getContentPane().add(choicePanel);
+                //     choiceDialog.pack();
+                //     choiceDialog.setLocationRelativeTo(null);
+                //     choiceDialog.setVisible(true);
+                // } else {
                     sceneID++;
-                }
+                // }
                 updateScene(panel);
             }
         });
@@ -532,6 +532,22 @@ public class Scene extends JFrame {
                     audio.stopMusic();
                     audio.playMusic("src/Assets/Sounds/4.wav");
                     break;
+                case 176:
+                    audio.stopMusic();
+                    audio.playMusic("src/Assets/Sounds/5.wav");
+                    break;
+                case 228:
+                    audio.stopMusic();
+                    audio.playMusic("src/Assets/Sounds/6.wav");
+                    break;
+                case 276:
+                    audio.stopMusic();
+                    audio.playMusic("src/Assets/Sounds/7.wav");
+                    break;
+                case 324:
+                    audio.stopMusic();
+                    audio.playMusic("src/Assets/Sounds/8.wav");
+                    break;
             }
         }
     
@@ -539,7 +555,7 @@ public class Scene extends JFrame {
         if (storyText != null) {
             storyText.setFont(helvetiHandFont);
             storyText.setForeground(new Color(255, 255, 197));
-            if (sceneID == 1 || sceneID == 39 || sceneID == 86 || sceneID == 129) {
+            if (sceneID == 1 || sceneID == 39 || sceneID == 86 || sceneID == 129 || sceneID == 176 || sceneID == 228 || sceneID == 276 || sceneID == 324) {
                 storyText.setVerticalAlignment(SwingConstants.CENTER);
                 storyText.setHorizontalAlignment(SwingConstants.CENTER);
                 layout.putConstraint(SpringLayout.VERTICAL_CENTER, storyText, 0, SpringLayout.VERTICAL_CENTER, panel);
@@ -552,10 +568,6 @@ public class Scene extends JFrame {
             previousComponent = storyText;
             layout.putConstraint(SpringLayout.WEST, storyText, 200, SpringLayout.WEST, panel);
             layout.putConstraint(SpringLayout.EAST, storyText, -200, SpringLayout.EAST, panel);
-        }
-        else {
-            gameEngine.initializeMainMenu();
-            dispose();
         }
 
         // Set character image
@@ -652,7 +664,7 @@ public class Scene extends JFrame {
         triangleButton.setForeground(Color.WHITE);
         triangleButton.setContentAreaFilled(false);
         triangleButton.setBorderPainted(false);
-        if (sceneID != 1 && sceneID != 39 && sceneID != 86 && sceneID != 129) {
+        if (sceneID != 1 && sceneID != 39 && sceneID != 86 && sceneID != 129 && sceneID != 176 && sceneID != 228 && sceneID != 276 && sceneID != 324) {
             panel.add(triangleButton);
         }
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, triangleButton, 0, SpringLayout.HORIZONTAL_CENTER, panel);
@@ -661,5 +673,10 @@ public class Scene extends JFrame {
         panel.setBackground(Color.BLACK);
         panel.revalidate();
         panel.repaint();
+
+        if (storyText == null) {
+            gameEngine.initializeMainMenu();
+            dispose();
+        }
     }
 }

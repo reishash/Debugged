@@ -224,5 +224,6 @@ package Assets.Scripts; public class Script { public static final String[] story
         "<html><i>She takes a deep breath, her voice steady but soft.</i></html>",
         "I’ll do better.",
         "Next time, I’ll do better.",
+        "",
     };
 }

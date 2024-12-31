@@ -6,11 +6,26 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.awt.image.BufferedImage;
+import java.awt.geom.RoundRectangle2D;
 
 import Source.Logic.Audio;
 import Source.Logic.GameEngine;
 
 public class SelectChapter extends JFrame {
+
+    private BufferedImage makeRoundedCorner(Image image, int width, int height, int cornerRadius) {
+        BufferedImage output = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = output.createGraphics();
+        g2.setComposite(AlphaComposite.Src);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setColor(Color.WHITE);
+        g2.fill(new RoundRectangle2D.Float(0, 0, width, height, cornerRadius, cornerRadius));
+        g2.setComposite(AlphaComposite.SrcAtop);
+        g2.drawImage(image, 0, 0, width, height, null);
+        g2.dispose();
+        return output;
+    }
     private Font helvetiHandFont;
     private JPanel panel, dynamicPanel;
     private SpringLayout layout;
@@ -192,18 +207,19 @@ public class SelectChapter extends JFrame {
 
         // Chapter Image
         chapterImageLabel = new JLabel(new ImageIcon(new ImageIcon(getClass().getResource("/Assets/Images/c" + chapter + ".jpg")).getImage().getScaledInstance(480, 270, Image.SCALE_FAST)));
+        chapterImageLabel.setIcon(new ImageIcon(makeRoundedCorner(new ImageIcon(getClass().getResource("/Assets/Images/c" + chapter + ".jpg")).getImage(), 480, 270, 50)));
         dynamicPanel.add(chapterImageLabel);
         layout.putConstraint(SpringLayout.NORTH, chapterImageLabel, 0, SpringLayout.NORTH, dynamicPanel);
-        layout.putConstraint(SpringLayout.WEST, chapterImageLabel, 0, SpringLayout.WEST, dynamicPanel);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, chapterImageLabel, 0, SpringLayout.HORIZONTAL_CENTER, dynamicPanel);
 
         // Chapter Description
         chapterDescriptionTextArea = new JTextArea(getChapterDescription(chapter));
         chapterDescriptionTextArea.setFont(helvetiHandFont);
         chapterDescriptionTextArea.setForeground(Color.WHITE);
-        chapterDescriptionTextArea.setBackground(Color.BLACK);
         chapterDescriptionTextArea.setLineWrap(true);
         chapterDescriptionTextArea.setWrapStyleWord(true);
         chapterDescriptionTextArea.setEditable(false);
+        chapterDescriptionTextArea.setAlignmentX(Component.CENTER_ALIGNMENT);
         chapterDescriptionTextArea.setOpaque(false);
         dynamicPanel.add(chapterDescriptionTextArea);
         layout.putConstraint(SpringLayout.NORTH, chapterDescriptionTextArea, 50, SpringLayout.SOUTH, chapterImageLabel);
@@ -280,7 +296,7 @@ public class SelectChapter extends JFrame {
                         dispose();
                         break;
                     case 7:
-                        Scene scene7 = new Scene(353);
+                        Scene scene7 = new Scene(324);
                         dispose();
                         break;
                     case 8:
