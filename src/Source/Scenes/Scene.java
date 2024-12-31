@@ -32,7 +32,6 @@ public class Scene extends JFrame {
     private int sceneID;
     private boolean isFirstScene;
     private JLabel backgroundLabel, characterLabel;
-    private Audio audio;
     private SpringLayout layout;
 
     public Scene(int SceneID) {
@@ -49,6 +48,7 @@ public class Scene extends JFrame {
         }
 
         // Music
+        Audio audio = new Audio();
         audio.stopMusic();
 
         // Frame

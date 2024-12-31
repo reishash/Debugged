@@ -85,7 +85,7 @@ public class MainMenu extends JFrame {
                 BorderFactory.createEmptyBorder(5, 5, 5, 5)
             )
         ));
-        layout.putConstraint(SpringLayout.WEST, startButton, 100, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.WEST, startButton, 250, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.SOUTH, startButton, -400, SpringLayout.SOUTH, panel);
         startButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -139,7 +139,7 @@ public class MainMenu extends JFrame {
             BorderFactory.createLineBorder(Color.BLACK, 2),
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
-        layout.putConstraint(SpringLayout.WEST, loadButton, 100, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.WEST, loadButton, 250, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.SOUTH, loadButton, -325, SpringLayout.SOUTH, panel);
         loadButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -193,7 +193,7 @@ public class MainMenu extends JFrame {
             BorderFactory.createLineBorder(Color.BLACK, 2),
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
-        layout.putConstraint(SpringLayout.WEST, chapterButton, 100, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.WEST, chapterButton, 250, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.SOUTH, chapterButton, -250, SpringLayout.SOUTH, panel);
         chapterButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -246,7 +246,7 @@ public class MainMenu extends JFrame {
             BorderFactory.createLineBorder(Color.BLACK, 2),
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
-        layout.putConstraint(SpringLayout.WEST, settingButton, 100, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.WEST, settingButton, 250, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.SOUTH, settingButton, -175, SpringLayout.SOUTH, panel);
         settingButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -299,7 +299,7 @@ public class MainMenu extends JFrame {
             BorderFactory.createLineBorder(Color.BLACK, 2),
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
-        layout.putConstraint(SpringLayout.WEST, exitButton, 100, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.WEST, exitButton, 250, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.SOUTH, exitButton, -100, SpringLayout.SOUTH, panel);
         exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {

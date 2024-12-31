@@ -52,14 +52,14 @@ public class Setting extends JFrame {
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(titleLabel);
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, titleLabel, 0, SpringLayout.HORIZONTAL_CENTER, panel);
-        layout.putConstraint(SpringLayout.NORTH, titleLabel, 30, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.NORTH, titleLabel, 40, SpringLayout.NORTH, panel);
 
         // Music Volume Label
         JLabel musicVolumeLabel = new JLabel("Music Volume:");
         musicVolumeLabel.setFont(helvetiHandFont);
         musicVolumeLabel.setForeground(Color.WHITE);
         panel.add(musicVolumeLabel);
-        layout.putConstraint(SpringLayout.WEST, musicVolumeLabel, 100, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.WEST, musicVolumeLabel, 250, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, musicVolumeLabel, 200, SpringLayout.NORTH, panel);
 
         // Music Volume Slider
@@ -72,7 +72,7 @@ public class Setting extends JFrame {
         musicVolumeSlider.setOpaque(false);
         musicVolumeSlider.setForeground(Color.WHITE);
         panel.add(musicVolumeSlider);
-        layout.putConstraint(SpringLayout.EAST, musicVolumeSlider, -100, SpringLayout.EAST, panel);
+        layout.putConstraint(SpringLayout.EAST, musicVolumeSlider, -250, SpringLayout.EAST, panel);
         layout.putConstraint(SpringLayout.NORTH, musicVolumeSlider, 200, SpringLayout.NORTH, panel);
 
         // SFX Volume Label
@@ -80,7 +80,7 @@ public class Setting extends JFrame {
         sfxVolumeLabel.setFont(helvetiHandFont);
         sfxVolumeLabel.setForeground(Color.WHITE);
         panel.add(sfxVolumeLabel);
-        layout.putConstraint(SpringLayout.WEST, sfxVolumeLabel, 100, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.WEST, sfxVolumeLabel, 250, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, sfxVolumeLabel, 300, SpringLayout.NORTH, panel);
 
         // SFX Volume Slider
@@ -93,7 +93,7 @@ public class Setting extends JFrame {
         sfxVolumeSlider.setOpaque(false);
         sfxVolumeSlider.setForeground(Color.WHITE);
         panel.add(sfxVolumeSlider);
-        layout.putConstraint(SpringLayout.EAST, sfxVolumeSlider, -100, SpringLayout.EAST, panel);
+        layout.putConstraint(SpringLayout.EAST, sfxVolumeSlider, -250, SpringLayout.EAST, panel);
         layout.putConstraint(SpringLayout.NORTH, sfxVolumeSlider, 300, SpringLayout.NORTH, panel);
         sfxVolumeSlider.addChangeListener(e -> {
             int volume = sfxVolumeSlider.getValue();
@@ -108,7 +108,7 @@ public class Setting extends JFrame {
         voiceVolumeLabel.setFont(helvetiHandFont);
         voiceVolumeLabel.setForeground(Color.WHITE);
         panel.add(voiceVolumeLabel);
-        layout.putConstraint(SpringLayout.WEST, voiceVolumeLabel, 100, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.WEST, voiceVolumeLabel, 250, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, voiceVolumeLabel, 400, SpringLayout.NORTH, panel);
 
         // Voice Volume Slider
@@ -121,7 +121,7 @@ public class Setting extends JFrame {
         voiceVolumeSlider.setOpaque(false);
         voiceVolumeSlider.setForeground(Color.WHITE);
         panel.add(voiceVolumeSlider);
-        layout.putConstraint(SpringLayout.EAST, voiceVolumeSlider, -100, SpringLayout.EAST, panel);
+        layout.putConstraint(SpringLayout.EAST, voiceVolumeSlider, -250, SpringLayout.EAST, panel);
         layout.putConstraint(SpringLayout.NORTH, voiceVolumeSlider, 400, SpringLayout.NORTH, panel);
         voiceVolumeSlider.addChangeListener(e -> {
             int volume = voiceVolumeSlider.getValue();
@@ -135,7 +135,7 @@ public class Setting extends JFrame {
         backButtonLabel.setForeground(Color.WHITE);
         backButtonLabel.setHorizontalAlignment(SwingConstants.CENTER);
         backButtonLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        layout.putConstraint(SpringLayout.WEST, backButtonLabel, 100, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.WEST, backButtonLabel, 250, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.SOUTH, backButtonLabel, -100, SpringLayout.SOUTH, panel);
         backButtonLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {

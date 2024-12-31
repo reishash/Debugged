@@ -67,16 +67,16 @@ public class SelectChapter extends JFrame {
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(titleLabel);
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, titleLabel, 0, SpringLayout.HORIZONTAL_CENTER, panel);
-        layout.putConstraint(SpringLayout.NORTH, titleLabel, 30, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.NORTH, titleLabel, 40, SpringLayout.NORTH, panel);
 
         // Dynamic Panel for Chapter Content
         dynamicPanel = new JPanel();
         dynamicPanel.setLayout(new SpringLayout());
         dynamicPanel.setOpaque(false);
         panel.add(dynamicPanel);
-        layout.putConstraint(SpringLayout.WEST, dynamicPanel, 900, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.WEST, dynamicPanel, 850, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, dynamicPanel, 150, SpringLayout.NORTH, panel);
-        layout.putConstraint(SpringLayout.EAST, dynamicPanel, -100, SpringLayout.EAST, panel);
+        layout.putConstraint(SpringLayout.EAST, dynamicPanel, -250, SpringLayout.EAST, panel);
         layout.putConstraint(SpringLayout.SOUTH, dynamicPanel, -100, SpringLayout.SOUTH, panel);
 
         // Chapter Selection
@@ -88,9 +88,9 @@ public class SelectChapter extends JFrame {
             panel.add(chapterLabel);
             chapterLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             if (i == 0 || i == 4 || i == 8) {
-                layout.putConstraint(SpringLayout.WEST, chapterLabel, 100, SpringLayout.WEST, panel);
+                layout.putConstraint(SpringLayout.WEST, chapterLabel, 250, SpringLayout.WEST, panel);
             } else {
-                layout.putConstraint(SpringLayout.WEST, chapterLabel, 150, SpringLayout.WEST, panel);
+                layout.putConstraint(SpringLayout.WEST, chapterLabel, 300, SpringLayout.WEST, panel);
             }
             layout.putConstraint(SpringLayout.NORTH, chapterLabel, 150 + i * 50, SpringLayout.NORTH, panel);
 
@@ -137,7 +137,7 @@ public class SelectChapter extends JFrame {
         backButtonLabel.setForeground(Color.WHITE);
         backButtonLabel.setHorizontalAlignment(SwingConstants.CENTER);
         backButtonLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        layout.putConstraint(SpringLayout.WEST, backButtonLabel, 100, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.WEST, backButtonLabel, 250, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.SOUTH, backButtonLabel, -100, SpringLayout.SOUTH, panel);
         backButtonLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
