@@ -86,7 +86,7 @@ public class MainMenu extends JFrame {
             )
         ));
         layout.putConstraint(SpringLayout.WEST, startButton, 100, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.SOUTH, startButton, -325, SpringLayout.SOUTH, panel);
+        layout.putConstraint(SpringLayout.SOUTH, startButton, -400, SpringLayout.SOUTH, panel);
         startButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 startButton.setForeground(Color.YELLOW);
@@ -140,7 +140,7 @@ public class MainMenu extends JFrame {
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
         layout.putConstraint(SpringLayout.WEST, loadButton, 100, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.SOUTH, loadButton, -250, SpringLayout.SOUTH, panel);
+        layout.putConstraint(SpringLayout.SOUTH, loadButton, -325, SpringLayout.SOUTH, panel);
         loadButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 loadButton.setForeground(Color.YELLOW);
@@ -179,6 +179,59 @@ public class MainMenu extends JFrame {
             }
         });
         panel.add(loadButton);
+
+        // Select Chapter Label
+        JButton chapterButton = new JButton("Select Chapter");
+        chapterButton.setFont(helvetiHandFont);
+        chapterButton.setForeground(Color.WHITE);
+        chapterButton.setContentAreaFilled(false);
+        chapterButton.setHorizontalAlignment(SwingConstants.LEFT);
+        chapterButton.setFocusPainted(false);
+        chapterButton.setBorderPainted(false);
+        chapterButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        chapterButton.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(Color.BLACK, 2),
+            BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+        layout.putConstraint(SpringLayout.WEST, chapterButton, 100, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.SOUTH, chapterButton, -250, SpringLayout.SOUTH, panel);
+        chapterButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                chapterButton.setForeground(Color.YELLOW);
+                audio.playSFX("src/Assets/Sounds/menu_hover.wav");
+                Point originalLocation = chapterButton.getLocation();
+                Timer timer = new Timer(50, new ActionListener() {
+                    int count = 0;
+                    boolean moveRight = true;
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (moveRight) {
+                            chapterButton.setLocation(originalLocation.x + 1, originalLocation.y + 1);
+                        }
+                        else {
+                            chapterButton.setLocation(originalLocation.x - 1, originalLocation.y - 1);
+                        }
+                        moveRight = !moveRight;
+                        count++;
+                        if (count >= 2) {
+                            ((Timer) e.getSource()).stop();
+                            chapterButton.setLocation(originalLocation);
+                        }
+                    }
+                });
+                timer.start();
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                chapterButton.setForeground(Color.WHITE);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.stopMusic();
+                SelectChapter selectChapter = new SelectChapter();
+                dispose();
+            }
+        });
+        panel.add(chapterButton);
 
         // Setting Button
         JButton settingButton = new JButton("Settings");

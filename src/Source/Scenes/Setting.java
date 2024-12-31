@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
+import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 
@@ -134,7 +135,7 @@ public class Setting extends JFrame {
 
         // Back Button
         JLabel backButtonLabel = new JLabel("Back");
-        backButtonLabel.setFont(helvetiHandFont.deriveFont(30f));
+        backButtonLabel.setFont(helvetiHandFont);
         backButtonLabel.setForeground(Color.WHITE);
         backButtonLabel.setHorizontalAlignment(SwingConstants.CENTER);
         backButtonLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -144,6 +145,26 @@ public class Setting extends JFrame {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 backButtonLabel.setForeground(Color.YELLOW);
                 audio.playSFX("src/Assets/Sounds/menu_hover.wav");
+                Point originalLocation = backButtonLabel.getLocation();
+                Timer timer = new Timer(50, new ActionListener() {
+                    int count = 0;
+                    boolean moveRight = true;
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (moveRight) {
+                            backButtonLabel.setLocation(originalLocation.x + 1, originalLocation.y + 1);
+                        } else {
+                            backButtonLabel.setLocation(originalLocation.x - 1, originalLocation.y - 1);
+                        }
+                        moveRight = !moveRight;
+                        count++;
+                        if (count >= 2) {
+                            ((Timer) e.getSource()).stop();
+                            backButtonLabel.setLocation(originalLocation);
+                        }
+                    }
+                });
+                timer.start();
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 backButtonLabel.setForeground(Color.WHITE);

@@ -54,8 +54,8 @@ public class Scene extends JFrame {
 
         // Frame
         setTitle("Debugged");
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         getContentPane().setBackground(Color.BLACK);
@@ -501,7 +501,6 @@ public class Scene extends JFrame {
 
     // Update scene based on scene ID
     private void updateScene(JPanel panel) {
-        setVisible(true);
         if (!isFirstScene) {
             for (Component component : panel.getComponents()) {
                 if (component == previousComponent) {
@@ -640,6 +639,7 @@ public class Scene extends JFrame {
         }
         ImageIcon backgroundImage = new ImageIcon(bgPath);
         backgroundLabel.setIcon(backgroundImage);
+        setVisible(true);
         backgroundLabel.setIcon(new ImageIcon(backgroundImage.getImage().getScaledInstance(getWidth(), getHeight(), java.awt.Image.SCALE_FAST)));
         panel.add(backgroundLabel);
         layout.putConstraint(SpringLayout.WEST, backgroundLabel, 0, SpringLayout.WEST, panel);
