@@ -49,7 +49,7 @@ public class SelectChapter extends JFrame {
         }
 
         // Frame
-        setTitle("Select Chapter");
+        setTitle("Debugged: Select Chapter");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,7 +67,7 @@ public class SelectChapter extends JFrame {
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(titleLabel);
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, titleLabel, 0, SpringLayout.HORIZONTAL_CENTER, panel);
-        layout.putConstraint(SpringLayout.NORTH, titleLabel, 25, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.NORTH, titleLabel, 30, SpringLayout.NORTH, panel);
 
         // Dynamic Panel for Chapter Content
         dynamicPanel = new JPanel();
@@ -87,7 +87,11 @@ public class SelectChapter extends JFrame {
             chapterLabel.setHorizontalAlignment(SwingConstants.LEFT);
             panel.add(chapterLabel);
             chapterLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            layout.putConstraint(SpringLayout.WEST, chapterLabel, 100, SpringLayout.WEST, panel);
+            if (i == 0 || i == 4 || i == 8) {
+                layout.putConstraint(SpringLayout.WEST, chapterLabel, 100, SpringLayout.WEST, panel);
+            } else {
+                layout.putConstraint(SpringLayout.WEST, chapterLabel, 150, SpringLayout.WEST, panel);
+            }
             layout.putConstraint(SpringLayout.NORTH, chapterLabel, 150 + i * 50, SpringLayout.NORTH, panel);
 
             int chapter = i; // Final variable for lambda
@@ -269,47 +273,47 @@ public class SelectChapter extends JFrame {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 switch (chapter) {
                     case 0:
-                        Scene scene = new Scene(1);
+                        new Scene(1);
                         dispose();
                         break;
                     case 1:
-                        Scene scene1 = new Scene(39);
+                        new Scene(39);
                         dispose();
                         break;
                     case 2:
-                        Scene scene2 = new Scene(86);
+                        new Scene(86);
                         dispose();
                         break;
                     case 3:
-                        Scene scene3 = new Scene(129);
+                        new Scene(129);
                         dispose();
                         break;
                     case 4:
-                        Scene scene4 = new Scene(176);
+                        new Scene(176);
                         dispose();
                         break;
                     case 5:
-                        Scene scene5 = new Scene(228);
+                        new Scene(228);
                         dispose();
                         break;
                     case 6:
-                        Scene scen6 = new Scene(276);
+                        new Scene(276);
                         dispose();
                         break;
                     case 7:
-                        Scene scene7 = new Scene(324);
+                        new Scene(324);
                         dispose();
                         break;
                     case 8:
-                        Scene scene8 = new Scene(999);
+                        new Scene(999);
                         dispose();
                         break;
                     case 9:
-                        Scene scene9 = new Scene(999);
+                        new Scene(999);
                         dispose();
                         break;
                     case 10:
-                        Scene scene10 = new Scene(999);
+                        new Scene(999);
                         dispose();
                         break;
                 }

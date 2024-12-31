@@ -49,7 +49,6 @@ public class Scene extends JFrame {
         }
 
         // Music
-        Audio audio = new Audio();
         audio.stopMusic();
 
         // Frame
@@ -290,7 +289,7 @@ public class Scene extends JFrame {
         settingButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
-                Setting setting = new Setting(audio, Scene.this);
+                new Setting(audio, Scene.this);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 settingButton.setForeground(Color.YELLOW);
@@ -421,7 +420,7 @@ public class Scene extends JFrame {
             }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
-                LogWindow logWindow = new LogWindow(sceneID);
+                new LogWindow(sceneID);
             }
         });
 

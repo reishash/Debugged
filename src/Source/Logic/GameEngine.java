@@ -13,17 +13,17 @@ public class GameEngine {
     }
 
     public void initializeMainMenu() {
-        MainMenu mainMenu = new MainMenu();
+        new MainMenu();
     }
 
     public void startGame() {
-        Scene scene = new Scene(1);
+        new Scene(1);
     }
 
     public void loadGame() {
         try (FileReader reader = new FileReader("src/Assets/SaveData/savegame.txt")) {
                 int sceneID = reader.read();
-                Scene scene = new Scene(sceneID);
+                new Scene(sceneID);
                 JOptionPane.showMessageDialog(null, "Game loaded successfully!");
         } catch (Exception e) {
             e.printStackTrace();

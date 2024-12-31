@@ -3,7 +3,6 @@ package Source.Scenes;
 import javax.swing.*;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,12 +17,9 @@ import Source.Logic.GameEngine;
 
 public class Setting extends JFrame {
     private GameEngine gameEngine = new GameEngine();
-    private Audio audio;
     private Font helvetiHandFont;
 
     public Setting(Audio audio, Object parent) {
-        this.audio = audio;
-        
         // Music
         audio.playMusic("src/Assets/Sounds/setting_music.wav");
 
@@ -37,7 +33,7 @@ public class Setting extends JFrame {
         }
 
         // Frame
-        setTitle("Setting");
+        setTitle("Debugged: Settings");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,7 +52,7 @@ public class Setting extends JFrame {
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(titleLabel);
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, titleLabel, 0, SpringLayout.HORIZONTAL_CENTER, panel);
-        layout.putConstraint(SpringLayout.NORTH, titleLabel, 25, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.NORTH, titleLabel, 30, SpringLayout.NORTH, panel);
 
         // Music Volume Label
         JLabel musicVolumeLabel = new JLabel("Music Volume:");
