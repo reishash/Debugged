@@ -115,6 +115,7 @@ public class SelectChapter extends JFrame {
                         }
                     });
                     timer.start();
+                    displayChapterContent(chapter);
                 }
                 public void mouseExited(java.awt.event.MouseEvent evt) {
                     chapterLabel.setForeground(Color.WHITE);
