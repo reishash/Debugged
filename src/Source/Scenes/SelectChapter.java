@@ -178,7 +178,7 @@ public class SelectChapter extends JFrame {
         panel.add(backButtonLabel);
 
         // Add background image
-        ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/Assets/Images/bg_setting.jpg"));
+        ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/Assets/Images/bg_select.jpg"));
         JLabel backgroundLabel = new JLabel();
         backgroundLabel.setIcon(backgroundImage);
         setVisible(true);
