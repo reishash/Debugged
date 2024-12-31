@@ -299,6 +299,8 @@ public class MainMenu extends JFrame {
                 yesButton.setContentAreaFilled(false);
                 yesButton.setBorderPainted(false);
                 yesButton.addActionListener(e -> {
+                    audio.stopMusic();
+                    audio.playSFX("src/Assets/Sounds/menu_select.wav");
                     System.exit(0);
                 });
                 JButton noButton = new JButton("No");
@@ -307,6 +309,7 @@ public class MainMenu extends JFrame {
                 noButton.setContentAreaFilled(false);
                 noButton.setBorderPainted(false);
                 noButton.addActionListener(e -> {
+                    audio.playSFX("src/Assets/Sounds/menu_select.wav");
                     dialog.dispose();
                 });
                 buttonPanel.add(yesButton);

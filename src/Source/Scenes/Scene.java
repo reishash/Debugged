@@ -109,6 +109,8 @@ public class Scene extends JFrame {
                 yesButton.setContentAreaFilled(false);
                 yesButton.setBorderPainted(false);
                 yesButton.addActionListener(e -> {
+                    audio.stopMusic();
+                    audio.playSFX("src/Assets/Sounds/menu_select.wav");
                     gameEngine.initializeMainMenu();
                     dialog.dispose();
                     dispose();
@@ -120,6 +122,7 @@ public class Scene extends JFrame {
                 noButton.setContentAreaFilled(false);
                 noButton.setBorderPainted(false);
                 noButton.addActionListener(e -> {
+                    audio.playSFX("src/Assets/Sounds/menu_select.wav");
                     dialog.dispose();
                 });
                 buttonPanel.add(noButton);
@@ -526,7 +529,7 @@ public class Scene extends JFrame {
                     audio.stopMusic();
                     audio.playMusic("src/Assets/Sounds/3.wav");
                     break;
-                case 128:
+                case 129:
                     audio.stopMusic();
                     audio.playMusic("src/Assets/Sounds/4.wav");
                     break;
@@ -537,7 +540,7 @@ public class Scene extends JFrame {
         if (storyText != null) {
             storyText.setFont(helvetiHandFont);
             storyText.setForeground(new Color(255, 255, 197));
-            if (sceneID == 1 || sceneID == 39 || sceneID == 86 || sceneID == 128) {
+            if (sceneID == 1 || sceneID == 39 || sceneID == 86 || sceneID == 129) {
                 storyText.setVerticalAlignment(SwingConstants.CENTER);
                 storyText.setHorizontalAlignment(SwingConstants.CENTER);
                 layout.putConstraint(SpringLayout.VERTICAL_CENTER, storyText, 0, SpringLayout.VERTICAL_CENTER, panel);
@@ -559,19 +562,19 @@ public class Scene extends JFrame {
         // Set character image
         String charPath;
         switch (sceneID) {
-            case 63, 64:
+            case 63, 64, 66, 68, 69, 70, 71, 72, 73, 82, 83:
                 charPath = "src/Assets/Images/raina.png";
                 break;
-            case 102, 105, 142, 143, 145, 153:
+            case 103, 106, 113, 141, 142, 143, 144, 145, 146:
                 charPath = "src/Assets/Images/elara_young.png";
                 break;
-            case 104, 111:
+            case 97, 98, 99, 101, 102, 105, 107, 109, 110, 111, 112, 114:
                 charPath = "src/Assets/Images/grandma.png";
                 break;
-            case 160:
+            case 161, 162:
                 charPath = "src/Assets/Images/elara_old.png";
                 break;
-            case 23, 25, 28, 30, 34, 35, 36, 47, 49, 50, 52, 55, 56, 74, 75, 78, 79, 81, 122, 124:
+            case 22, 23, 24, 25, 26, 27, 28, 29, 30, 33, 34, 35, 36, 37, 47, 48, 49, 50, 51, 52, 55, 56, 74, 75, 78, 79, 80, 81, 123, 124, 125, 170, 171, 172:
                 charPath = "src/Assets/Images/byte.png";
                 break;
             default:
@@ -592,14 +595,44 @@ public class Scene extends JFrame {
             case 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15:
                 bgPath = "src/Assets/Images/bg_roomelara.jpg";
                 break;
-            case 16, 17, 61, 62, 63, 64, 65:
+            case 16, 17, 61, 62, 63, 64, 65, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 92, 107, 108, 109, 114, 115, 116, 117, 122, 170:
                 bgPath = "src/Assets/Images/bg_glitch.jpg";
                 break;
-            case 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 45, 46, 47, 48, 49, 50, 51, 52:
+            case 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 45, 46, 47, 48, 49, 50, 51, 52, 123, 124, 125, 171, 172:
                 bgPath = "src/Assets/Images/bg_nullspace.jpg";
                 break;
             case 53, 54, 55, 56, 57, 58, 59, 60:
                 bgPath = "src/Assets/Images/bg_nullspace2.jpg";
+                break;
+            case 66, 67, 93, 94, 95, 96, 134, 140, 147:
+                bgPath = "src/Assets/Images/bg_fracture.jpg";
+                break;
+            case 97, 98, 99:
+                bgPath = "src/Assets/Images/bg_roomgrandma.jpg";
+                break;
+            case 100, 101, 102:
+                bgPath = "src/Assets/Images/bg_roomdining.jpg";
+                break;
+            case 103, 104, 105, 106:
+                bgPath = "src/Assets/Images/bg_roomwinter.jpg";
+                break;
+            case 110, 111, 112, 113:
+                bgPath = "src/Assets/Images/bg_roomhospital.jpg";
+                break;
+            case 132, 133, 168, 169:
+                bgPath = "src/Assets/Images/bg_map.jpg";
+                break;
+            case 135, 136, 137, 138, 139:
+                bgPath = "src/Assets/Images/bg_roomflag.jpg";
+                break;
+            case 141, 142, 143, 144, 145, 146:
+                bgPath = "src/Assets/Images/bg_roommap.jpg";
+                break;
+            case 148, 149, 150, 151, 152, 153, 154:
+                bgPath = "src/Assets/Images/bg_roomclass.jpg";
+                break;
+            case 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167:
+                bgPath = "src/Assets/Images/bg_roomflag2.jpg";
                 break;
             default:
                 bgPath = "";
@@ -619,7 +652,7 @@ public class Scene extends JFrame {
         triangleButton.setForeground(Color.WHITE);
         triangleButton.setContentAreaFilled(false);
         triangleButton.setBorderPainted(false);
-        if (sceneID != 1 && sceneID != 39 && sceneID != 86 && sceneID != 128) {
+        if (sceneID != 1 && sceneID != 39 && sceneID != 86 && sceneID != 129) {
             panel.add(triangleButton);
         }
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, triangleButton, 0, SpringLayout.HORIZONTAL_CENTER, panel);
