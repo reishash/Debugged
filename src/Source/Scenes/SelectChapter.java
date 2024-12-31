@@ -71,6 +71,7 @@ public class SelectChapter extends JFrame {
             chapterLabel.setForeground(Color.WHITE);
             chapterLabel.setHorizontalAlignment(SwingConstants.LEFT);
             panel.add(chapterLabel);
+            chapterLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             layout.putConstraint(SpringLayout.WEST, chapterLabel, 100, SpringLayout.WEST, panel);
             layout.putConstraint(SpringLayout.NORTH, chapterLabel, 150 + i * 50, SpringLayout.NORTH, panel);
 
