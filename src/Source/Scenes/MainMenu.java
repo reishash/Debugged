@@ -376,6 +376,58 @@ public class MainMenu extends JFrame {
         });
         panel.add(exitButton);
 
+        // Credit Button
+        JButton creditButton = new JButton("Credits");
+        creditButton.setFont(helvetiHandFont);
+        creditButton.setForeground(Color.WHITE);
+        creditButton.setContentAreaFilled(false);
+        creditButton.setHorizontalAlignment(SwingConstants.LEFT);
+        creditButton.setFocusPainted(false);
+        creditButton.setBorderPainted(false);
+        creditButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        creditButton.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(Color.BLACK, 2),
+            BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+        layout.putConstraint(SpringLayout.EAST, creditButton, -250, SpringLayout.EAST, panel);
+        layout.putConstraint(SpringLayout.SOUTH, creditButton, -100, SpringLayout.SOUTH, panel);
+        creditButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                creditButton.setForeground(Color.YELLOW);
+                audio.playSFX("src/Assets/Sounds/menu_hover.wav");
+                Point originalLocation = creditButton.getLocation();
+                Timer timer = new Timer(50, new ActionListener() {
+                    int count = 0;
+                    boolean moveRight = true;
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (moveRight) {
+                            creditButton.setLocation(originalLocation.x + 1, originalLocation.y + 1);
+                        }
+                        else {
+                            creditButton.setLocation(originalLocation.x - 1, originalLocation.y - 1);
+                        }
+                        moveRight = !moveRight;
+                        count++;
+                        if (count >= 2) {
+                            ((Timer) e.getSource()).stop();
+                            creditButton.setLocation(originalLocation);
+                        }
+                    }
+                });
+                timer.start();
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                creditButton.setForeground(Color.WHITE);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.stopMusic();
+                new Credits();
+                dispose();
+            }
+        });
+
         // Background Image
         ImageIcon backgroundImage = new ImageIcon("src/Assets/Images/bg_mainmenu.jpg");
         JLabel backgroundLabel = new JLabel(backgroundImage);
