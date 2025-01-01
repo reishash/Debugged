@@ -5,7 +5,6 @@
 - Create and integrate background images for Chapter 5+.
 - Integrate character images for Chapter 5+
 - Add voice for actions.
-- Add background music for Chapter 4+.
 
 ## Story
 
