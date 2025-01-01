@@ -87,10 +87,10 @@ public class SelectChapter extends JFrame {
         dynamicPanel.setLayout(new SpringLayout());
         dynamicPanel.setOpaque(false);
         panel.add(dynamicPanel);
-        layout.putConstraint(SpringLayout.WEST, dynamicPanel, 850, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, dynamicPanel, 150, SpringLayout.NORTH, panel);
-        layout.putConstraint(SpringLayout.EAST, dynamicPanel, -250, SpringLayout.EAST, panel);
-        layout.putConstraint(SpringLayout.SOUTH, dynamicPanel, -100, SpringLayout.SOUTH, panel);
+        layout.putConstraint(SpringLayout.WEST, dynamicPanel, 0, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, dynamicPanel, 0, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.EAST, dynamicPanel, 0, SpringLayout.EAST, panel);
+        layout.putConstraint(SpringLayout.SOUTH, dynamicPanel, 0, SpringLayout.SOUTH, panel);
 
         // Chapter Selection
         for (int i = 0; i < 11; i++) {
@@ -208,9 +208,17 @@ public class SelectChapter extends JFrame {
     // Chapter Name
     private String getChapterName(int chapter) {
         String[] chapters = {
-            "System Boot", "Memory Leak", "Code Red", "Segmentation Fault",
-            "Stack Overflow", "Null Pointer", "Infinite Loop", "Reflection Bug",
-            "Exit Code", "Successful Commit", "System Crash"
+            "System Boot",
+            "Memory Leak",
+            "Code Red",
+            "Segmentation Fault",
+            "Stack Overflow",
+            "Null Pointer",
+            "Infinite Loop",
+            "Reflection Bug",
+            "Exit Code",
+            "Successful Commit",
+            "System Crash"
         };
         return chapters[chapter];
     }
@@ -225,15 +233,15 @@ public class SelectChapter extends JFrame {
         }
 
         // Chapter Image
-        chapterImageLabel = new JLabel(new ImageIcon(new ImageIcon(getClass().getResource("/Assets/Images/c" + chapter + ".jpg")).getImage().getScaledInstance(480, 270, Image.SCALE_FAST)));
-        chapterImageLabel.setIcon(new ImageIcon(makeRoundedCorner(new ImageIcon(getClass().getResource("/Assets/Images/c" + chapter + ".jpg")).getImage(), 480, 270, 50)));
+        chapterImageLabel = new JLabel(new ImageIcon(new ImageIcon(getClass().getResource("/Assets/Images/c" + chapter + ".jpg")).getImage().getScaledInstance(400, 225, Image.SCALE_FAST)));
+        chapterImageLabel.setIcon(new ImageIcon(makeRoundedCorner(new ImageIcon(getClass().getResource("/Assets/Images/c" + chapter + ".jpg")).getImage(), 400, 225, 50)));
         dynamicPanel.add(chapterImageLabel);
-        layout.putConstraint(SpringLayout.NORTH, chapterImageLabel, 0, SpringLayout.NORTH, dynamicPanel);
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, chapterImageLabel, 0, SpringLayout.HORIZONTAL_CENTER, dynamicPanel);
+        layout.putConstraint(SpringLayout.NORTH, chapterImageLabel, 150, SpringLayout.NORTH, dynamicPanel);
+        layout.putConstraint(SpringLayout.EAST, chapterImageLabel, -250, SpringLayout.EAST, dynamicPanel);
 
         // Chapter Description
         chapterDescriptionTextArea = new JTextArea(getChapterDescription(chapter));
-        chapterDescriptionTextArea.setFont(helvetiHandFont);
+        chapterDescriptionTextArea.setFont(helvetiHandFont.deriveFont(20f));
         chapterDescriptionTextArea.setForeground(Color.WHITE);
         chapterDescriptionTextArea.setLineWrap(true);
         chapterDescriptionTextArea.setWrapStyleWord(true);
@@ -242,18 +250,17 @@ public class SelectChapter extends JFrame {
         chapterDescriptionTextArea.setOpaque(false);
         dynamicPanel.add(chapterDescriptionTextArea);
         layout.putConstraint(SpringLayout.NORTH, chapterDescriptionTextArea, 50, SpringLayout.SOUTH, chapterImageLabel);
-        layout.putConstraint(SpringLayout.WEST, chapterDescriptionTextArea, 0, SpringLayout.WEST, dynamicPanel);
-        layout.putConstraint(SpringLayout.EAST, chapterDescriptionTextArea, 0, SpringLayout.EAST, dynamicPanel);
+        layout.putConstraint(SpringLayout.WEST, chapterDescriptionTextArea, 0, SpringLayout.WEST, chapterImageLabel);
+        layout.putConstraint(SpringLayout.EAST, chapterDescriptionTextArea, 0, SpringLayout.EAST, chapterImageLabel);
 
         // Chapter Select
         chapterSelectLabel = new JLabel("Select Chapter");
         chapterSelectLabel.setFont(helvetiHandFont);
         chapterSelectLabel.setForeground(Color.WHITE);
-        chapterSelectLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        chapterSelectLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         panel.add(chapterSelectLabel);
         chapterSelectLabel.setFont(helvetiHandFont);
         chapterSelectLabel.setForeground(Color.WHITE);
-        chapterSelectLabel.setHorizontalAlignment(SwingConstants.CENTER);
         chapterSelectLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         chapterSelectLabel.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
@@ -333,8 +340,8 @@ public class SelectChapter extends JFrame {
                 }
             }
         });
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, chapterSelectLabel, 0, SpringLayout.HORIZONTAL_CENTER, dynamicPanel);
-        layout.putConstraint(SpringLayout.SOUTH, chapterSelectLabel, 0, SpringLayout.SOUTH, dynamicPanel);
+        layout.putConstraint(SpringLayout.EAST, chapterSelectLabel, -250, SpringLayout.EAST, dynamicPanel);
+        layout.putConstraint(SpringLayout.SOUTH, chapterSelectLabel, -100, SpringLayout.SOUTH, dynamicPanel);
     
         // Set Z-Order
         panel.setComponentZOrder(chapterImageLabel, 1);
