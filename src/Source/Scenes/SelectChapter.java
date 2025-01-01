@@ -13,7 +13,7 @@ import Source.Logic.Audio;
 import Source.Logic.GameEngine;
 
 public class SelectChapter extends JFrame {
-
+    // Rounded Corner Image
     private BufferedImage makeRoundedCorner(Image image, int width, int height, int cornerRadius) {
         BufferedImage output = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = output.createGraphics();
@@ -26,6 +26,7 @@ public class SelectChapter extends JFrame {
         g2.dispose();
         return output;
     }
+
     private Font helvetiHandFont;
     private JPanel panel, dynamicPanel;
     private SpringLayout layout;
@@ -33,6 +34,7 @@ public class SelectChapter extends JFrame {
     private JTextArea chapterDescriptionTextArea;
     private java.util.List<Component> previousComponents = new java.util.ArrayList<>();
     private Audio audio;
+    private GameEngine gameEngine = new GameEngine();
 
     public SelectChapter() {
         audio = new Audio();
@@ -170,7 +172,6 @@ public class SelectChapter extends JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 audio.stopMusic();
-                GameEngine gameEngine = new GameEngine();
                 gameEngine.initializeMainMenu();
                 dispose();
             }

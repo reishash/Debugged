@@ -427,6 +427,7 @@ public class MainMenu extends JFrame {
                 dispose();
             }
         });
+        panel.add(creditButton);
 
         // Background Image
         ImageIcon backgroundImage = new ImageIcon("src/Assets/Images/bg_mainmenu.jpg");
