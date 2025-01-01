@@ -1,16 +1,22 @@
 package Source.Scenes;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -23,9 +29,11 @@ import Source.Logic.Audio;
 import Source.Logic.GameEngine;
 
 public class Setting extends JFrame {
-    private GameEngine gameEngine = new GameEngine();
     private Font helvetiHandFont;
+    private GameEngine gameEngine = new GameEngine();
+    private int keyBinding = KeyEvent.VK_SPACE;
 
+    // Constructor
     public Setting(Audio audio, Object parent) {
         // Music
         audio.playMusic("src/Assets/Sounds/setting_music.wav");
@@ -136,16 +144,81 @@ public class Setting extends JFrame {
             audio.playSFX("src/Assets/Sounds/voice.wav");
         });
 
+        // Key Binding Label
+        JLabel keyBindingLabel = new JLabel("Key Binding:");
+        keyBindingLabel.setFont(helvetiHandFont);
+        keyBindingLabel.setForeground(Color.WHITE);
+        panel.add(keyBindingLabel);
+        layout.putConstraint(SpringLayout.WEST, keyBindingLabel, 250, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, keyBindingLabel, 500, SpringLayout.NORTH, panel);
+
+        // Key Binding Button
+        JLabel keyBindingButton = new JLabel("Change Key Binding");
+        keyBindingButton.setFont(helvetiHandFont);
+        keyBindingButton.setForeground(Color.WHITE);
+        keyBindingButton.setHorizontalAlignment(SwingConstants.CENTER);
+        keyBindingButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        layout.putConstraint(SpringLayout.EAST, keyBindingButton, -250, SpringLayout.EAST, panel);
+        layout.putConstraint(SpringLayout.NORTH, keyBindingButton, 500, SpringLayout.NORTH, panel);
+        keyBindingButton.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                keyBindingButton.setForeground(Color.YELLOW);
+                audio.playSFX("src/Assets/Sounds/menu_hover.wav");
+                Point originalLocation = keyBindingButton.getLocation();
+                Timer timer = new Timer(50, new ActionListener() {
+                    int count = 0;
+                    boolean moveRight = true;
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (moveRight) {
+                            keyBindingButton.setLocation(originalLocation.x + 1, originalLocation.y + 1);
+                        } else {
+                            keyBindingButton.setLocation(originalLocation.x - 1, originalLocation.y - 1);
+                        }
+                        moveRight = !moveRight;
+                        count++;
+                        if (count >= 2) {
+                            ((Timer) e.getSource()).stop();
+                            keyBindingButton.setLocation(originalLocation);
+                        }
+                    }
+                });
+                timer.start();
+            }
+            public void mouseExited(MouseEvent evt) {
+                keyBindingButton.setForeground(Color.WHITE);
+            }
+            public void mouseClicked(MouseEvent evt) {
+                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                JDialog dialog = new JDialog();
+                dialog.setModal(true);
+                dialog.setUndecorated(true);
+                dialog.setSize(300, 100);
+                dialog.setLocationRelativeTo(null);
+                JLabel label = new JLabel("Press any key to set as new key binding", JLabel.CENTER);
+                dialog.add(label);
+                dialog.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent evt) {
+                        setKeyBinding(evt.getKeyCode());
+                        dialog.dispose();
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+        panel.add(keyBindingButton);
+
         // Back Button
         JLabel backButtonLabel = new JLabel("Back");
         backButtonLabel.setFont(helvetiHandFont);
         backButtonLabel.setForeground(Color.WHITE);
         backButtonLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        backButtonLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backButtonLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         layout.putConstraint(SpringLayout.WEST, backButtonLabel, 250, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.SOUTH, backButtonLabel, -100, SpringLayout.SOUTH, panel);
-        backButtonLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+        backButtonLabel.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
                 backButtonLabel.setForeground(Color.YELLOW);
                 audio.playSFX("src/Assets/Sounds/menu_hover.wav");
                 Point originalLocation = backButtonLabel.getLocation();
@@ -169,10 +242,10 @@ public class Setting extends JFrame {
                 });
                 timer.start();
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 backButtonLabel.setForeground(Color.WHITE);
             }
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseClicked(MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 audio.stopMusic();
                 if (parent instanceof MainMenu) {
@@ -197,5 +270,19 @@ public class Setting extends JFrame {
 
         add(panel);
         setVisible(true);
+    }
+
+    // Set key binding
+    private void setKeyBinding(int keyBinding) {
+        this.keyBinding = keyBinding;
+    }
+
+    // Get key binding
+    public int getKeyBinding() {
+        return keyBinding;
+    }
+
+    // Constructor
+    public Setting() {
     }
 }

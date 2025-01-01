@@ -1,42 +1,52 @@
 package Source.Scenes;
 
-import java.awt.*;
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.geom.RoundRectangle2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.awt.image.BufferedImage;
-import java.awt.geom.RoundRectangle2D;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
+import javax.swing.JTextArea;
+import javax.swing.Timer;
+
+import javax.swing.ImageIcon;
 
 import Source.Logic.Audio;
 import Source.Logic.GameEngine;
 
 public class SelectChapter extends JFrame {
-    // Rounded Corner Image
-    private BufferedImage makeRoundedCorner(Image image, int width, int height, int cornerRadius) {
-        BufferedImage output = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2 = output.createGraphics();
-        g2.setComposite(AlphaComposite.Src);
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(Color.WHITE);
-        g2.fill(new RoundRectangle2D.Float(0, 0, width, height, cornerRadius, cornerRadius));
-        g2.setComposite(AlphaComposite.SrcAtop);
-        g2.drawImage(image, 0, 0, width, height, null);
-        g2.dispose();
-        return output;
-    }
-
-    private Font helvetiHandFont;
-    private JPanel panel, dynamicPanel;
-    private SpringLayout layout;
+    private Audio audio;
     private JLabel chapterImageLabel, chapterSelectLabel;
     private JTextArea chapterDescriptionTextArea;
-    private java.util.List<Component> previousComponents = new java.util.ArrayList<>();
-    private Audio audio;
+    private JPanel dynamicPanel, panel;
+    private Font helvetiHandFont;
+    private SpringLayout layout;
+    private List<Component> previousComponents = new ArrayList<>();
     private GameEngine gameEngine = new GameEngine();
 
+    // Constructor
     public SelectChapter() {
+        // Audio
         audio = new Audio();
         Audio audio = new Audio();
         audio.playMusic("src/Assets/Sounds/setting_music.wav");
@@ -58,6 +68,7 @@ public class SelectChapter extends JFrame {
         setLocationRelativeTo(null);
         getContentPane().setBackground(Color.BLACK);
 
+        // Panel
         panel = new JPanel();
         layout = new SpringLayout();
         panel.setLayout(layout);
@@ -88,7 +99,7 @@ public class SelectChapter extends JFrame {
             chapterLabel.setForeground(Color.WHITE);
             chapterLabel.setHorizontalAlignment(SwingConstants.LEFT);
             panel.add(chapterLabel);
-            chapterLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            chapterLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
             if (i == 0 || i == 4 || i == 8) {
                 layout.putConstraint(SpringLayout.WEST, chapterLabel, 250, SpringLayout.WEST, panel);
             } else {
@@ -97,8 +108,8 @@ public class SelectChapter extends JFrame {
             layout.putConstraint(SpringLayout.NORTH, chapterLabel, 150 + i * 50, SpringLayout.NORTH, panel);
 
             int chapter = i; // Final variable for lambda
-            chapterLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-                public void mouseEntered(java.awt.event.MouseEvent evt) {
+            chapterLabel.addMouseListener(new MouseAdapter() {
+                public void mouseEntered(MouseEvent evt) {
                     chapterLabel.setForeground(Color.YELLOW);
                     audio.playSFX("src/Assets/Sounds/menu_hover.wav");
                     Point originalLocation = chapterLabel.getLocation();
@@ -123,10 +134,10 @@ public class SelectChapter extends JFrame {
                     timer.start();
                     displayChapterContent(chapter);
                 }
-                public void mouseExited(java.awt.event.MouseEvent evt) {
+                public void mouseExited(MouseEvent evt) {
                     chapterLabel.setForeground(Color.WHITE);
                 }
-                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                public void mouseClicked(MouseEvent evt) {
                     audio.playSFX("src/Assets/Sounds/menu_select.wav");
                     displayChapterContent(chapter);
                 }
@@ -138,11 +149,11 @@ public class SelectChapter extends JFrame {
         backButtonLabel.setFont(helvetiHandFont);
         backButtonLabel.setForeground(Color.WHITE);
         backButtonLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        backButtonLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backButtonLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         layout.putConstraint(SpringLayout.WEST, backButtonLabel, 250, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.SOUTH, backButtonLabel, -100, SpringLayout.SOUTH, panel);
-        backButtonLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+        backButtonLabel.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
                 backButtonLabel.setForeground(Color.YELLOW);
                 audio.playSFX("src/Assets/Sounds/menu_hover.wav");
                 Point originalLocation = backButtonLabel.getLocation();
@@ -166,10 +177,10 @@ public class SelectChapter extends JFrame {
                 });
                 timer.start();
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 backButtonLabel.setForeground(Color.WHITE);
             }
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseClicked(MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 audio.stopMusic();
                 gameEngine.initializeMainMenu();
@@ -183,7 +194,7 @@ public class SelectChapter extends JFrame {
         JLabel backgroundLabel = new JLabel();
         backgroundLabel.setIcon(backgroundImage);
         setVisible(true);
-        backgroundLabel.setIcon(new ImageIcon(backgroundImage.getImage().getScaledInstance(getWidth(), getHeight(), java.awt.Image.SCALE_FAST)));
+        backgroundLabel.setIcon(new ImageIcon(backgroundImage.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_FAST)));
         panel.add(backgroundLabel);
         layout.putConstraint(SpringLayout.WEST, backgroundLabel, 0, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, backgroundLabel, 0, SpringLayout.NORTH, panel);
@@ -194,8 +205,8 @@ public class SelectChapter extends JFrame {
         setVisible(true);
     }
 
+    // Chapter Name
     private String getChapterName(int chapter) {
-
         String[] chapters = {
             "System Boot", "Memory Leak", "Code Red", "Segmentation Fault",
             "Stack Overflow", "Null Pointer", "Infinite Loop", "Reflection Bug",
@@ -204,7 +215,9 @@ public class SelectChapter extends JFrame {
         return chapters[chapter];
     }
 
+    // Display Chapter Content
     private void displayChapterContent(int chapter) {
+        // Remove previous components
         if (dynamicPanel != null) {
             for (Component component : previousComponents) {
                 panel.remove(component);
@@ -241,9 +254,9 @@ public class SelectChapter extends JFrame {
         chapterSelectLabel.setFont(helvetiHandFont);
         chapterSelectLabel.setForeground(Color.WHITE);
         chapterSelectLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        chapterSelectLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        chapterSelectLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+        chapterSelectLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        chapterSelectLabel.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
             chapterSelectLabel.setForeground(Color.YELLOW);
             audio.playSFX("src/Assets/Sounds/menu_hover.wav");
             Point originalLocation = chapterSelectLabel.getLocation();
@@ -267,10 +280,10 @@ public class SelectChapter extends JFrame {
             });
             timer.start();
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 chapterSelectLabel.setForeground(Color.WHITE);
             }
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseClicked(MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 switch (chapter) {
                     case 0:
@@ -323,18 +336,22 @@ public class SelectChapter extends JFrame {
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, chapterSelectLabel, 0, SpringLayout.HORIZONTAL_CENTER, dynamicPanel);
         layout.putConstraint(SpringLayout.SOUTH, chapterSelectLabel, 0, SpringLayout.SOUTH, dynamicPanel);
     
+        // Set Z-Order
         panel.setComponentZOrder(chapterImageLabel, 1);
         panel.setComponentZOrder(chapterDescriptionTextArea, 1);
         panel.setComponentZOrder(chapterSelectLabel, 1);
     
+        // Add previous components to list
         previousComponents.add(chapterImageLabel);
         previousComponents.add(chapterDescriptionTextArea);
         previousComponents.add(chapterSelectLabel);
 
+        // Refresh panel
         dynamicPanel.revalidate();
         dynamicPanel.repaint();
     }
 
+    // Chapter Description
     private String getChapterDescription(int chapter) {
         String[] descriptions = {
             "The first steps are always the hardest. A world that’s both familiar and alien, waiting to be explored.",
@@ -350,5 +367,19 @@ public class SelectChapter extends JFrame {
             "Some choices bind us to the past. And in the silence of the void, we must face what we’ve left behind."
         };
         return descriptions[chapter];
+    }
+
+    // Rounded Corner Image
+    private BufferedImage makeRoundedCorner(Image image, int width, int height, int cornerRadius) {
+        BufferedImage output = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = output.createGraphics();
+        g2.setComposite(AlphaComposite.Src);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setColor(Color.WHITE);
+        g2.fill(new RoundRectangle2D.Float(0, 0, width, height, cornerRadius, cornerRadius));
+        g2.setComposite(AlphaComposite.SrcAtop);
+        g2.drawImage(image, 0, 0, width, height, null);
+        g2.dispose();
+        return output;
     }
 }

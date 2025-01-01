@@ -2,36 +2,38 @@ package Source.Scenes;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Desktop;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.Font;
 import java.awt.FontFormatException;
-import java.awt.Image;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import javax.swing.JPanel;
-import javax.swing.SpringLayout;
-import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JScrollPane;
+import javax.swing.JPanel;
+import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 import Source.Logic.Audio;
 import Source.Logic.GameEngine;
 
 public class Credits extends JFrame {
-    private GameEngine gameEngine = new GameEngine();
-    private Font helvetiHandFont;
     private Audio audio;
+    private Font helvetiHandFont;
+    private GameEngine gameEngine = new GameEngine();
 
     public Credits() {
         // Music
@@ -97,9 +99,9 @@ public class Credits extends JFrame {
         layout.putConstraint(SpringLayout.WEST, profileNameLabel, 0, SpringLayout.WEST, profileLabel);
         layout.putConstraint(SpringLayout.NORTH, profileNameLabel, 50, SpringLayout.SOUTH, profileLabel);
         layout.putConstraint(SpringLayout.EAST, profileNameLabel, 0, SpringLayout.EAST, profileLabel);
-        profileNameLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        profileNameLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        profileNameLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        profileNameLabel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 try {
                     Desktop.getDesktop().browse(new URI("https://github.com/reishash"));
@@ -141,9 +143,9 @@ public class Credits extends JFrame {
             layout.putConstraint(SpringLayout.NORTH, creditLabel, 150 + i * 50, SpringLayout.NORTH, panel);
             if (i >= 3 && i <= 5 || i == 8 || i == 10) {
                 final int index = i;
-                creditLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-                creditLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                creditLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                creditLabel.addMouseListener(new MouseAdapter() {
+                    public void mouseClicked(MouseEvent evt) {
                         audio.playSFX("src/Assets/Sounds/menu_select.wav");
                         String url = "";
                         try {
@@ -180,11 +182,11 @@ public class Credits extends JFrame {
         backButtonLabel.setFont(helvetiHandFont);
         backButtonLabel.setForeground(Color.WHITE);
         backButtonLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        backButtonLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backButtonLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         layout.putConstraint(SpringLayout.WEST, backButtonLabel, 250, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.SOUTH, backButtonLabel, -100, SpringLayout.SOUTH, panel);
-        backButtonLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+        backButtonLabel.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
                 backButtonLabel.setForeground(Color.YELLOW);
                 audio.playSFX("src/Assets/Sounds/menu_hover.wav");
                 Point originalLocation = backButtonLabel.getLocation();
@@ -208,10 +210,10 @@ public class Credits extends JFrame {
                 });
                 timer.start();
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 backButtonLabel.setForeground(Color.WHITE);
             }
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseClicked(MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 audio.stopMusic();
                 gameEngine.initializeMainMenu();
@@ -232,13 +234,7 @@ public class Credits extends JFrame {
         layout.putConstraint(SpringLayout.EAST, backgroundLabel, 0, SpringLayout.EAST, panel);
         layout.putConstraint(SpringLayout.SOUTH, backgroundLabel, 0, SpringLayout.SOUTH, panel);
 
-        // Add JScrollPane to the panel
-        JScrollPane scrollPane = new JScrollPane(panel);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        add(scrollPane);
-
-        // Set the size of the JFrame
+        add(panel);
         setVisible(true);
     }
 }

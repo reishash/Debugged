@@ -4,12 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.Font;
 import java.awt.FlowLayout;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -27,13 +32,16 @@ import Source.Logic.GameEngine;
 import Assets.Scripts.Script;
 
 public class Scene extends JFrame {
-    GameEngine gameEngine = new GameEngine();
+    private Component previousComponent;
     private Font helvetiHandFont;
-    private int sceneID;
+    private GameEngine gameEngine = new GameEngine();
     private boolean isFirstScene;
     private JLabel backgroundLabel, characterLabel;
+    private int sceneID;
+    private Setting setting = new Setting();
     private SpringLayout layout;
 
+    // Constructor
     public Scene(int SceneID) {
         sceneID = SceneID;
         isFirstScene = true;
@@ -86,8 +94,8 @@ public class Scene extends JFrame {
         panel.add(backButton);
         layout.putConstraint(SpringLayout.WEST, backButton, 100, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, backButton, 50, SpringLayout.NORTH, panel);
-        backButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        backButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 JDialog dialog = new JDialog();
                 dialog.setUndecorated(true);
@@ -131,7 +139,7 @@ public class Scene extends JFrame {
                 dialog.setLocationRelativeTo(null);
                 dialog.setVisible(true);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+            public void mouseEntered(MouseEvent evt) {
                 backButton.setForeground(Color.YELLOW);
                 audio.playSFX("src/Assets/Sounds/menu_hover.wav");
                 Point originalLocation = backButton.getLocation();
@@ -155,7 +163,7 @@ public class Scene extends JFrame {
                 });
                 timer.start();
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 backButton.setForeground(Color.WHITE);
             }
         });
@@ -176,8 +184,8 @@ public class Scene extends JFrame {
         panel.add(saveButton);
         layout.putConstraint(SpringLayout.WEST, saveButton, 250, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, saveButton, 50, SpringLayout.NORTH, panel);
-        saveButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        saveButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 JDialog dialog = new JDialog();
                 dialog.setUndecorated(true);
@@ -241,7 +249,7 @@ public class Scene extends JFrame {
                 dialog.setLocationRelativeTo(null);
                 dialog.setVisible(true);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+            public void mouseEntered(MouseEvent evt) {
                 saveButton.setForeground(Color.YELLOW);
                 audio.playSFX("src/Assets/Sounds/menu_hover.wav");
                 Point originalLocation = saveButton.getLocation();
@@ -265,7 +273,7 @@ public class Scene extends JFrame {
                 });
                 timer.start();
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 saveButton.setForeground(Color.WHITE);
             }
         });
@@ -286,12 +294,12 @@ public class Scene extends JFrame {
         panel.add(settingButton);
         layout.putConstraint(SpringLayout.WEST, settingButton, 400, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, settingButton, 50, SpringLayout.NORTH, panel);
-        settingButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        settingButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 new Setting(audio, Scene.this);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+            public void mouseEntered(MouseEvent evt) {
                 settingButton.setForeground(Color.YELLOW);
                 audio.playSFX("src/Assets/Sounds/menu_hover.wav");
                 Point originalLocation = settingButton.getLocation();
@@ -315,7 +323,7 @@ public class Scene extends JFrame {
                 });
                 timer.start();
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 settingButton.setForeground(Color.WHITE);
             }
         });
@@ -336,8 +344,8 @@ public class Scene extends JFrame {
         panel.add(hideUIButton);
         layout.putConstraint(SpringLayout.WEST, hideUIButton, 550, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, hideUIButton, 50, SpringLayout.NORTH, panel);
-        hideUIButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+        hideUIButton.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
                 hideUIButton.setForeground(Color.YELLOW);
                 audio.playSFX("src/Assets/Sounds/menu_hover.wav");
                 Point originalLocation = hideUIButton.getLocation();
@@ -361,10 +369,10 @@ public class Scene extends JFrame {
                 });
                 timer.start();
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 hideUIButton.setForeground(Color.WHITE);
             }
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseClicked(MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 for (Component component : panel.getComponents()) {
                     if (component != hideUIButton && component != backgroundLabel && component != characterLabel) {
@@ -390,8 +398,8 @@ public class Scene extends JFrame {
         panel.add(logButton);
         layout.putConstraint(SpringLayout.WEST, logButton, 700, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, logButton, 50, SpringLayout.NORTH, panel);
-        logButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+        logButton.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
                 logButton.setForeground(Color.YELLOW);
                 audio.playSFX("src/Assets/Sounds/menu_hover.wav");
                 Point originalLocation = logButton.getLocation();
@@ -415,10 +423,10 @@ public class Scene extends JFrame {
                 });
                 timer.start();
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 logButton.setForeground(Color.WHITE);
             }
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseClicked(MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 new LogWindow(sceneID);
             }
@@ -427,16 +435,17 @@ public class Scene extends JFrame {
         // Scene updater
         JPanel sceneUpdater = new JPanel();
         sceneUpdater.setOpaque(false);
-        sceneUpdater.addMouseListener(new java.awt.event.MouseAdapter() {
+        sceneUpdater.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+            public void mouseEntered(MouseEvent evt) {
                 sceneUpdater.setCursor(new Cursor(Cursor.HAND_CURSOR));
             }
             @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseClicked(MouseEvent evt) {
                 setFocusable(true);
                 requestFocusInWindow();
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                // Will be used for choices
                 // if (sceneID == 9999) {
                 //     // Choice
                 //     JDialog choiceDialog = new JDialog();
@@ -487,33 +496,30 @@ public class Scene extends JFrame {
                 updateScene(panel);
             }
         });
-        addKeyListener(new java.awt.event.KeyAdapter() {
+        addKeyListener(new KeyAdapter() {
             @Override
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-            if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_SPACE) {
-                audio.playSFX("src/Assets/Sounds/menu_select.wav");
-                sceneID++;
-                updateScene(panel);
-            }
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == setting.getKeyBinding()) {
+                    audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                    sceneID++;
+                    updateScene(panel);
+                }
             }
         });
-        setFocusable(true);
-        requestFocusInWindow();
-
         panel.add(sceneUpdater);
         layout.putConstraint(SpringLayout.WEST, sceneUpdater, 0, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, sceneUpdater, 0, SpringLayout.NORTH, panel);
         layout.putConstraint(SpringLayout.EAST, sceneUpdater, 0, SpringLayout.EAST, panel);
         layout.putConstraint(SpringLayout.SOUTH, sceneUpdater, 0, SpringLayout.SOUTH, panel);
 
+        setFocusable(true);
+        requestFocusInWindow();
         updateScene(panel);
         add(panel);
         setVisible(true);
     }
-    
-    private Component previousComponent;
 
-    // Update scene based on scene ID
+    // Update scene
     private void updateScene(JPanel panel) {
         if (!isFirstScene) {
             for (Component component : panel.getComponents()) {
@@ -714,17 +720,19 @@ public class Scene extends JFrame {
                 break;
         }
 
+        // Character image
         ImageIcon characterImage = new ImageIcon(charPath);
         characterLabel.setIcon(characterImage);
-        characterLabel.setIcon(new ImageIcon(characterImage.getImage().getScaledInstance(800, 800, java.awt.Image.SCALE_FAST)));
+        characterLabel.setIcon(new ImageIcon(characterImage.getImage().getScaledInstance(800, 800, Image.SCALE_FAST)));
         panel.add(characterLabel);
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, characterLabel, 0, SpringLayout.HORIZONTAL_CENTER, panel);
         layout.putConstraint(SpringLayout.SOUTH, characterLabel, 0, SpringLayout.SOUTH, panel);
 
+        // Background image
         ImageIcon backgroundImage = new ImageIcon(bgPath);
         backgroundLabel.setIcon(backgroundImage);
         setVisible(true);
-        backgroundLabel.setIcon(new ImageIcon(backgroundImage.getImage().getScaledInstance(getWidth(), getHeight(), java.awt.Image.SCALE_FAST)));
+        backgroundLabel.setIcon(new ImageIcon(backgroundImage.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_FAST)));
         panel.add(backgroundLabel);
         layout.putConstraint(SpringLayout.WEST, backgroundLabel, 0, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, backgroundLabel, 0, SpringLayout.NORTH, panel);
@@ -746,6 +754,7 @@ public class Scene extends JFrame {
         panel.revalidate();
         panel.repaint();
 
+        // Go back to main menu
         if (storyText == null) {
             gameEngine.initializeMainMenu();
             dispose();

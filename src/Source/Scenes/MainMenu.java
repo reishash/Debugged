@@ -1,7 +1,9 @@
 package Source.Scenes;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
@@ -9,8 +11,8 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.BorderFactory;
@@ -20,8 +22,8 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 import Source.Logic.Audio;
@@ -87,8 +89,8 @@ public class MainMenu extends JFrame {
         ));
         layout.putConstraint(SpringLayout.WEST, startButton, 250, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.SOUTH, startButton, -400, SpringLayout.SOUTH, panel);
-        startButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+        startButton.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
                 startButton.setForeground(Color.YELLOW);
                 audio.playSFX("src/Assets/Sounds/menu_hover.wav");
                 Point originalLocation = startButton.getLocation();
@@ -113,10 +115,10 @@ public class MainMenu extends JFrame {
                 });
                 timer.start();
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 startButton.setForeground(Color.WHITE);
             }
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseClicked(MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 audio.stopMusic();
                 game = new GameEngine();
@@ -141,8 +143,8 @@ public class MainMenu extends JFrame {
         ));
         layout.putConstraint(SpringLayout.WEST, loadButton, 250, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.SOUTH, loadButton, -325, SpringLayout.SOUTH, panel);
-        loadButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+        loadButton.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
                 loadButton.setForeground(Color.YELLOW);
                 audio.playSFX("src/Assets/Sounds/menu_hover.wav");
                 Point originalLocation = loadButton.getLocation();
@@ -167,10 +169,10 @@ public class MainMenu extends JFrame {
                 });
                 timer.start();
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 loadButton.setForeground(Color.WHITE);
             }
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseClicked(MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 audio.stopMusic();
                 game = new GameEngine();
@@ -195,8 +197,8 @@ public class MainMenu extends JFrame {
         ));
         layout.putConstraint(SpringLayout.WEST, chapterButton, 250, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.SOUTH, chapterButton, -250, SpringLayout.SOUTH, panel);
-        chapterButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+        chapterButton.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
                 chapterButton.setForeground(Color.YELLOW);
                 audio.playSFX("src/Assets/Sounds/menu_hover.wav");
                 Point originalLocation = chapterButton.getLocation();
@@ -221,10 +223,10 @@ public class MainMenu extends JFrame {
                 });
                 timer.start();
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 chapterButton.setForeground(Color.WHITE);
             }
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseClicked(MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 audio.stopMusic();
                 new SelectChapter();
@@ -248,8 +250,8 @@ public class MainMenu extends JFrame {
         ));
         layout.putConstraint(SpringLayout.WEST, settingButton, 250, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.SOUTH, settingButton, -175, SpringLayout.SOUTH, panel);
-        settingButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+        settingButton.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
                 settingButton.setForeground(Color.YELLOW);
                 audio.playSFX("src/Assets/Sounds/menu_hover.wav");
                 Point originalLocation = settingButton.getLocation();
@@ -274,10 +276,10 @@ public class MainMenu extends JFrame {
                 });
                 timer.start();
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 settingButton.setForeground(Color.WHITE);
             }
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseClicked(MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 audio.stopMusic();
                 new Setting(audio, MainMenu.this);
@@ -301,8 +303,8 @@ public class MainMenu extends JFrame {
         ));
         layout.putConstraint(SpringLayout.WEST, exitButton, 250, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.SOUTH, exitButton, -100, SpringLayout.SOUTH, panel);
-        exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+        exitButton.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
                 exitButton.setForeground(Color.RED);
                 audio.playSFX("src/Assets/Sounds/menu_hover.wav");
                 Point originalLocation = exitButton.getLocation();
@@ -327,10 +329,10 @@ public class MainMenu extends JFrame {
                 });
                 timer.start();
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 exitButton.setForeground(Color.WHITE);
             }
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseClicked(MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 JDialog dialog = new JDialog();
                 dialog.setUndecorated(true);
@@ -391,8 +393,8 @@ public class MainMenu extends JFrame {
         ));
         layout.putConstraint(SpringLayout.EAST, creditButton, -250, SpringLayout.EAST, panel);
         layout.putConstraint(SpringLayout.SOUTH, creditButton, -100, SpringLayout.SOUTH, panel);
-        creditButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+        creditButton.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
                 creditButton.setForeground(Color.YELLOW);
                 audio.playSFX("src/Assets/Sounds/menu_hover.wav");
                 Point originalLocation = creditButton.getLocation();
@@ -417,10 +419,10 @@ public class MainMenu extends JFrame {
                 });
                 timer.start();
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 creditButton.setForeground(Color.WHITE);
             }
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseClicked(MouseEvent evt) {
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 audio.stopMusic();
                 new Credits();

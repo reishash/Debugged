@@ -1,4 +1,4 @@
-package Source.Logic;
+package Source.Logic; 
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -14,12 +14,14 @@ public class Audio {
     private static float sfxVolume = 100;
     private static float voiceVolume = 100;
 
+    // Constructor
     public Audio() {
     }
 
-    public void playMusic(String Path) {
+    // Play music
+    public void playMusic(String path) {
         try {
-            File musicPath = new File(Path);
+            File musicPath = new File(path);
             AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
             music = AudioSystem.getClip();
             music.open(audioInput);
@@ -31,12 +33,14 @@ public class Audio {
         }
     }
 
+    // Stop music
     public void stopMusic() {
         if (music != null && music.isRunning()) {
             music.stop();
         }
     }
 
+    // Set music volume
     public void setMusicVolume(float volume) {
         musicVolume = volume;
         if (music != null) {
@@ -46,13 +50,15 @@ public class Audio {
         }
     }
 
+    // Get music volume
     public static float getMusicVolume() {
         return musicVolume;
     }
 
-    public void playSFX(String Path) {
+    // Play SFX
+    public void playSFX(String path) {
         try {
-            File sfxPath = new File(Path);
+            File sfxPath = new File(path);
             AudioInputStream audioInput = AudioSystem.getAudioInputStream(sfxPath);
             sfx = AudioSystem.getClip();
             sfx.open(audioInput);
@@ -63,6 +69,14 @@ public class Audio {
         }
     }
 
+    // Stop SFX
+    public void stopSFX() {
+        if (sfx != null && sfx.isRunning()) {
+            sfx.stop();
+        }
+    }
+
+    // Set SFX volume
     public void setSFXVolume(float volume) {
         sfxVolume = volume;
         if (sfx != null) {
@@ -72,19 +86,15 @@ public class Audio {
         }
     }
 
+    // Get SFX volume
     public static float getSFXVolume() {
         return sfxVolume;
     }
 
-    public void stopSFX() {
-        if (sfx != null && sfx.isRunning()) {
-            sfx.stop();
-        }
-    }
-
-    public void playVoice(String Path) {
+    // Play voice
+    public void playVoice(String path) {
         try {
-            File voicePath = new File(Path);
+            File voicePath = new File(path);
             AudioInputStream audioInput = AudioSystem.getAudioInputStream(voicePath);
             voice = AudioSystem.getClip();
             voice.open(audioInput);
@@ -95,6 +105,7 @@ public class Audio {
         }
     }
 
+    // Stop voice
     public void setVoiceVolume(float volume) {
         voiceVolume = volume;
         if (voice != null) {
@@ -104,6 +115,7 @@ public class Audio {
         }
     }
 
+    // Get voice volume
     public static float getVoiceVolume() {
         return voiceVolume;
     }
