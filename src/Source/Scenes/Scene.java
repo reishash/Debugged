@@ -110,7 +110,7 @@ public class Scene extends JFrame {
                 JPanel buttonPanel = new JPanel();
                 buttonPanel.setOpaque(false);
                 buttonPanel.setLayout(new FlowLayout());
-                JButton yesButton = new JButton("<html><h2>Yes</h2></html>");
+                JButton yesButton = new JButton("Yes");
                 yesButton.setFont(helvetiHandFont);
                 yesButton.setForeground(Color.WHITE);
                 yesButton.setContentAreaFilled(false);
@@ -123,7 +123,7 @@ public class Scene extends JFrame {
                     dispose();
                 });
                 buttonPanel.add(yesButton);
-                JButton noButton = new JButton("<html><h2>No</h2></html>");
+                JButton noButton = new JButton("No");
                 noButton.setFont(helvetiHandFont);
                 noButton.setForeground(Color.WHITE);
                 noButton.setContentAreaFilled(false);

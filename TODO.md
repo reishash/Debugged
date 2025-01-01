@@ -15,5 +15,5 @@
 
 - Develop a game over screen that appears when the player reaches the end.
 - Improve the save/load system to handle multiple save slots.
-- Expand the settings menu to include more options (e.g., resolution, key bindings).
+- Integrate keybind change from setting to scene.
 - Enhance the smoothness and visual appeal of UI transitions and animations. (adding fade-in/out effects, sliding transitions, etc.)
