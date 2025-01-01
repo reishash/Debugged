@@ -517,35 +517,35 @@ public class Scene extends JFrame {
             switch (sceneID) {
                 case 1:
                     audio.stopMusic();
-                    audio.playMusic("src/Assets/Sounds/1.wav");
+                    audio.playMusic("src/Assets/Sounds/0.wav");
                     break;
                 case 39:
                     audio.stopMusic();
-                    audio.playMusic("src/Assets/Sounds/2.wav");
+                    audio.playMusic("src/Assets/Sounds/1.wav");
                     break;
                 case 86:
                     audio.stopMusic();
-                    audio.playMusic("src/Assets/Sounds/3.wav");
+                    audio.playMusic("src/Assets/Sounds/2.wav");
                     break;
                 case 129:
                     audio.stopMusic();
-                    audio.playMusic("src/Assets/Sounds/4.wav");
+                    audio.playMusic("src/Assets/Sounds/3.wav");
                     break;
                 case 176:
                     audio.stopMusic();
-                    audio.playMusic("src/Assets/Sounds/5.wav");
+                    audio.playMusic("src/Assets/Sounds/4.wav");
                     break;
                 case 228:
                     audio.stopMusic();
-                    audio.playMusic("src/Assets/Sounds/6.wav");
+                    audio.playMusic("src/Assets/Sounds/5.wav");
                     break;
                 case 276:
                     audio.stopMusic();
-                    audio.playMusic("src/Assets/Sounds/7.wav");
+                    audio.playMusic("src/Assets/Sounds/6.wav");
                     break;
                 case 324:
                     audio.stopMusic();
-                    audio.playMusic("src/Assets/Sounds/8.wav");
+                    audio.playMusic("src/Assets/Sounds/7.wav");
                     break;
             }
         }
@@ -584,37 +584,40 @@ public class Scene extends JFrame {
             case 161, 162:
                 charPath = "src/Assets/Images/elara_old.png";
                 break;
-            case 22, 23, 24, 25, 26, 27, 28, 29, 30, 33, 34, 35, 36, 37, 47, 48, 49, 50, 51, 52, 55, 56, 74, 75, 78, 79, 80, 81, 123, 124, 125, 170, 171, 172:
+            case 22, 23, 24, 25, 26, 27, 28, 29, 30, 33, 34, 35, 36, 37, 47, 48, 
+            49, 50, 51, 52, 55, 56, 74, 75, 78, 79, 80, 81, 123, 124, 125, 170, 
+            171, 172, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222:
                 charPath = "src/Assets/Images/byte.png";
+                break;
+            case 186, 187, 193, 194, 196, 197, 208:
+                charPath = "src/Assets/Images/ex.png";
                 break;
             default:
                 charPath = "";
                 break;
         }
-        ImageIcon characterImage = new ImageIcon(charPath);
-        characterLabel.setIcon(characterImage);
-        characterLabel.setIcon(new ImageIcon(characterImage.getImage().getScaledInstance(800, 800, java.awt.Image.SCALE_FAST)));
-        panel.add(characterLabel);
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, characterLabel, 0, SpringLayout.HORIZONTAL_CENTER, panel);
-        layout.putConstraint(SpringLayout.SOUTH, characterLabel, 0, SpringLayout.SOUTH, panel);
-
 
         // Set background image
         String bgPath;
         switch (sceneID) {
-            case 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15:
+            case 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 195, 196, 197, 198,
+            199:
                 bgPath = "src/Assets/Images/bg_roomelara.jpg";
                 break;
-            case 16, 17, 61, 62, 63, 64, 65, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 92, 107, 108, 109, 114, 115, 116, 117, 122, 170:
+            case 16, 17, 61, 62, 63, 64, 65, 68, 69, 70, 71, 72, 73, 74, 
+            75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 92, 107, 108, 109, 
+            114, 115, 116, 117, 122, 170, 179, 180, 191:
                 bgPath = "src/Assets/Images/bg_glitch.jpg";
                 break;
-            case 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 45, 46, 47, 48, 49, 50, 51, 52, 123, 124, 125, 171, 172:
+            case 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 
+            35, 36, 37, 45, 46, 47, 48, 49, 50, 51, 52, 123, 124, 125, 171, 
+            172:
                 bgPath = "src/Assets/Images/bg_nullspace.jpg";
                 break;
             case 53, 54, 55, 56, 57, 58, 59, 60:
                 bgPath = "src/Assets/Images/bg_nullspace2.jpg";
                 break;
-            case 66, 67, 93, 94, 95, 96, 134, 140, 147:
+            case 66, 67, 93, 94, 95, 96, 134, 140, 147, 181, 200, 201, 202:
                 bgPath = "src/Assets/Images/bg_fracture.jpg";
                 break;
             case 97, 98, 99:
@@ -644,10 +647,28 @@ public class Scene extends JFrame {
             case 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167:
                 bgPath = "src/Assets/Images/bg_roomflag2.jpg";
                 break;
+            case 182, 183, 184, 185, 186, 187:
+                bgPath = "src/Assets/Images/bg_room.jpg";
+                break;
+            case 188, 189, 190:
+                bgPath = "src/Assets/Images/bg_cafe.jpg";
+                break;
+            case 192, 193, 194, 205, 206, 207, 208, 209, 210, 213, 214, 215,
+            216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226:
+                bgPath = "src/Assets/Images/bg_room2.jpg";
+                break;
             default:
                 bgPath = "";
                 break;
         }
+
+        ImageIcon characterImage = new ImageIcon(charPath);
+        characterLabel.setIcon(characterImage);
+        characterLabel.setIcon(new ImageIcon(characterImage.getImage().getScaledInstance(800, 800, java.awt.Image.SCALE_FAST)));
+        panel.add(characterLabel);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, characterLabel, 0, SpringLayout.HORIZONTAL_CENTER, panel);
+        layout.putConstraint(SpringLayout.SOUTH, characterLabel, 0, SpringLayout.SOUTH, panel);
+
         ImageIcon backgroundImage = new ImageIcon(bgPath);
         backgroundLabel.setIcon(backgroundImage);
         setVisible(true);
