@@ -434,6 +434,8 @@ public class Scene extends JFrame {
             }
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
+                setFocusable(true);
+                requestFocusInWindow();
                 audio.playSFX("src/Assets/Sounds/menu_select.wav");
                 // if (sceneID == 9999) {
                 //     // Choice
@@ -485,6 +487,19 @@ public class Scene extends JFrame {
                 updateScene(panel);
             }
         });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+            if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_SPACE) {
+                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                sceneID++;
+                updateScene(panel);
+            }
+            }
+        });
+        setFocusable(true);
+        requestFocusInWindow();
+
         panel.add(sceneUpdater);
         layout.putConstraint(SpringLayout.WEST, sceneUpdater, 0, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, sceneUpdater, 0, SpringLayout.NORTH, panel);
