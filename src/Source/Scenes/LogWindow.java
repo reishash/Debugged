@@ -62,8 +62,14 @@ public class LogWindow extends JFrame {
             return 39;
         } else if (sceneID >= 86 && sceneID < 128) {
             return 86;
-        } else if (sceneID >= 128) {
-            return 128;
+        } else if (sceneID >= 129 && sceneID < 176) {
+            return 129;
+        } else if (sceneID >= 176 && sceneID < 228) {
+            return 176;
+        } else if (sceneID >= 228 && sceneID < 276) {
+            return 228;
+        } else if (sceneID >= 276 && sceneID < 324) {
+            return 276;
         } else {
             return 1;
         }
