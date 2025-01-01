@@ -1,6 +1,5 @@
 package Source.Scenes;
 
-import javax.swing.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -11,6 +10,14 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
 
 import Source.Logic.Audio;
 import Source.Logic.GameEngine;
