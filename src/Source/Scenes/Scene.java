@@ -514,6 +514,8 @@ public class Scene extends JFrame {
         Audio audio = new Audio();
         if (sceneID > 0 && sceneID <= storyTexts.length) {
             storyText = new JLabel(storyTexts[sceneID - 1]);
+
+            // Music
             switch (sceneID) {
                 case 1:
                     audio.stopMusic();
@@ -546,6 +548,41 @@ public class Scene extends JFrame {
                 case 324:
                     audio.stopMusic();
                     audio.playMusic("src/Assets/Sounds/7.wav");
+                    break;
+            }
+
+            // Sound Effects
+            switch (sceneID) {
+                case 1:
+                    audio.playSFX("src/Assets/Sounds/sfx_boot.wav");
+                    break;
+                case 3:
+                    audio.stopSFX();
+                    audio.playSFX("src/Assets/Sounds/sfx_typing.wav");
+                    break;
+                case 4, 15:
+                    audio.stopSFX();
+                    audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                    break;
+                case 6:
+                    audio.stopSFX();
+                    audio.playSFX("src/Assets/Sounds/sfx_error.wav");
+                    break;
+                case 7, 37:
+                    audio.stopSFX();
+                    audio.playSFX("src/Assets/Sounds/sfx_sighfem.wav");
+                    break;
+                case 16, 19, 32:
+                    audio.stopSFX();
+                    audio.playSFX("src/Assets/Sounds/sfx_glitch.wav");
+                    break;
+                case 18:
+                    audio.stopSFX();
+                    audio.playSFX("src/Assets/Sounds/sfx_shutdown.wav");
+                    break;
+                case 23:
+                    audio.stopSFX();
+                    audio.playSFX("src/Assets/Sounds/sfx_whoosh.wav");
                     break;
             }
         }

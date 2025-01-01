@@ -76,6 +76,12 @@ public class Audio {
         return sfxVolume;
     }
 
+    public void stopSFX() {
+        if (sfx != null && sfx.isRunning()) {
+            sfx.stop();
+        }
+    }
+
     public void playVoice(String Path) {
         try {
             File voicePath = new File(Path);
