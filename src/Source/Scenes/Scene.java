@@ -568,7 +568,7 @@ public class Scene extends JFrame {
                     audio.stopSFX();
                     audio.playSFX("src/Assets/Sounds/sfx_error.wav");
                     break;
-                case 7, 37:
+                case 7:
                     audio.stopSFX();
                     audio.playSFX("src/Assets/Sounds/sfx_sighfem.wav");
                     break;
@@ -580,7 +580,7 @@ public class Scene extends JFrame {
                     audio.stopSFX();
                     audio.playSFX("src/Assets/Sounds/sfx_shutdown.wav");
                     break;
-                case 23:
+                case 22:
                     audio.stopSFX();
                     audio.playSFX("src/Assets/Sounds/sfx_whoosh.wav");
                     break;
