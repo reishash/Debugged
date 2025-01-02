@@ -114,7 +114,7 @@ public class Setting extends JFrame {
             int volume = sfxVolumeSlider.getValue();
             audio.setSFXVolume(volume);
             if (!sfxVolumeSlider.getValueIsAdjusting()) {
-                audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
+                audio.playHoverSFX();
             }
         });
 
@@ -163,7 +163,7 @@ public class Setting extends JFrame {
         keyBindingButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
                 keyBindingButton.setForeground(Color.YELLOW);
-                audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
+                audio.playHoverSFX();
                 Point originalLocation = keyBindingButton.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -189,7 +189,7 @@ public class Setting extends JFrame {
                 keyBindingButton.setForeground(Color.WHITE);
             }
             public void mouseClicked(MouseEvent evt) {
-                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
+                audio.playSelectSFX();
                 JDialog dialog = new JDialog();
                 dialog.setModal(true);
                 dialog.setUndecorated(true);
@@ -220,7 +220,7 @@ public class Setting extends JFrame {
         backButtonLabel.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
                 backButtonLabel.setForeground(Color.YELLOW);
-                audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
+                audio.playHoverSFX();
                 Point originalLocation = backButtonLabel.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -246,7 +246,7 @@ public class Setting extends JFrame {
                 backButtonLabel.setForeground(Color.WHITE);
             }
             public void mouseClicked(MouseEvent evt) {
-                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
+                audio.playSelectSFX();
                 audio.stopMusic();
                 if (parent instanceof MainMenu) {
                     gameEngine.initializeMainMenu();

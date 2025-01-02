@@ -69,6 +69,34 @@ public class Audio {
         }
     }
 
+    // Play Select SFX
+    public void playSelectSFX() {
+        try {
+            File sfxPath = new File("/Audio/SFX/menu_select.wav");
+            AudioInputStream audioInput = AudioSystem.getAudioInputStream(sfxPath);
+            sfx = AudioSystem.getClip();
+            sfx.open(audioInput);
+            setSFXVolume(sfxVolume);
+            sfx.start();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    // Play Hover SFX
+    public void playHoverSFX() {
+        try {
+            File sfxPath = new File("/Audio/SFX/menu_hover.wav");
+            AudioInputStream audioInput = AudioSystem.getAudioInputStream(sfxPath);
+            sfx = AudioSystem.getClip();
+            sfx.open(audioInput);
+            setSFXVolume(sfxVolume);
+            sfx.start();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     // Stop SFX
     public void stopSFX() {
         if (sfx != null && sfx.isRunning()) {
