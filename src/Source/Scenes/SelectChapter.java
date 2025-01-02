@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
@@ -21,12 +22,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
@@ -94,6 +98,9 @@ public class SelectChapter extends JFrame {
         panel.add(dynamicPanel);
 
         // Chapter Selection
+        JButton[] chapterButtons = new JButton[11];
+        ActionListener[] buttonActions = new ActionListener[11];
+        int [] currentIndex = {0};
         for (int i = 0; i < 11; i++) {
             if (i == 10) {
                 button = new JButton("Back");
@@ -107,6 +114,7 @@ public class SelectChapter extends JFrame {
             button.setFocusPainted(false);
             button.setBorderPainted(false);
             button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            chapterButtons[i] = button;
             panel.add(button);
 
             if (i == 0 || i == 4 || i == 7 || i == 10) {
@@ -121,8 +129,8 @@ public class SelectChapter extends JFrame {
                 layout.putConstraint(SpringLayout.NORTH, button, 150 + i * 50, SpringLayout.NORTH, panel);
             }
 
-            int chapter = i; // Final variable for lambda
-            addButtonMouseListeners(button, e -> {
+            int chapter = i; 
+            buttonActions[i] = e -> {
                 audio.playSelectSFX();
                 if (chapter == 10) {
                     audio.stopMusic();
@@ -131,8 +139,40 @@ public class SelectChapter extends JFrame {
                 } else {
                     displayChapterContent(chapter);
                 }
-            });
+            };
+            addButtonMouseListeners(button, buttonActions[i]);
         }
+        panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "moveUp");
+        panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "moveDown");
+        panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "select");
+        panel.getActionMap().put("moveUp", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chapterButtons[currentIndex[0]].setForeground(Color.WHITE);
+                currentIndex[0] = (currentIndex[0] - 1 + chapterButtons.length) % chapterButtons.length;
+                chapterButtons[currentIndex[0]].setForeground(Color.YELLOW);
+            }
+        });
+        panel.getActionMap().put("moveDown", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chapterButtons[currentIndex[0]].setForeground(Color.WHITE);
+                currentIndex[0] = (currentIndex[0] + 1) % chapterButtons.length;
+                chapterButtons[currentIndex[0]].setForeground(Color.YELLOW);
+            }
+        });
+        panel.getActionMap().put("select", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (buttonActions[currentIndex[0]] != null) {
+                    buttonActions[currentIndex[0]].actionPerformed(
+                        new ActionEvent(chapterButtons[currentIndex[0]], ActionEvent.ACTION_PERFORMED, null)
+                    );
+                } else {
+                    System.err.println("ActionListener for index " + currentIndex[0] + " is null.");
+                }
+            }
+        });
 
         // Add background image
         backgroundImage = new ImageIcon(getClass().getResource("/Assets/Images/Backgrounds/bg_select.jpg"));

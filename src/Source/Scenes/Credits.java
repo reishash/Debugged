@@ -13,17 +13,21 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+
+import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
@@ -139,6 +143,7 @@ public class Credits extends JFrame {
             creditLabel.setFont(helvetiHandFont);
             creditLabel.setForeground(Color.WHITE);
             creditLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            panel.add(creditLabel);
             if (i == 0 || i == 2 || i == 7) {
                 layout.putConstraint(SpringLayout.WEST, creditLabel, 150, SpringLayout.EAST, profileLabel);
             } else {
@@ -178,7 +183,6 @@ public class Credits extends JFrame {
                     }
                     }
                 });
-                panel.add(creditLabel);
             }
         }
 
@@ -194,12 +198,21 @@ public class Credits extends JFrame {
         backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         layout.putConstraint(SpringLayout.WEST, backButton, 250, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.SOUTH, backButton, -100, SpringLayout.SOUTH, panel);
-        addButtonMouseListeners(backButton, new ActionListener() {
+        ActionListener backAction = new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent evt) {
                 audio.playSelectSFX();
                 audio.stopMusic();
                 new MainMenu();
                 dispose();
+            }
+        };
+        addButtonMouseListeners(backButton, backAction);
+        panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "escapeAction");
+        panel.getActionMap().put("escapeAction", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                backAction.actionPerformed(new ActionEvent(backButton, ActionEvent.ACTION_PERFORMED, null));
             }
         });
         panel.add(backButton);

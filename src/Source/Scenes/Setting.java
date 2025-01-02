@@ -17,6 +17,7 @@ import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 
+import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,6 +26,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
@@ -36,10 +38,10 @@ public class Setting extends JFrame {
     private Font helvetiHandFont;
     private GraphicsEnvironment graphicsEnvironment;
     private ImageIcon backgroundImage;
-    private int keyBinding = KeyEvent.VK_SPACE;
+    private static int keyBinding = KeyEvent.VK_SPACE;
     private JPanel panel;
     private JLabel titleLabel, backgroundLabel, messageLabel;
-    private JButton button;
+    private JButton button, keyBindingButton;
     private JDialog dialog;
     private JLabel label;
     private JSlider slider;
@@ -146,6 +148,9 @@ public class Setting extends JFrame {
         };
         for (int i = 0; i < buttonNames.length; i++) {
             button = new JButton(buttonNames[i].equals("Key Binding") ? KeyEvent.getKeyText(keyBinding) : buttonNames[i]);
+            if (buttonNames[i].equals("Key Binding")) {
+                keyBindingButton = button;
+            }
             button.setFont(helvetiHandFont);
             button.setForeground(Color.WHITE);
             button.setContentAreaFilled(false);
@@ -159,6 +164,13 @@ public class Setting extends JFrame {
             } else {
                 layout.putConstraint(SpringLayout.WEST, button, 250, SpringLayout.WEST, panel);
                 layout.putConstraint(SpringLayout.SOUTH, button, -100, SpringLayout.SOUTH, panel);
+                panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "escapeAction");
+                panel.getActionMap().put("escapeAction", new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        buttonActions[1].actionPerformed(new ActionEvent(button, ActionEvent.ACTION_PERFORMED, null));
+                    }
+                });
             }
             addButtonMouseListeners(button, buttonActions[i]);
             panel.add(button);
@@ -167,6 +179,7 @@ public class Setting extends JFrame {
         // Background Image
         backgroundImage = new ImageIcon("src/Assets/Images/Backgrounds/bg_setting.jpg");
         backgroundLabel = new JLabel(backgroundImage);
+        panel.add(backgroundLabel);
         setVisible(true);
         backgroundLabel.setBounds(0, 0, getWidth(), getHeight());
         backgroundLabel.setIcon(new ImageIcon(backgroundImage.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH)));
@@ -174,7 +187,6 @@ public class Setting extends JFrame {
         layout.putConstraint(SpringLayout.NORTH, backgroundLabel, 0, SpringLayout.NORTH, panel);
         layout.putConstraint(SpringLayout.EAST, backgroundLabel, 0, SpringLayout.EAST, panel);
         layout.putConstraint(SpringLayout.SOUTH, backgroundLabel, 0, SpringLayout.SOUTH, panel);
-        panel.add(backgroundLabel);
 
         add(panel);
         setVisible(true);
@@ -195,7 +207,9 @@ public class Setting extends JFrame {
         dialog.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent evt) {
-                setKeyBinding(evt.getKeyCode());
+                if (evt.getKeyCode() != KeyEvent.VK_ESCAPE) {
+                    setKeyBinding(evt.getKeyCode());
+                }
                 dialog.dispose();
             }
         });
@@ -207,11 +221,14 @@ public class Setting extends JFrame {
     }
     // Set key binding
     private void setKeyBinding(int keyBinding) {
-        this.keyBinding = keyBinding;
+        Setting.keyBinding = keyBinding;
+        if (keyBindingButton != null) {
+            keyBindingButton.setText(KeyEvent.getKeyText(keyBinding));
+        }
     }
 
     // Get key binding
-    public int getKeyBinding() {
+    public static int getKeyBinding() {
         return keyBinding;
     }
 

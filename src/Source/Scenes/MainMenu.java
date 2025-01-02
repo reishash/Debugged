@@ -11,17 +11,24 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
@@ -112,8 +119,10 @@ public class MainMenu extends JFrame {
         };
 
         // Create and add buttons
+        JButton[] buttons = new JButton[buttonNames.length];
         for (int i = 0; i < buttonNames.length; i++) {
             button = new JButton(buttonNames[i]);
+            buttons[i] = button;
             button.setFont(helvetiHandFont);
             button.setForeground(Color.WHITE);
             button.setContentAreaFilled(false);
@@ -133,6 +142,53 @@ public class MainMenu extends JFrame {
                 layout.putConstraint(SpringLayout.SOUTH, button, -100 - (i-1) * 75, SpringLayout.SOUTH, panel);
             }
             addButtonMouseListeners(button, buttonActions[i]);
+            if (buttonNames[i].equals("Exit Game")) {
+                addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent evt) {
+                        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                            buttonActions[1].actionPerformed(new ActionEvent(button, ActionEvent.ACTION_PERFORMED, null));
+                        }
+                    }
+                });
+            }
+            
+            // Keyboard Navigation
+            int[] currentIndex = {0}; // Track the current selected button index
+            InputMap inputMap = panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);
+            ActionMap actionMap = panel.getActionMap();
+
+            inputMap.put(KeyStroke.getKeyStroke("UP"), "navigateUp");
+            actionMap.put("navigateUp", new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    buttons[currentIndex[0]].setForeground(Color.WHITE);
+                    currentIndex[0] = (currentIndex[0] + 1) % buttons.length;
+                    buttons[currentIndex[0]].setForeground(Color.YELLOW);
+                    buttons[currentIndex[0]].requestFocus();
+                }
+            });
+
+            // Bind DOWN key to navigate down
+            inputMap.put(KeyStroke.getKeyStroke("DOWN"), "navigateDown");
+            actionMap.put("navigateDown", new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    buttons[currentIndex[0]].setForeground(Color.WHITE);
+                    currentIndex[0] = (currentIndex[0] - 1 + buttons.length) % buttons.length;
+                    buttons[currentIndex[0]].setForeground(Color.YELLOW);
+                    buttons[currentIndex[0]].requestFocus();
+                }
+            });
+
+            // Bind ENTER key to click the selected button
+            inputMap.put(KeyStroke.getKeyStroke("ENTER"), "pressButton");
+            actionMap.put("pressButton", new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    buttonActions[currentIndex[0]].actionPerformed(new ActionEvent(button, ActionEvent.ACTION_PERFORMED, null));
+                }
+            });
             panel.add(button);
         }
 
@@ -148,6 +204,8 @@ public class MainMenu extends JFrame {
         backgroundLabel.setIcon(new ImageIcon(backgroundImage.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_FAST)));
 
         add(panel);
+        setFocusable(true);
+        requestFocusInWindow();
         setVisible(true);
     }
 
@@ -208,16 +266,24 @@ public class MainMenu extends JFrame {
         yesButton.setForeground(Color.WHITE);
         yesButton.setContentAreaFilled(false);
         yesButton.setBorderPainted(false);
+        yesButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         addButtonMouseListeners(yesButton, e -> {
             audio.stopMusic();
             audio.playSelectSFX();
             System.exit(0);
+        });
+        yesButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent evt) {
+                yesButton.setForeground(Color.RED);
+            }
         });
         noButton = new JButton("No");
         noButton.setFont(helvetiHandFont);
         noButton.setForeground(Color.WHITE);
         noButton.setContentAreaFilled(false);
         noButton.setBorderPainted(false);
+        noButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         addButtonMouseListeners(noButton, e -> {
             audio.playSelectSFX();
             dialog.dispose();

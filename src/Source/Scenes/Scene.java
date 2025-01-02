@@ -44,7 +44,6 @@ public class Scene extends JFrame {
     private JLabel messageLabel/*, savedLabel, errorLabel*/;
     private JPanel buttonPanel, panel, sceneUpdater;
     // private Save save;
-    private Setting setting;
     private SpringLayout layout;
     private Timer timer;
 
@@ -124,6 +123,16 @@ public class Scene extends JFrame {
             layout.putConstraint(SpringLayout.WEST, button, 250 + i * 150, SpringLayout.WEST, panel);
             layout.putConstraint(SpringLayout.NORTH, button, 50, SpringLayout.NORTH, panel);
             addButtonMouseListeners(button, buttonActions[i]);
+            if (buttonNames[i].equals("Back")) {
+                addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent evt) {
+                        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                            buttonActions[0].actionPerformed(new ActionEvent(button, ActionEvent.ACTION_PERFORMED, null));
+                        }
+                    }
+                });
+            }
             panel.add(button);
         }
 
@@ -194,8 +203,7 @@ public class Scene extends JFrame {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent evt) {
-                setting = new Setting();
-                if (evt.getKeyCode() == setting.getKeyBinding()) {
+                if (evt.getKeyCode() == Setting.getKeyBinding()) {
                     audio.playSelectSFX();
                     sceneID++;
                     updateScene(panel);
@@ -299,7 +307,7 @@ public class Scene extends JFrame {
                     break;
             }
         }
-    
+
         // Set story text
         if (storyText != null) {
             storyText.setFont(helvetiHandFont);
@@ -416,20 +424,20 @@ public class Scene extends JFrame {
         characterImage = new ImageIcon(charPath);
         characterLabel.setIcon(characterImage);
         characterLabel.setIcon(new ImageIcon(characterImage.getImage().getScaledInstance(800, 800, Image.SCALE_FAST)));
+        panel.add(characterLabel);
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, characterLabel, 0, SpringLayout.HORIZONTAL_CENTER, panel);
         layout.putConstraint(SpringLayout.SOUTH, characterLabel, 0, SpringLayout.SOUTH, panel);
-        panel.add(characterLabel);
 
         // Background image
         backgroundImage = new ImageIcon(bgPath);
         backgroundLabel.setIcon(backgroundImage);
+        panel.add(backgroundLabel);
         setVisible(true);
         backgroundLabel.setIcon(new ImageIcon(backgroundImage.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_FAST)));
         layout.putConstraint(SpringLayout.WEST, backgroundLabel, 0, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, backgroundLabel, 0, SpringLayout.NORTH, panel);
         layout.putConstraint(SpringLayout.EAST, backgroundLabel, 0, SpringLayout.EAST, panel);
         layout.putConstraint(SpringLayout.SOUTH, backgroundLabel, 0, SpringLayout.SOUTH, panel);
-        panel.add(backgroundLabel);
 
         // Triangle Button
         JButton triangleButton = new JButton("<html><h2>▼</h2></html>");
@@ -510,6 +518,7 @@ public class Scene extends JFrame {
         yesButton.setForeground(Color.WHITE);
         yesButton.setContentAreaFilled(false);
         yesButton.setBorderPainted(false);
+        yesButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         addButtonMouseListeners(yesButton, e -> {
             audio.stopMusic();
             audio.playSelectSFX();
@@ -523,6 +532,7 @@ public class Scene extends JFrame {
         noButton.setForeground(Color.WHITE);
         noButton.setContentAreaFilled(false);
         noButton.setBorderPainted(false);
+        noButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         addButtonMouseListeners(noButton, e -> {
             audio.playSelectSFX();
             dialog.dispose();
