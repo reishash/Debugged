@@ -96,7 +96,7 @@ public class Scene extends JFrame {
         layout.putConstraint(SpringLayout.NORTH, backButton, 50, SpringLayout.NORTH, panel);
         backButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
+                audio.playSelectSFX();
                 JDialog dialog = new JDialog();
                 dialog.setUndecorated(true);
                 dialog.setModal(true);
@@ -117,7 +117,7 @@ public class Scene extends JFrame {
                 yesButton.setBorderPainted(false);
                 yesButton.addActionListener(e -> {
                     audio.stopMusic();
-                    audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
+                    audio.playSelectSFX();
                     gameEngine.initializeMainMenu();
                     dialog.dispose();
                     dispose();
@@ -129,7 +129,7 @@ public class Scene extends JFrame {
                 noButton.setContentAreaFilled(false);
                 noButton.setBorderPainted(false);
                 noButton.addActionListener(e -> {
-                    audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
+                    audio.playSelectSFX();
                     dialog.dispose();
                 });
                 buttonPanel.add(noButton);
@@ -141,7 +141,7 @@ public class Scene extends JFrame {
             }
             public void mouseEntered(MouseEvent evt) {
                 backButton.setForeground(Color.YELLOW);
-                audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
+                audio.playHoverSFX();
                 Point originalLocation = backButton.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -186,7 +186,7 @@ public class Scene extends JFrame {
         layout.putConstraint(SpringLayout.NORTH, saveButton, 50, SpringLayout.NORTH, panel);
         saveButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
+                audio.playSelectSFX();
                 JDialog dialog = new JDialog();
                 dialog.setUndecorated(true);
                 dialog.setModal(true);
@@ -251,7 +251,7 @@ public class Scene extends JFrame {
             }
             public void mouseEntered(MouseEvent evt) {
                 saveButton.setForeground(Color.YELLOW);
-                audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
+                audio.playHoverSFX();
                 Point originalLocation = saveButton.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -296,12 +296,12 @@ public class Scene extends JFrame {
         layout.putConstraint(SpringLayout.NORTH, settingButton, 50, SpringLayout.NORTH, panel);
         settingButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
+                audio.playSelectSFX();
                 new Setting(audio, Scene.this);
             }
             public void mouseEntered(MouseEvent evt) {
                 settingButton.setForeground(Color.YELLOW);
-                audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
+                audio.playHoverSFX();
                 Point originalLocation = settingButton.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -347,7 +347,7 @@ public class Scene extends JFrame {
         hideUIButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
                 hideUIButton.setForeground(Color.YELLOW);
-                audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
+                audio.playHoverSFX();
                 Point originalLocation = hideUIButton.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -373,7 +373,7 @@ public class Scene extends JFrame {
                 hideUIButton.setForeground(Color.WHITE);
             }
             public void mouseClicked(MouseEvent evt) {
-                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
+                audio.playSelectSFX();
                 for (Component component : panel.getComponents()) {
                     if (component != hideUIButton && component != backgroundLabel && component != characterLabel) {
                         component.setVisible(!component.isVisible());
@@ -401,7 +401,7 @@ public class Scene extends JFrame {
         logButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
                 logButton.setForeground(Color.YELLOW);
-                audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
+                audio.playHoverSFX();
                 Point originalLocation = logButton.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -427,7 +427,7 @@ public class Scene extends JFrame {
                 logButton.setForeground(Color.WHITE);
             }
             public void mouseClicked(MouseEvent evt) {
-                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
+                audio.playSelectSFX();
                 new LogWindow(sceneID);
             }
         });
@@ -444,7 +444,7 @@ public class Scene extends JFrame {
             public void mouseClicked(MouseEvent evt) {
                 setFocusable(true);
                 requestFocusInWindow();
-                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
+                audio.playSelectSFX();
                 // Will be used for choices
                 // if (sceneID == 9999) {
                 //     // Choice
@@ -500,7 +500,7 @@ public class Scene extends JFrame {
             @Override
             public void keyPressed(KeyEvent evt) {
                 if (evt.getKeyCode() == setting.getKeyBinding()) {
-                    audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
+                    audio.playSelectSFX();
                     sceneID++;
                     updateScene(panel);
                 }
@@ -583,7 +583,7 @@ public class Scene extends JFrame {
                     break;
                 case 4, 15:
                     audio.stopSFX();
-                    audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
+                    audio.playSelectSFX();
                     break;
                 case 6:
                     audio.stopSFX();

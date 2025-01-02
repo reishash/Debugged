@@ -111,7 +111,7 @@ public class SelectChapter extends JFrame {
             chapterLabel.addMouseListener(new MouseAdapter() {
                 public void mouseEntered(MouseEvent evt) {
                     chapterLabel.setForeground(Color.YELLOW);
-                    audio.playHoverSFX();
+                    audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
                     Point originalLocation = chapterLabel.getLocation();
                     Timer timer = new Timer(50, new ActionListener() {
                         int count = 0;
@@ -155,7 +155,7 @@ public class SelectChapter extends JFrame {
         backButtonLabel.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
                 backButtonLabel.setForeground(Color.YELLOW);
-                audio.playHoverSFX();
+                audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
                 Point originalLocation = backButtonLabel.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -264,7 +264,7 @@ public class SelectChapter extends JFrame {
         chapterSelectLabel.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
             chapterSelectLabel.setForeground(Color.YELLOW);
-            audio.playHoverSFX();
+            audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
             Point originalLocation = chapterSelectLabel.getLocation();
             Timer timer = new Timer(50, new ActionListener() {
                 int count = 0;

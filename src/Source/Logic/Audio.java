@@ -72,7 +72,7 @@ public class Audio {
     // Play Select SFX
     public void playSelectSFX() {
         try {
-            File sfxPath = new File("/Audio/SFX/menu_select.wav");
+            File sfxPath = new File("src/Assets/Audio/SFX/menu_select.wav");
             AudioInputStream audioInput = AudioSystem.getAudioInputStream(sfxPath);
             sfx = AudioSystem.getClip();
             sfx.open(audioInput);
@@ -86,7 +86,7 @@ public class Audio {
     // Play Hover SFX
     public void playHoverSFX() {
         try {
-            File sfxPath = new File("/Audio/SFX/menu_hover.wav");
+            File sfxPath = new File("src/Assets/Audio/SFX/menu_hover.wav");
             AudioInputStream audioInput = AudioSystem.getAudioInputStream(sfxPath);
             sfx = AudioSystem.getClip();
             sfx.open(audioInput);
