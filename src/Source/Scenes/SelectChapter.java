@@ -93,14 +93,14 @@ public class SelectChapter extends JFrame {
         layout.putConstraint(SpringLayout.SOUTH, dynamicPanel, 0, SpringLayout.SOUTH, panel);
 
         // Chapter Selection
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < 10; i++) {
             JLabel chapterLabel = new JLabel(getChapterName(i));
             chapterLabel.setFont(helvetiHandFont);
             chapterLabel.setForeground(Color.WHITE);
             chapterLabel.setHorizontalAlignment(SwingConstants.LEFT);
             panel.add(chapterLabel);
             chapterLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            if (i == 0 || i == 4 || i == 8) {
+            if (i == 0 || i == 4 || i == 7) {
                 layout.putConstraint(SpringLayout.WEST, chapterLabel, 250, SpringLayout.WEST, panel);
             } else {
                 layout.putConstraint(SpringLayout.WEST, chapterLabel, 300, SpringLayout.WEST, panel);
@@ -213,7 +213,6 @@ public class SelectChapter extends JFrame {
             "Code Red",
             "Segmentation Fault",
             "Stack Overflow",
-            "Null Pointer",
             "Infinite Loop",
             "Reflection Bug",
             "Exit Code",
@@ -322,7 +321,7 @@ public class SelectChapter extends JFrame {
                         dispose();
                         break;
                     case 7:
-                        new Scene(324);
+                        new Scene(353);
                         dispose();
                         break;
                     case 8:
@@ -330,10 +329,6 @@ public class SelectChapter extends JFrame {
                         dispose();
                         break;
                     case 9:
-                        new Scene(999);
-                        dispose();
-                        break;
-                    case 10:
                         new Scene(999);
                         dispose();
                         break;
@@ -366,7 +361,6 @@ public class SelectChapter extends JFrame {
             "Sometimes, the people we care about the most are the hardest to understand. But it’s the effort that matters.",
             "Dreams are fragile. But it’s only when we lose them that we realize how much they meant.",
             "We can’t rewrite the past, no matter how much we wish we could. But we can learn to live with the changes.",
-            "We search for answers in the spaces between memories. But some gaps are meant to stay empty.",
             "We can’t outrun our past, but we can choose how it shapes us. Sometimes, we have to break free to move forward.",
             "The hardest person to face is the one in the mirror. But it’s only by understanding them that we can truly move on.",
             "Leaving isn’t always about escape. Sometimes, it’s about understanding what we’re leaving behind; and why it matters.",
