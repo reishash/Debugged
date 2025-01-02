@@ -96,7 +96,7 @@ public class Scene extends JFrame {
         layout.putConstraint(SpringLayout.NORTH, backButton, 50, SpringLayout.NORTH, panel);
         backButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                 JDialog dialog = new JDialog();
                 dialog.setUndecorated(true);
                 dialog.setModal(true);
@@ -117,7 +117,7 @@ public class Scene extends JFrame {
                 yesButton.setBorderPainted(false);
                 yesButton.addActionListener(e -> {
                     audio.stopMusic();
-                    audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                    audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                     gameEngine.initializeMainMenu();
                     dialog.dispose();
                     dispose();
@@ -129,7 +129,7 @@ public class Scene extends JFrame {
                 noButton.setContentAreaFilled(false);
                 noButton.setBorderPainted(false);
                 noButton.addActionListener(e -> {
-                    audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                    audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                     dialog.dispose();
                 });
                 buttonPanel.add(noButton);
@@ -141,7 +141,7 @@ public class Scene extends JFrame {
             }
             public void mouseEntered(MouseEvent evt) {
                 backButton.setForeground(Color.YELLOW);
-                audio.playSFX("src/Assets/Sounds/menu_hover.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
                 Point originalLocation = backButton.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -186,7 +186,7 @@ public class Scene extends JFrame {
         layout.putConstraint(SpringLayout.NORTH, saveButton, 50, SpringLayout.NORTH, panel);
         saveButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                 JDialog dialog = new JDialog();
                 dialog.setUndecorated(true);
                 dialog.setModal(true);
@@ -251,7 +251,7 @@ public class Scene extends JFrame {
             }
             public void mouseEntered(MouseEvent evt) {
                 saveButton.setForeground(Color.YELLOW);
-                audio.playSFX("src/Assets/Sounds/menu_hover.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
                 Point originalLocation = saveButton.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -296,12 +296,12 @@ public class Scene extends JFrame {
         layout.putConstraint(SpringLayout.NORTH, settingButton, 50, SpringLayout.NORTH, panel);
         settingButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                 new Setting(audio, Scene.this);
             }
             public void mouseEntered(MouseEvent evt) {
                 settingButton.setForeground(Color.YELLOW);
-                audio.playSFX("src/Assets/Sounds/menu_hover.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
                 Point originalLocation = settingButton.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -347,7 +347,7 @@ public class Scene extends JFrame {
         hideUIButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
                 hideUIButton.setForeground(Color.YELLOW);
-                audio.playSFX("src/Assets/Sounds/menu_hover.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
                 Point originalLocation = hideUIButton.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -373,7 +373,7 @@ public class Scene extends JFrame {
                 hideUIButton.setForeground(Color.WHITE);
             }
             public void mouseClicked(MouseEvent evt) {
-                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                 for (Component component : panel.getComponents()) {
                     if (component != hideUIButton && component != backgroundLabel && component != characterLabel) {
                         component.setVisible(!component.isVisible());
@@ -401,7 +401,7 @@ public class Scene extends JFrame {
         logButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
                 logButton.setForeground(Color.YELLOW);
-                audio.playSFX("src/Assets/Sounds/menu_hover.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
                 Point originalLocation = logButton.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -427,7 +427,7 @@ public class Scene extends JFrame {
                 logButton.setForeground(Color.WHITE);
             }
             public void mouseClicked(MouseEvent evt) {
-                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                 new LogWindow(sceneID);
             }
         });
@@ -444,7 +444,7 @@ public class Scene extends JFrame {
             public void mouseClicked(MouseEvent evt) {
                 setFocusable(true);
                 requestFocusInWindow();
-                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                 // Will be used for choices
                 // if (sceneID == 9999) {
                 //     // Choice
@@ -500,7 +500,7 @@ public class Scene extends JFrame {
             @Override
             public void keyPressed(KeyEvent evt) {
                 if (evt.getKeyCode() == setting.getKeyBinding()) {
-                    audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                    audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                     sceneID++;
                     updateScene(panel);
                 }
@@ -540,66 +540,66 @@ public class Scene extends JFrame {
             switch (sceneID) {
                 case 1:
                     audio.stopMusic();
-                    audio.playMusic("src/Assets/Sounds/0.wav");
+                    audio.playMusic("src/Assets/Audio/Music/0.wav");
                     break;
                 case 39:
                     audio.stopMusic();
-                    audio.playMusic("src/Assets/Sounds/1.wav");
+                    audio.playMusic("src/Assets/Audio/Music/1.wav");
                     break;
                 case 86:
                     audio.stopMusic();
-                    audio.playMusic("src/Assets/Sounds/2.wav");
+                    audio.playMusic("src/Assets/Audio/Music/2.wav");
                     break;
                 case 129:
                     audio.stopMusic();
-                    audio.playMusic("src/Assets/Sounds/3.wav");
+                    audio.playMusic("src/Assets/Audio/Music/3.wav");
                     break;
                 case 176:
                     audio.stopMusic();
-                    audio.playMusic("src/Assets/Sounds/4.wav");
+                    audio.playMusic("src/Assets/Audio/Music/4.wav");
                     break;
                 case 228:
                     audio.stopMusic();
-                    audio.playMusic("src/Assets/Sounds/5.wav");
+                    audio.playMusic("src/Assets/Audio/Music/5.wav");
                     break;
                 case 276:
                     audio.stopMusic();
-                    audio.playMusic("src/Assets/Sounds/6.wav");
+                    audio.playMusic("src/Assets/Audio/Music/6.wav");
                     break;
                 case 353:
                     audio.stopMusic();
-                    audio.playMusic("src/Assets/Sounds/7.wav");
+                    audio.playMusic("src/Assets/Audio/Music/7.wav");
                     break;
             }
 
             // Sound Effects
             switch (sceneID) {
                 case 1:
-                    audio.playSFX("src/Assets/Sounds/sfx_boot.wav");
+                    audio.playSFX("src/Assets/Audio/SFX/sfx_boot.wav");
                     break;
                 case 3:
                     audio.stopSFX();
-                    audio.playSFX("src/Assets/Sounds/sfx_typing.wav");
+                    audio.playSFX("src/Assets/Audio/SFX/sfx_typing.wav");
                     break;
                 case 4, 15:
                     audio.stopSFX();
-                    audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                    audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                     break;
                 case 6:
                     audio.stopSFX();
-                    audio.playSFX("src/Assets/Sounds/sfx_error.wav");
+                    audio.playSFX("src/Assets/Audio/SFX/sfx_error.wav");
                     break;
                 case 16, 19, 32:
                     audio.stopSFX();
-                    audio.playSFX("src/Assets/Sounds/sfx_glitch.wav");
+                    audio.playSFX("src/Assets/Audio/SFX/sfx_glitch.wav");
                     break;
                 case 18:
                     audio.stopSFX();
-                    audio.playSFX("src/Assets/Sounds/sfx_shutdown.wav");
+                    audio.playSFX("src/Assets/Audio/SFX/sfx_shutdown.wav");
                     break;
                 case 22:
                     audio.stopSFX();
-                    audio.playSFX("src/Assets/Sounds/sfx_whoosh.wav");
+                    audio.playSFX("src/Assets/Audio/SFX/sfx_whoosh.wav");
                     break;
             }
         }

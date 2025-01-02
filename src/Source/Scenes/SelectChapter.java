@@ -49,7 +49,7 @@ public class SelectChapter extends JFrame {
         // Audio
         audio = new Audio();
         Audio audio = new Audio();
-        audio.playMusic("src/Assets/Sounds/setting_music.wav");
+        audio.playMusic("src/Assets/Audio/Music/setting_music.wav");
 
         // Load Font
         try {
@@ -111,7 +111,7 @@ public class SelectChapter extends JFrame {
             chapterLabel.addMouseListener(new MouseAdapter() {
                 public void mouseEntered(MouseEvent evt) {
                     chapterLabel.setForeground(Color.YELLOW);
-                    audio.playSFX("src/Assets/Sounds/menu_hover.wav");
+                    audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
                     Point originalLocation = chapterLabel.getLocation();
                     Timer timer = new Timer(50, new ActionListener() {
                         int count = 0;
@@ -138,7 +138,7 @@ public class SelectChapter extends JFrame {
                     chapterLabel.setForeground(Color.WHITE);
                 }
                 public void mouseClicked(MouseEvent evt) {
-                    audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                    audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                     displayChapterContent(chapter);
                 }
             });
@@ -155,7 +155,7 @@ public class SelectChapter extends JFrame {
         backButtonLabel.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
                 backButtonLabel.setForeground(Color.YELLOW);
-                audio.playSFX("src/Assets/Sounds/menu_hover.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
                 Point originalLocation = backButtonLabel.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -181,7 +181,7 @@ public class SelectChapter extends JFrame {
                 backButtonLabel.setForeground(Color.WHITE);
             }
             public void mouseClicked(MouseEvent evt) {
-                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                 audio.stopMusic();
                 gameEngine.initializeMainMenu();
                 dispose();
@@ -264,7 +264,7 @@ public class SelectChapter extends JFrame {
         chapterSelectLabel.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
             chapterSelectLabel.setForeground(Color.YELLOW);
-            audio.playSFX("src/Assets/Sounds/menu_hover.wav");
+            audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
             Point originalLocation = chapterSelectLabel.getLocation();
             Timer timer = new Timer(50, new ActionListener() {
                 int count = 0;
@@ -290,7 +290,7 @@ public class SelectChapter extends JFrame {
                 chapterSelectLabel.setForeground(Color.WHITE);
             }
             public void mouseClicked(MouseEvent evt) {
-                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                 switch (chapter) {
                     case 0:
                         new Scene(1);

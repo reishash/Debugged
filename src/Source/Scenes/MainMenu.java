@@ -55,7 +55,7 @@ public class MainMenu extends JFrame {
         // Music
         audio = new Audio();
         audio.stopMusic();
-        audio.playMusic("src/Assets/Sounds/main_menu_music.wav");
+        audio.playMusic("src/Assets/Audio/Music/main_menu_music.wav");
 
         // Panel
         JPanel panel = new JPanel();
@@ -92,7 +92,7 @@ public class MainMenu extends JFrame {
         startButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
                 startButton.setForeground(Color.YELLOW);
-                audio.playSFX("src/Assets/Sounds/menu_hover.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
                 Point originalLocation = startButton.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -119,7 +119,7 @@ public class MainMenu extends JFrame {
                 startButton.setForeground(Color.WHITE);
             }
             public void mouseClicked(MouseEvent evt) {
-                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                 audio.stopMusic();
                 game = new GameEngine();
                 game.startGame();
@@ -146,7 +146,7 @@ public class MainMenu extends JFrame {
         loadButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
                 loadButton.setForeground(Color.YELLOW);
-                audio.playSFX("src/Assets/Sounds/menu_hover.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
                 Point originalLocation = loadButton.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -173,7 +173,7 @@ public class MainMenu extends JFrame {
                 loadButton.setForeground(Color.WHITE);
             }
             public void mouseClicked(MouseEvent evt) {
-                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                 audio.stopMusic();
                 game = new GameEngine();
                 game.loadGame();
@@ -200,7 +200,7 @@ public class MainMenu extends JFrame {
         chapterButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
                 chapterButton.setForeground(Color.YELLOW);
-                audio.playSFX("src/Assets/Sounds/menu_hover.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
                 Point originalLocation = chapterButton.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -227,7 +227,7 @@ public class MainMenu extends JFrame {
                 chapterButton.setForeground(Color.WHITE);
             }
             public void mouseClicked(MouseEvent evt) {
-                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                 audio.stopMusic();
                 new SelectChapter();
                 dispose();
@@ -253,7 +253,7 @@ public class MainMenu extends JFrame {
         settingButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
                 settingButton.setForeground(Color.YELLOW);
-                audio.playSFX("src/Assets/Sounds/menu_hover.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
                 Point originalLocation = settingButton.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -280,7 +280,7 @@ public class MainMenu extends JFrame {
                 settingButton.setForeground(Color.WHITE);
             }
             public void mouseClicked(MouseEvent evt) {
-                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                 audio.stopMusic();
                 new Setting(audio, MainMenu.this);
                 dispose();
@@ -306,7 +306,7 @@ public class MainMenu extends JFrame {
         exitButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
                 exitButton.setForeground(Color.RED);
-                audio.playSFX("src/Assets/Sounds/menu_hover.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
                 Point originalLocation = exitButton.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -333,7 +333,7 @@ public class MainMenu extends JFrame {
                 exitButton.setForeground(Color.WHITE);
             }
             public void mouseClicked(MouseEvent evt) {
-                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                 JDialog dialog = new JDialog();
                 dialog.setUndecorated(true);
                 dialog.setModal(true);
@@ -355,7 +355,7 @@ public class MainMenu extends JFrame {
                 yesButton.setBorderPainted(false);
                 yesButton.addActionListener(e -> {
                     audio.stopMusic();
-                    audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                    audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                     System.exit(0);
                 });
                 JButton noButton = new JButton("No");
@@ -364,7 +364,7 @@ public class MainMenu extends JFrame {
                 noButton.setContentAreaFilled(false);
                 noButton.setBorderPainted(false);
                 noButton.addActionListener(e -> {
-                    audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                    audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                     dialog.dispose();
                 });
                 buttonPanel.add(yesButton);
@@ -396,7 +396,7 @@ public class MainMenu extends JFrame {
         creditButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
                 creditButton.setForeground(Color.YELLOW);
-                audio.playSFX("src/Assets/Sounds/menu_hover.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
                 Point originalLocation = creditButton.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -423,7 +423,7 @@ public class MainMenu extends JFrame {
                 creditButton.setForeground(Color.WHITE);
             }
             public void mouseClicked(MouseEvent evt) {
-                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                 audio.stopMusic();
                 new Credits();
                 dispose();

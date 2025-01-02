@@ -38,7 +38,7 @@ public class Credits extends JFrame {
     public Credits() {
         // Music
         audio = new Audio();
-        audio.playMusic("src/Assets/Sounds/setting_music.wav");
+        audio.playMusic("src/Assets/Audio/Music/setting_music.wav");
 
         // Load Font
         try {
@@ -102,7 +102,7 @@ public class Credits extends JFrame {
         profileNameLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         profileNameLabel.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                 try {
                     Desktop.getDesktop().browse(new URI("https://github.com/reishash"));
                 } catch (Exception e) {
@@ -146,7 +146,7 @@ public class Credits extends JFrame {
                 creditLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
                 creditLabel.addMouseListener(new MouseAdapter() {
                     public void mouseClicked(MouseEvent evt) {
-                        audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                        audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                         String url = "";
                         try {
                             Desktop.getDesktop().browse(new URI(url));
@@ -188,7 +188,7 @@ public class Credits extends JFrame {
         backButtonLabel.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
                 backButtonLabel.setForeground(Color.YELLOW);
-                audio.playSFX("src/Assets/Sounds/menu_hover.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_hover.wav");
                 Point originalLocation = backButtonLabel.getLocation();
                 Timer timer = new Timer(50, new ActionListener() {
                     int count = 0;
@@ -214,7 +214,7 @@ public class Credits extends JFrame {
                 backButtonLabel.setForeground(Color.WHITE);
             }
             public void mouseClicked(MouseEvent evt) {
-                audio.playSFX("src/Assets/Sounds/menu_select.wav");
+                audio.playSFX("src/Assets/Audio/SFX/menu_select.wav");
                 audio.stopMusic();
                 gameEngine.initializeMainMenu();
                 dispose();
