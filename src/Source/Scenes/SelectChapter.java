@@ -190,7 +190,7 @@ public class SelectChapter extends JFrame {
         panel.add(backButtonLabel);
 
         // Add background image
-        ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/Assets/Images/bg_select.jpg"));
+        ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/Assets/Images/Backgrounds/bg_select.jpg"));
         JLabel backgroundLabel = new JLabel();
         backgroundLabel.setIcon(backgroundImage);
         setVisible(true);
@@ -232,7 +232,7 @@ public class SelectChapter extends JFrame {
         }
 
         // Chapter Image
-        chapterImageLabel = new JLabel(new ImageIcon(new ImageIcon(getClass().getResource("/Assets/Images/c" + chapter + ".jpg")).getImage().getScaledInstance(400, 225, Image.SCALE_FAST)));
+        chapterImageLabel = new JLabel(new ImageIcon(new ImageIcon(getClass().getResource("/Assets/Images/Chapters/c" + chapter + ".jpg")).getImage().getScaledInstance(400, 225, Image.SCALE_FAST)));
         chapterImageLabel.setIcon(new ImageIcon(makeRoundedCorner(new ImageIcon(getClass().getResource("/Assets/Images/c" + chapter + ".jpg")).getImage(), 400, 225, 50)));
         dynamicPanel.add(chapterImageLabel);
         layout.putConstraint(SpringLayout.NORTH, chapterImageLabel, 150, SpringLayout.NORTH, dynamicPanel);

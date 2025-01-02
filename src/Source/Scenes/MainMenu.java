@@ -432,7 +432,7 @@ public class MainMenu extends JFrame {
         panel.add(creditButton);
 
         // Background Image
-        ImageIcon backgroundImage = new ImageIcon("src/Assets/Images/bg_mainmenu.jpg");
+        ImageIcon backgroundImage = new ImageIcon("src/Assets/Images/Backgrounds/bg_mainmenu.jpg");
         JLabel backgroundLabel = new JLabel(backgroundImage);
         panel.add(backgroundLabel);
         setVisible(true);

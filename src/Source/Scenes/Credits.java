@@ -223,7 +223,7 @@ public class Credits extends JFrame {
         panel.add(backButtonLabel);
 
         // Background Image
-        ImageIcon backgroundImage = new ImageIcon("src/Assets/Images/bg_setting.jpg");
+        ImageIcon backgroundImage = new ImageIcon("src/Assets/Images/Backgrounds/bg_setting.jpg");
         JLabel backgroundLabel = new JLabel(backgroundImage);
         panel.add(backgroundLabel);
         setVisible(true);

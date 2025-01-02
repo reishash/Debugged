@@ -589,10 +589,6 @@ public class Scene extends JFrame {
                     audio.stopSFX();
                     audio.playSFX("src/Assets/Sounds/sfx_error.wav");
                     break;
-                case 7:
-                    audio.stopSFX();
-                    audio.playSFX("src/Assets/Sounds/sfx_sighfem.wav");
-                    break;
                 case 16, 19, 32:
                     audio.stopSFX();
                     audio.playSFX("src/Assets/Sounds/sfx_glitch.wav");
@@ -631,24 +627,24 @@ public class Scene extends JFrame {
         String charPath;
         switch (sceneID) {
             case 63, 64, 66, 68, 69, 70, 71, 72, 73, 82, 83:
-                charPath = "src/Assets/Images/raina.png";
+                charPath = "src/Assets/Images/Characters/raina.png";
                 break;
             case 103, 106, 113, 141, 142, 143, 144, 145, 146:
-                charPath = "src/Assets/Images/elara_young.png";
+                charPath = "src/Assets/Images/Characters/elara_young.png";
                 break;
             case 97, 98, 99, 101, 102, 105, 107, 109, 110, 111, 112, 114:
-                charPath = "src/Assets/Images/grandma.png";
+                charPath = "src/Assets/Images/Characters/grandma.png";
                 break;
             case 161, 162:
-                charPath = "src/Assets/Images/elara_old.png";
+                charPath = "src/Assets/Images/Characters/elara_old.png";
                 break;
             case 22, 23, 24, 25, 26, 27, 28, 29, 30, 33, 34, 35, 36, 37, 47, 48, 
             49, 50, 51, 52, 55, 56, 74, 75, 78, 79, 80, 81, 123, 124, 125, 170, 
             171, 172, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222:
-                charPath = "src/Assets/Images/byte.png";
+                charPath = "src/Assets/Images/Characters/byte.png";
                 break;
             case 186, 187, 193, 194, 196, 197, 208:
-                charPath = "src/Assets/Images/ex.png";
+                charPath = "src/Assets/Images/Characters/ex.png";
                 break;
             default:
                 charPath = "";
@@ -660,60 +656,60 @@ public class Scene extends JFrame {
         switch (sceneID) {
             case 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 195, 196, 197, 198,
             199:
-                bgPath = "src/Assets/Images/bg_roomelara.jpg";
+                bgPath = "src/Assets/Images/Backgrounds/bg_roomelara.jpg";
                 break;
             case 16, 17, 61, 62, 63, 64, 65, 68, 69, 70, 71, 72, 73, 74, 
             75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 92, 107, 108, 109, 
             114, 115, 116, 117, 122, 170, 179, 180, 191:
-                bgPath = "src/Assets/Images/bg_glitch.jpg";
+                bgPath = "src/Assets/Images/Backgrounds/bg_glitch.jpg";
                 break;
             case 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 
             35, 36, 37, 45, 46, 47, 48, 49, 50, 51, 52, 123, 124, 125, 171, 
             172:
-                bgPath = "src/Assets/Images/bg_nullspace.jpg";
+                bgPath = "src/Assets/Images/Backgrounds/bg_nullspace.jpg";
                 break;
             case 53, 54, 55, 56, 57, 58, 59, 60:
-                bgPath = "src/Assets/Images/bg_nullspace2.jpg";
+                bgPath = "src/Assets/Images/Backgrounds/bg_nullspace2.jpg";
                 break;
             case 66, 67, 93, 94, 95, 96, 134, 140, 147, 181, 200, 201, 202:
-                bgPath = "src/Assets/Images/bg_fracture.jpg";
+                bgPath = "src/Assets/Images/Backgrounds/bg_fracture.jpg";
                 break;
             case 97, 98, 99:
-                bgPath = "src/Assets/Images/bg_roomgrandma.jpg";
+                bgPath = "src/Assets/Images/Backgrounds/bg_roomgrandma.jpg";
                 break;
             case 100, 101, 102:
-                bgPath = "src/Assets/Images/bg_roomdining.jpg";
+                bgPath = "src/Assets/Images/Backgrounds/bg_roomdining.jpg";
                 break;
             case 103, 104, 105, 106:
-                bgPath = "src/Assets/Images/bg_roomwinter.jpg";
+                bgPath = "src/Assets/Images/Backgrounds/bg_roomwinter.jpg";
                 break;
             case 110, 111, 112, 113:
-                bgPath = "src/Assets/Images/bg_roomhospital.jpg";
+                bgPath = "src/Assets/Images/Backgrounds/bg_roomhospital.jpg";
                 break;
             case 132, 133, 168, 169:
-                bgPath = "src/Assets/Images/bg_map.jpg";
+                bgPath = "src/Assets/Images/Backgrounds/bg_map.jpg";
                 break;
             case 135, 136, 137, 138, 139:
-                bgPath = "src/Assets/Images/bg_roomflag.jpg";
+                bgPath = "src/Assets/Images/Backgrounds/bg_roomflag.jpg";
                 break;
             case 141, 142, 143, 144, 145, 146:
-                bgPath = "src/Assets/Images/bg_roommap.jpg";
+                bgPath = "src/Assets/Images/Backgrounds/bg_roommap.jpg";
                 break;
             case 148, 149, 150, 151, 152, 153, 154:
-                bgPath = "src/Assets/Images/bg_roomclass.jpg";
+                bgPath = "src/Assets/Images/Backgrounds/bg_roomclass.jpg";
                 break;
             case 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167:
-                bgPath = "src/Assets/Images/bg_roomflag2.jpg";
+                bgPath = "src/Assets/Images/Backgrounds/bg_roomflag2.jpg";
                 break;
             case 182, 183, 184, 185, 186, 187:
-                bgPath = "src/Assets/Images/bg_room.jpg";
+                bgPath = "src/Assets/Images/Backgrounds/bg_room.jpg";
                 break;
             case 188, 189, 190:
-                bgPath = "src/Assets/Images/bg_cafe.jpg";
+                bgPath = "src/Assets/Images/Backgrounds/bg_cafe.jpg";
                 break;
             case 192, 193, 194, 205, 206, 207, 208, 209, 210, 213, 214, 215,
             216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226:
-                bgPath = "src/Assets/Images/bg_room2.jpg";
+                bgPath = "src/Assets/Images/Backgrounds/bg_room2.jpg";
                 break;
             default:
                 bgPath = "";
