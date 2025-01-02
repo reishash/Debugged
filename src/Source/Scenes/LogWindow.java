@@ -11,10 +11,12 @@ import javax.swing.JTextArea;
 import Assets.Scripts.ScriptRaw;
 
 public class LogWindow extends JFrame {
-    private JTextArea logTextArea;
+    private Font helvetiHandFont;
     private int sceneID;
     private int checkpointID;
-    private Font helvetiHandFont;
+    private JScrollPane scrollPane;
+    private JTextArea logTextArea;
+    private StringBuilder logText;
 
     public LogWindow(int sceneID) {
         this.sceneID = sceneID;
@@ -47,7 +49,7 @@ public class LogWindow extends JFrame {
         logTextArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // Scroll pane
-        JScrollPane scrollPane = new JScrollPane(logTextArea);
+        scrollPane = new JScrollPane(logTextArea);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.getVerticalScrollBar().setBackground(Color.DARK_GRAY);
         add(scrollPane);
@@ -77,7 +79,7 @@ public class LogWindow extends JFrame {
 
     // Load the story log text based on the current scene
     private void loadLogText() {
-        StringBuilder logText = new StringBuilder();
+        logText = new StringBuilder();
         String[] storyTexts = ScriptRaw.storyTexts;
         for (int i = checkpointID - 1; i < sceneID; i++) {
             if (i >= 0 && i < storyTexts.length) {

@@ -28,18 +28,25 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 import Source.Logic.Audio;
-import Source.Logic.GameEngine;
+// import Source.Logic.Save;
 import Assets.Scripts.Script;
 
 public class Scene extends JFrame {
+    private Audio audio;
+    private boolean isFirstScene;
     private Component previousComponent;
     private Font helvetiHandFont;
-    private GameEngine gameEngine = new GameEngine();
-    private boolean isFirstScene;
-    private JLabel backgroundLabel, characterLabel;
+    private ImageIcon backgroundImage, characterImage;
     private int sceneID;
-    private Setting setting = new Setting();
+    private JLabel backgroundLabel, characterLabel;
+    private JButton button, yesButton, noButton;
+    private JDialog dialog;
+    private JLabel messageLabel/*, savedLabel, errorLabel*/;
+    private JPanel buttonPanel, panel, sceneUpdater;
+    // private Save save;
+    private Setting setting;
     private SpringLayout layout;
+    private Timer timer;
 
     // Constructor
     public Scene(int SceneID) {
@@ -56,7 +63,7 @@ public class Scene extends JFrame {
         }
 
         // Music
-        Audio audio = new Audio();
+        audio = new Audio();
         audio.stopMusic();
 
         // Frame
@@ -68,372 +75,60 @@ public class Scene extends JFrame {
         getContentPane().setBackground(Color.BLACK);
 
         // Panel
-        JPanel panel = new JPanel();
+        panel = new JPanel();
         layout = new SpringLayout();
         panel.setLayout(layout);
 
-        // Background Label
         backgroundLabel = new JLabel();
-
-        // Character Label
         characterLabel = new JLabel();
 
-        // Back Button
-        JButton backButton = new JButton("Back");
-        backButton.setFont(helvetiHandFont);
-        backButton.setForeground(Color.WHITE);
-        backButton.setContentAreaFilled(false);
-        backButton.setHorizontalAlignment(SwingConstants.CENTER);
-        backButton.setFocusPainted(false);
-        backButton.setBorderPainted(false);
-        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        backButton.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(Color.BLACK, 2),
-            BorderFactory.createEmptyBorder(5, 5, 5, 5)
-        ));
-        panel.add(backButton);
-        layout.putConstraint(SpringLayout.WEST, backButton, 100, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, backButton, 50, SpringLayout.NORTH, panel);
-        backButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
+        // Button properties
+        String[] buttonNames = {"Back", /* "Save", */ "Settings", "Hide UI", "Log"};
+        ActionListener[] buttonActions = {
+            evt -> {
                 audio.playSelectSFX();
-                JDialog dialog = new JDialog();
-                dialog.setUndecorated(true);
-                dialog.setModal(true);
-                JPanel panel = new JPanel();
-                panel.setBackground(Color.BLACK);
-                panel.setLayout(new BorderLayout());
-                JLabel messageLabel = new JLabel("Are you sure you want to go back to the main menu?", JLabel.CENTER);
-                messageLabel.setForeground(Color.WHITE);
-                messageLabel.setFont(helvetiHandFont);
-                panel.add(messageLabel, BorderLayout.CENTER);
-                JPanel buttonPanel = new JPanel();
-                buttonPanel.setOpaque(false);
-                buttonPanel.setLayout(new FlowLayout());
-                JButton yesButton = new JButton("Yes");
-                yesButton.setFont(helvetiHandFont);
-                yesButton.setForeground(Color.WHITE);
-                yesButton.setContentAreaFilled(false);
-                yesButton.setBorderPainted(false);
-                yesButton.addActionListener(e -> {
-                    audio.stopMusic();
-                    audio.playSelectSFX();
-                    gameEngine.initializeMainMenu();
-                    dialog.dispose();
-                    dispose();
-                });
-                buttonPanel.add(yesButton);
-                JButton noButton = new JButton("No");
-                noButton.setFont(helvetiHandFont);
-                noButton.setForeground(Color.WHITE);
-                noButton.setContentAreaFilled(false);
-                noButton.setBorderPainted(false);
-                noButton.addActionListener(e -> {
-                    audio.playSelectSFX();
-                    dialog.dispose();
-                });
-                buttonPanel.add(noButton);
-                panel.add(buttonPanel, BorderLayout.SOUTH);
-                dialog.getContentPane().add(panel);
-                dialog.pack();
-                dialog.setLocationRelativeTo(null);
-                dialog.setVisible(true);
-            }
-            public void mouseEntered(MouseEvent evt) {
-                backButton.setForeground(Color.YELLOW);
-                audio.playHoverSFX();
-                Point originalLocation = backButton.getLocation();
-                Timer timer = new Timer(50, new ActionListener() {
-                    int count = 0;
-                    boolean moveRight = true;
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (moveRight) {
-                            backButton.setLocation(originalLocation.x + 1, originalLocation.y + 1);
-                        } else {
-                            backButton.setLocation(originalLocation.x - 1, originalLocation.y - 1);
-                        }
-                        moveRight = !moveRight;
-                        count++;
-                        if (count >= 2) {
-                            ((Timer) e.getSource()).stop();
-                            backButton.setLocation(originalLocation);
-                        }
-                    }
-                });
-                timer.start();
-            }
-            public void mouseExited(MouseEvent evt) {
-                backButton.setForeground(Color.WHITE);
-            }
-        });
-
-        // Save Button
-        JButton saveButton = new JButton("Save");
-        saveButton.setFont(helvetiHandFont);
-        saveButton.setForeground(Color.WHITE);
-        saveButton.setContentAreaFilled(false);
-        saveButton.setHorizontalAlignment(SwingConstants.CENTER);
-        saveButton.setFocusPainted(false);
-        saveButton.setBorderPainted(false);
-        saveButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        saveButton.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(Color.BLACK, 2),
-            BorderFactory.createEmptyBorder(5, 5, 5, 5)
-        ));
-        panel.add(saveButton);
-        layout.putConstraint(SpringLayout.WEST, saveButton, 250, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, saveButton, 50, SpringLayout.NORTH, panel);
-        saveButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
+                confirmExit();
+            },
+            // evt -> {
+            //     audio.playSelectSFX();
+            //     confirmSave();
+            // },
+            evt -> {
                 audio.playSelectSFX();
-                JDialog dialog = new JDialog();
-                dialog.setUndecorated(true);
-                dialog.setModal(true);
-                JPanel panel = new JPanel();
-                panel.setBackground(Color.BLACK);
-                panel.setLayout(new BorderLayout());
-                JLabel messageLabel = new JLabel("Do you want to save your progress?", JLabel.CENTER);
-                messageLabel.setForeground(Color.WHITE);
-                messageLabel.setFont(helvetiHandFont);
-                panel.add(messageLabel, BorderLayout.CENTER);
-                JPanel buttonPanel = new JPanel();
-                buttonPanel.setBackground(Color.BLACK);
-                buttonPanel.setLayout(new FlowLayout());
-                JButton yesButton = new JButton("Yes");
-                yesButton.addActionListener(e -> {
-                    gameEngine.saveGame(sceneID);
-                    dialog.dispose();
-                    if (gameEngine.isGameSaved(sceneID)) {
-                        JLabel savedLabel = new JLabel("Game Saved Successfully!", JLabel.CENTER);
-                        savedLabel.setForeground(Color.GREEN);
-                        savedLabel.setFont(helvetiHandFont);
-                        panel.add(savedLabel, BorderLayout.CENTER);
-                        Timer timer = new Timer(2000, new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                panel.remove(savedLabel);
-                                panel.revalidate();
-                                panel.repaint();
-                            }
-                        });
-                        timer.setRepeats(false);
-                        timer.start();
-                    } else {
-                        JLabel errorLabel = new JLabel("Failed to Save Game!", JLabel.CENTER);
-                        errorLabel.setForeground(Color.RED);
-                        errorLabel.setFont(helvetiHandFont);
-                        panel.add(errorLabel, BorderLayout.CENTER);
-                        Timer timer = new Timer(2000, new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                panel.remove(errorLabel);
-                                panel.revalidate();
-                                panel.repaint();
-                            }
-                        });
-                        timer.setRepeats(false);
-                        timer.start();
-                    }
-                });
-                buttonPanel.add(yesButton);
-
-                JButton noButton = new JButton("No");
-                noButton.addActionListener(e -> {
-                    dialog.dispose();
-                });
-                buttonPanel.add(noButton);
-                panel.add(buttonPanel, BorderLayout.SOUTH);
-                dialog.getContentPane().add(panel);
-                dialog.pack();
-                dialog.setLocationRelativeTo(null);
-                dialog.setVisible(true);
-            }
-            public void mouseEntered(MouseEvent evt) {
-                saveButton.setForeground(Color.YELLOW);
-                audio.playHoverSFX();
-                Point originalLocation = saveButton.getLocation();
-                Timer timer = new Timer(50, new ActionListener() {
-                    int count = 0;
-                    boolean moveRight = true;
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (moveRight) {
-                            saveButton.setLocation(originalLocation.x + 1, originalLocation.y + 1);
-                        } else {
-                            saveButton.setLocation(originalLocation.x - 1, originalLocation.y - 1);
-                        }
-                        moveRight = !moveRight;
-                        count++;
-                        if (count >= 2) {
-                            ((Timer) e.getSource()).stop();
-                            saveButton.setLocation(originalLocation);
-                        }
-                    }
-                });
-                timer.start();
-            }
-            public void mouseExited(MouseEvent evt) {
-                saveButton.setForeground(Color.WHITE);
-            }
-        });
-
-        // Setting Button
-        JButton settingButton = new JButton("Settings");
-        settingButton.setFont(helvetiHandFont);
-        settingButton.setForeground(Color.WHITE);
-        settingButton.setContentAreaFilled(false);
-        settingButton.setHorizontalAlignment(SwingConstants.CENTER);
-        settingButton.setFocusPainted(false);
-        settingButton.setBorderPainted(false);
-        settingButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        settingButton.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(Color.BLACK, 2),
-            BorderFactory.createEmptyBorder(5, 5, 5, 5)
-        ));
-        panel.add(settingButton);
-        layout.putConstraint(SpringLayout.WEST, settingButton, 400, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, settingButton, 50, SpringLayout.NORTH, panel);
-        settingButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                audio.playSelectSFX();
-                new Setting(audio, Scene.this);
-            }
-            public void mouseEntered(MouseEvent evt) {
-                settingButton.setForeground(Color.YELLOW);
-                audio.playHoverSFX();
-                Point originalLocation = settingButton.getLocation();
-                Timer timer = new Timer(50, new ActionListener() {
-                    int count = 0;
-                    boolean moveRight = true;
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (moveRight) {
-                            settingButton.setLocation(originalLocation.x + 1, originalLocation.y + 1);
-                        } else {
-                            settingButton.setLocation(originalLocation.x - 1, originalLocation.y - 1);
-                        }
-                        moveRight = !moveRight;
-                        count++;
-                        if (count >= 2) {
-                            ((Timer) e.getSource()).stop();
-                            settingButton.setLocation(originalLocation);
-                        }
-                    }
-                });
-                timer.start();
-            }
-            public void mouseExited(MouseEvent evt) {
-                settingButton.setForeground(Color.WHITE);
-            }
-        });
-
-        // Hide UI Button
-        JButton hideUIButton = new JButton("Hide UI");
-        hideUIButton.setFont(helvetiHandFont);
-        hideUIButton.setForeground(Color.WHITE);
-        hideUIButton.setContentAreaFilled(false);
-        hideUIButton.setHorizontalAlignment(SwingConstants.CENTER);
-        hideUIButton.setFocusPainted(false);
-        hideUIButton.setBorderPainted(false);
-        hideUIButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        hideUIButton.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(Color.BLACK, 2),
-            BorderFactory.createEmptyBorder(5, 5, 5, 5)
-        ));
-        panel.add(hideUIButton);
-        layout.putConstraint(SpringLayout.WEST, hideUIButton, 550, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, hideUIButton, 50, SpringLayout.NORTH, panel);
-        hideUIButton.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-                hideUIButton.setForeground(Color.YELLOW);
-                audio.playHoverSFX();
-                Point originalLocation = hideUIButton.getLocation();
-                Timer timer = new Timer(50, new ActionListener() {
-                    int count = 0;
-                    boolean moveRight = true;
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (moveRight) {
-                            hideUIButton.setLocation(originalLocation.x + 1, originalLocation.y + 1);
-                        } else {
-                            hideUIButton.setLocation(originalLocation.x - 1, originalLocation.y - 1);
-                        }
-                        moveRight = !moveRight;
-                        count++;
-                        if (count >= 2) {
-                            ((Timer) e.getSource()).stop();
-                            hideUIButton.setLocation(originalLocation);
-                        }
-                    }
-                });
-                timer.start();
-            }
-            public void mouseExited(MouseEvent evt) {
-                hideUIButton.setForeground(Color.WHITE);
-            }
-            public void mouseClicked(MouseEvent evt) {
+                new Setting(Scene.this);
+            },
+            evt -> {
                 audio.playSelectSFX();
                 for (Component component : panel.getComponents()) {
-                    if (component != hideUIButton && component != backgroundLabel && component != characterLabel) {
+                    if (component != backgroundLabel && component != characterLabel && !component.getName().equals("Hide UI")) {
                         component.setVisible(!component.isVisible());
                     }
                 }
-            }
-        });
-
-        // Log button
-        JButton logButton = new JButton("Log");
-        logButton.setFont(helvetiHandFont);
-        logButton.setForeground(Color.WHITE);
-        logButton.setContentAreaFilled(false);
-        logButton.setHorizontalAlignment(SwingConstants.CENTER);
-        logButton.setFocusPainted(false);
-        logButton.setBorderPainted(false);
-        logButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        logButton.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(Color.BLACK, 2),
-            BorderFactory.createEmptyBorder(5, 5, 5, 5)
-        ));
-        panel.add(logButton);
-        layout.putConstraint(SpringLayout.WEST, logButton, 700, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, logButton, 50, SpringLayout.NORTH, panel);
-        logButton.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-                logButton.setForeground(Color.YELLOW);
-                audio.playHoverSFX();
-                Point originalLocation = logButton.getLocation();
-                Timer timer = new Timer(50, new ActionListener() {
-                    int count = 0;
-                    boolean moveRight = true;
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (moveRight) {
-                            logButton.setLocation(originalLocation.x + 1, originalLocation.y + 1);
-                        } else {
-                            logButton.setLocation(originalLocation.x - 1, originalLocation.y - 1);
-                        }
-                        moveRight = !moveRight;
-                        count++;
-                        if (count >= 2) {
-                            ((Timer) e.getSource()).stop();
-                            logButton.setLocation(originalLocation);
-                        }
-                    }
-                });
-                timer.start();
-            }
-            public void mouseExited(MouseEvent evt) {
-                logButton.setForeground(Color.WHITE);
-            }
-            public void mouseClicked(MouseEvent evt) {
+            },
+            evt -> {
                 audio.playSelectSFX();
                 new LogWindow(sceneID);
             }
-        });
+        };
+
+        // Create and add buttons
+        for (int i = 0; i < buttonNames.length; i++) {
+            button = new JButton(buttonNames[i]);
+            button.setFont(helvetiHandFont);
+            button.setForeground(Color.WHITE);
+            button.setContentAreaFilled(false);
+            button.setHorizontalAlignment(SwingConstants.LEFT);
+            button.setFocusPainted(false);
+            button.setBorderPainted(false);
+            button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            layout.putConstraint(SpringLayout.WEST, button, 250 + i * 150, SpringLayout.WEST, panel);
+            layout.putConstraint(SpringLayout.NORTH, button, 50, SpringLayout.NORTH, panel);
+            addButtonMouseListeners(button, buttonActions[i]);
+            panel.add(button);
+        }
 
         // Scene updater
-        JPanel sceneUpdater = new JPanel();
+        sceneUpdater = new JPanel();
         sceneUpdater.setOpaque(false);
         sceneUpdater.addMouseListener(new MouseAdapter() {
             @Override
@@ -448,20 +143,20 @@ public class Scene extends JFrame {
                 // Will be used for choices
                 // if (sceneID == 9999) {
                 //     // Choice
-                //     JDialog choiceDialog = new JDialog();
+                //     choiceDialog = new JDialog();
                 //     choiceDialog.setUndecorated(true);
                 //     choiceDialog.setModal(true);
-                //     JPanel choicePanel = new JPanel();
+                //     choicePanel = new JPanel();
                 //     choicePanel.setBackground(Color.BLACK);
                 //     choicePanel.setLayout(new BorderLayout());
-                //     JLabel choiceLabel = new JLabel("[Choice:]", JLabel.CENTER);
+                //     choiceLabel = new JLabel("[Choice:]", JLabel.CENTER);
                 //     choiceLabel.setForeground(Color.WHITE);
                 //     choiceLabel.setFont(helvetiHandFont);
                 //     choicePanel.add(choiceLabel, BorderLayout.CENTER);
-                //     JPanel choiceButtonPanel = new JPanel();
+                //     choiceButtonPanel = new JPanel();
                 //     choiceButtonPanel.setBackground(Color.BLACK);
                 //     choiceButtonPanel.setLayout(new FlowLayout());
-                //     JButton choiceAButton = new JButton("<html><h2>Sacrifice Byte to leave Nullspace.</h2></html>");
+                //     choiceAButton = new JButton("<html><h2>Sacrifice Byte to leave Nullspace.</h2></html>");
                 //     choiceAButton.setFont(helvetiHandFont);
                 //     choiceAButton.setForeground(Color.WHITE);
                 //     choiceAButton.setContentAreaFilled(false);
@@ -473,7 +168,7 @@ public class Scene extends JFrame {
                 //         updateScene(panel);
                 //     });
                 //     choiceButtonPanel.add(choiceAButton);
-                //     JButton choiceBButton = new JButton("<html><h2>Refuse to leave, staying with Byte.</h2></html>");
+                //     choiceBButton = new JButton("<html><h2>Refuse to leave, staying with Byte.</h2></html>");
                 //     choiceBButton.setFont(helvetiHandFont);
                 //     choiceBButton.setForeground(Color.WHITE);
                 //     choiceBButton.setContentAreaFilled(false);
@@ -491,7 +186,7 @@ public class Scene extends JFrame {
                 //     choiceDialog.setLocationRelativeTo(null);
                 //     choiceDialog.setVisible(true);
                 // } else {
-                    sceneID++;
+                sceneID++;
                 // }
                 updateScene(panel);
             }
@@ -499,6 +194,7 @@ public class Scene extends JFrame {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent evt) {
+                setting = new Setting();
                 if (evt.getKeyCode() == setting.getKeyBinding()) {
                     audio.playSelectSFX();
                     sceneID++;
@@ -506,11 +202,11 @@ public class Scene extends JFrame {
                 }
             }
         });
-        panel.add(sceneUpdater);
         layout.putConstraint(SpringLayout.WEST, sceneUpdater, 0, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, sceneUpdater, 0, SpringLayout.NORTH, panel);
         layout.putConstraint(SpringLayout.EAST, sceneUpdater, 0, SpringLayout.EAST, panel);
         layout.putConstraint(SpringLayout.SOUTH, sceneUpdater, 0, SpringLayout.SOUTH, panel);
+        panel.add(sceneUpdater);
 
         setFocusable(true);
         requestFocusInWindow();
@@ -532,7 +228,7 @@ public class Scene extends JFrame {
         }
         String[] storyTexts = Script.storyTexts;
         JLabel storyText = null;
-        Audio audio = new Audio();
+        audio = new Audio();
         if (sceneID > 0 && sceneID <= storyTexts.length) {
             storyText = new JLabel(storyTexts[sceneID - 1]);
 
@@ -617,10 +313,10 @@ public class Scene extends JFrame {
                 storyText.setHorizontalAlignment(SwingConstants.LEFT);
                 layout.putConstraint(SpringLayout.SOUTH, storyText, -100, SpringLayout.SOUTH, panel);
             }
+            layout.putConstraint(SpringLayout.WEST, storyText, 250, SpringLayout.WEST, panel);
+            layout.putConstraint(SpringLayout.EAST, storyText, -250, SpringLayout.EAST, panel);
             panel.add(storyText, Integer.valueOf(0));
             previousComponent = storyText;
-            layout.putConstraint(SpringLayout.WEST, storyText, 200, SpringLayout.WEST, panel);
-            layout.putConstraint(SpringLayout.EAST, storyText, -200, SpringLayout.EAST, panel);
         }
 
         // Set character image
@@ -717,23 +413,23 @@ public class Scene extends JFrame {
         }
 
         // Character image
-        ImageIcon characterImage = new ImageIcon(charPath);
+        characterImage = new ImageIcon(charPath);
         characterLabel.setIcon(characterImage);
         characterLabel.setIcon(new ImageIcon(characterImage.getImage().getScaledInstance(800, 800, Image.SCALE_FAST)));
-        panel.add(characterLabel);
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, characterLabel, 0, SpringLayout.HORIZONTAL_CENTER, panel);
         layout.putConstraint(SpringLayout.SOUTH, characterLabel, 0, SpringLayout.SOUTH, panel);
+        panel.add(characterLabel);
 
         // Background image
-        ImageIcon backgroundImage = new ImageIcon(bgPath);
+        backgroundImage = new ImageIcon(bgPath);
         backgroundLabel.setIcon(backgroundImage);
         setVisible(true);
         backgroundLabel.setIcon(new ImageIcon(backgroundImage.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_FAST)));
-        panel.add(backgroundLabel);
         layout.putConstraint(SpringLayout.WEST, backgroundLabel, 0, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, backgroundLabel, 0, SpringLayout.NORTH, panel);
         layout.putConstraint(SpringLayout.EAST, backgroundLabel, 0, SpringLayout.EAST, panel);
         layout.putConstraint(SpringLayout.SOUTH, backgroundLabel, 0, SpringLayout.SOUTH, panel);
+        panel.add(backgroundLabel);
 
         // Triangle Button
         JButton triangleButton = new JButton("<html><h2>▼</h2></html>");
@@ -752,8 +448,165 @@ public class Scene extends JFrame {
 
         // Go back to main menu
         if (storyText == null) {
-            gameEngine.initializeMainMenu();
+            new MainMenu();
             dispose();
         }
     }
+
+    // Button Mouse Listeners
+    private void addButtonMouseListeners(JButton button, ActionListener clickAction) {
+        button.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                button.setForeground(Color.YELLOW);
+                audio.playHoverSFX();
+                Point originalLocation = button.getLocation();
+                timer = new Timer(50, new ActionListener() {
+                    int count = 0;
+                    boolean moveRight = true;
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (moveRight) {
+                            button.setLocation(originalLocation.x + 1, originalLocation.y + 1);
+                        } else {
+                            button.setLocation(originalLocation.x - 1, originalLocation.y - 1);
+                        }
+                        moveRight = !moveRight;
+                        count++;
+                        if (count >= 2) {
+                            ((Timer) e.getSource()).stop();
+                            button.setLocation(originalLocation);
+                        }
+                    }
+                });
+                timer.start();
+            }
+            public void mouseExited(MouseEvent evt) {
+                button.setForeground(Color.WHITE);
+            }
+            public void mouseClicked(MouseEvent evt) {
+                clickAction.actionPerformed(new ActionEvent(button, ActionEvent.ACTION_PERFORMED, null));
+            }
+        });
+    }
+
+    // Confirm exit
+    private void confirmExit() {
+        dialog = new JDialog();
+        dialog.setUndecorated(true);
+        dialog.setModal(true);
+        panel = new JPanel();
+        panel.setBackground(Color.BLACK);
+        panel.setLayout(new BorderLayout());
+        messageLabel = new JLabel("Are you sure you want to go back to the main menu?", JLabel.CENTER);
+        messageLabel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        messageLabel.setForeground(Color.WHITE);
+        messageLabel.setFont(helvetiHandFont);
+        panel.add(messageLabel, BorderLayout.CENTER);
+        buttonPanel = new JPanel();
+        buttonPanel.setOpaque(false);
+        buttonPanel.setLayout(new FlowLayout());
+        yesButton = new JButton("Yes");
+        yesButton.setFont(helvetiHandFont);
+        yesButton.setForeground(Color.WHITE);
+        yesButton.setContentAreaFilled(false);
+        yesButton.setBorderPainted(false);
+        addButtonMouseListeners(yesButton, e -> {
+            audio.stopMusic();
+            audio.playSelectSFX();
+            new MainMenu();
+            dialog.dispose();
+            dispose();
+        });
+        buttonPanel.add(yesButton);
+        noButton = new JButton("No");
+        noButton.setFont(helvetiHandFont);
+        noButton.setForeground(Color.WHITE);
+        noButton.setContentAreaFilled(false);
+        noButton.setBorderPainted(false);
+        addButtonMouseListeners(noButton, e -> {
+            audio.playSelectSFX();
+            dialog.dispose();
+        });
+        buttonPanel.add(noButton);
+        panel.add(buttonPanel, BorderLayout.SOUTH);
+        dialog.getContentPane().add(panel);
+        dialog.pack();
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+    }
+
+    // Confirm save
+    // private void confirmSave() {
+    //     dialog = new JDialog();
+    //     dialog.setUndecorated(true);
+    //     dialog.setModal(true);
+    //     panel = new JPanel();
+    //     panel.setBackground(Color.BLACK);
+    //     panel.setLayout(new BorderLayout());
+    //     messageLabel = new JLabel("Do you want to save your progress?", JLabel.CENTER);
+    //     messageLabel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+    //     messageLabel.setForeground(Color.WHITE);
+    //     messageLabel.setFont(helvetiHandFont);
+    //     panel.add(messageLabel, BorderLayout.CENTER);
+    //     buttonPanel = new JPanel();
+    //     buttonPanel.setOpaque(false);
+    //     buttonPanel.setLayout(new FlowLayout());
+    //     yesButton = new JButton("Yes");
+    //     yesButton.setFont(helvetiHandFont);
+    //     yesButton.setForeground(Color.WHITE);
+    //     yesButton.setContentAreaFilled(false);
+    //     yesButton.setBorderPainted(false);
+    //     addButtonMouseListeners(yesButton, e -> {
+    //         save = new Save();
+    //         save.saveGame(sceneID);
+    //         dialog.dispose();
+    //         if (save.isGameSaved(sceneID)) {
+    //             savedLabel = new JLabel("Game Saved Successfully!", JLabel.CENTER);
+    //             savedLabel.setForeground(Color.GREEN);
+    //             savedLabel.setFont(helvetiHandFont);
+    //             panel.add(savedLabel, BorderLayout.CENTER);
+    //             timer = new Timer(2000, new ActionListener() {
+    //                 @Override
+    //                 public void actionPerformed(ActionEvent e) {
+    //                     panel.remove(savedLabel);
+    //                     panel.revalidate();
+    //                     panel.repaint();
+    //                 }
+    //             });
+    //             timer.setRepeats(false);
+    //             timer.start();
+    //         } else {
+    //             errorLabel = new JLabel("Failed to Save Game!", JLabel.CENTER);
+    //             errorLabel.setForeground(Color.RED);
+    //             errorLabel.setFont(helvetiHandFont);
+    //             panel.add(errorLabel, BorderLayout.CENTER);
+    //             timer = new Timer(2000, new ActionListener() {
+    //                 @Override
+    //                 public void actionPerformed(ActionEvent e) {
+    //                     panel.remove(errorLabel);
+    //                     panel.revalidate();
+    //                     panel.repaint();
+    //                 }
+    //             });
+    //             timer.setRepeats(false);
+    //             timer.start();
+    //         }
+    //     });
+    //     buttonPanel.add(yesButton);
+    //     noButton = new JButton("No");
+    //     noButton.setFont(helvetiHandFont);
+    //     noButton.setForeground(Color.WHITE);
+    //     noButton.setContentAreaFilled(false);
+    //     noButton.setBorderPainted(false);
+    //     addButtonMouseListeners(noButton, e -> {
+    //         audio.playSelectSFX();
+    //         dialog.dispose();
+    //     });
+    //     buttonPanel.add(noButton);
+    //     panel.add(buttonPanel, BorderLayout.SOUTH);
+    //     dialog.getContentPane().add(panel);
+    //     dialog.pack();
+    //     dialog.setLocationRelativeTo(null);
+    //     dialog.setVisible(true);
+    // }
 }

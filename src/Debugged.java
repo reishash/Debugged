@@ -1,8 +1,7 @@
-import Source.Logic.GameEngine;
+import Source.Scenes.MainMenu;
 
 public class Debugged {
     public static void main(String[] args) {
-        GameEngine game = new GameEngine();
-        game.initializeMainMenu();
+        new MainMenu();
     }
 }

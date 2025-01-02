@@ -4,22 +4,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import javax.swing.JOptionPane;
 
-import Source.Scenes.MainMenu;
 import Source.Scenes.Scene;
 
-public class GameEngine {
+public class Save {
     // Constructor
-    public GameEngine() {
-    }
-
-    // Main menu initialization
-    public void initializeMainMenu() {
-        new MainMenu();
-    }
-
-    // Start game
-    public void startGame() {
-        new Scene(1);
+    public Save() {
     }
 
     // Load game

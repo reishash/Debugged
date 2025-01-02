@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,12 +29,16 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 import Source.Logic.Audio;
-import Source.Logic.GameEngine;
 
 public class Credits extends JFrame {
     private Audio audio;
     private Font helvetiHandFont;
-    private GameEngine gameEngine = new GameEngine();
+    private ImageIcon profileImage, backgroundImage;
+    private JButton backButton;
+    private JPanel panel;
+    private JLabel titleLabel, profileLabel, profileNameLabel, creditLabel, backgroundLabel;
+    private SpringLayout layout;
+    private Timer timer;
 
     public Credits() {
         // Music
@@ -58,22 +63,22 @@ public class Credits extends JFrame {
         getContentPane().setBackground(Color.BLACK);
 
         // Panel
-        JPanel panel = new JPanel();
-        SpringLayout layout = new SpringLayout();
+        panel = new JPanel();
+        layout = new SpringLayout();
         panel.setLayout(layout);
 
         // Title Image
-        JLabel titleLabel = new JLabel("Credits");
+        titleLabel = new JLabel("Credits");
         titleLabel.setFont(helvetiHandFont.deriveFont(60f));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(titleLabel);
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, titleLabel, 0, SpringLayout.HORIZONTAL_CENTER, panel);
         layout.putConstraint(SpringLayout.NORTH, titleLabel, 40, SpringLayout.NORTH, panel);
+        panel.add(titleLabel);
 
         // Profile Image
-        ImageIcon profileImage = new ImageIcon("src/Assets/Images/profile.jpg");
-        JLabel profileLabel = new JLabel(profileImage);
+        profileImage = new ImageIcon("src/Assets/Images/profile.jpg");
+        profileLabel = new JLabel(profileImage);
         profileLabel.setHorizontalAlignment(SwingConstants.LEFT);
         profileLabel.setIcon(new ImageIcon(profileImage.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)) {
             @Override
@@ -86,16 +91,15 @@ public class Credits extends JFrame {
                 g2d.dispose();
             }
         });
-        panel.add(profileLabel);
         layout.putConstraint(SpringLayout.WEST, profileLabel, 250, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, profileLabel, 150, SpringLayout.NORTH, panel);
+        panel.add(profileLabel);
 
         // Profile Name
-        JLabel profileNameLabel = new JLabel("Reishash");
+        profileNameLabel = new JLabel("Reishash");
         profileNameLabel.setFont(helvetiHandFont);
         profileNameLabel.setForeground(Color.WHITE);
         profileNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(profileNameLabel);
         layout.putConstraint(SpringLayout.WEST, profileNameLabel, 0, SpringLayout.WEST, profileLabel);
         layout.putConstraint(SpringLayout.NORTH, profileNameLabel, 50, SpringLayout.SOUTH, profileLabel);
         layout.putConstraint(SpringLayout.EAST, profileNameLabel, 0, SpringLayout.EAST, profileLabel);
@@ -110,6 +114,7 @@ public class Credits extends JFrame {
                 }
             }
         });
+        panel.add(profileNameLabel);
 
         // Credits Information
         String[] credits = {
@@ -130,11 +135,10 @@ public class Credits extends JFrame {
 
         // Add credits to the panel
         for (int i = 0; i < credits.length; i++) {
-            JLabel creditLabel = new JLabel(credits[i]);
+            creditLabel = new JLabel(credits[i]);
             creditLabel.setFont(helvetiHandFont);
             creditLabel.setForeground(Color.WHITE);
             creditLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            panel.add(creditLabel);
             if (i == 0 || i == 2 || i == 7) {
                 layout.putConstraint(SpringLayout.WEST, creditLabel, 150, SpringLayout.EAST, profileLabel);
             } else {
@@ -174,58 +178,35 @@ public class Credits extends JFrame {
                     }
                     }
                 });
+                panel.add(creditLabel);
             }
         }
 
         // Back Button
-        JLabel backButtonLabel = new JLabel("Back");
-        backButtonLabel.setFont(helvetiHandFont);
-        backButtonLabel.setForeground(Color.WHITE);
-        backButtonLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        backButtonLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        layout.putConstraint(SpringLayout.WEST, backButtonLabel, 250, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.SOUTH, backButtonLabel, -100, SpringLayout.SOUTH, panel);
-        backButtonLabel.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-                backButtonLabel.setForeground(Color.YELLOW);
-                audio.playHoverSFX();
-                Point originalLocation = backButtonLabel.getLocation();
-                Timer timer = new Timer(50, new ActionListener() {
-                    int count = 0;
-                    boolean moveRight = true;
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (moveRight) {
-                            backButtonLabel.setLocation(originalLocation.x + 1, originalLocation.y + 1);
-                        } else {
-                            backButtonLabel.setLocation(originalLocation.x - 1, originalLocation.y - 1);
-                        }
-                        moveRight = !moveRight;
-                        count++;
-                        if (count >= 2) {
-                            ((Timer) e.getSource()).stop();
-                            backButtonLabel.setLocation(originalLocation);
-                        }
-                    }
-                });
-                timer.start();
-            }
-            public void mouseExited(MouseEvent evt) {
-                backButtonLabel.setForeground(Color.WHITE);
-            }
-            public void mouseClicked(MouseEvent evt) {
+        backButton = new JButton("Back");
+        backButton.setFont(helvetiHandFont);
+        backButton.setForeground(Color.WHITE);
+        backButton.setContentAreaFilled(false);
+        backButton.setHorizontalAlignment(SwingConstants.LEFT);
+        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        backButton.setFocusPainted(false);
+        backButton.setBorderPainted(false);
+        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        layout.putConstraint(SpringLayout.WEST, backButton, 250, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.SOUTH, backButton, -100, SpringLayout.SOUTH, panel);
+        addButtonMouseListeners(backButton, new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 audio.playSelectSFX();
                 audio.stopMusic();
-                gameEngine.initializeMainMenu();
+                new MainMenu();
                 dispose();
             }
         });
-        panel.add(backButtonLabel);
+        panel.add(backButton);
 
         // Background Image
-        ImageIcon backgroundImage = new ImageIcon("src/Assets/Images/Backgrounds/bg_setting.jpg");
-        JLabel backgroundLabel = new JLabel(backgroundImage);
-        panel.add(backgroundLabel);
+        backgroundImage = new ImageIcon("src/Assets/Images/Backgrounds/bg_setting.jpg");
+        backgroundLabel = new JLabel(backgroundImage);
         setVisible(true);
         backgroundLabel.setBounds(0, 0, getWidth(), getHeight());
         backgroundLabel.setIcon(new ImageIcon(backgroundImage.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH)));
@@ -233,8 +214,45 @@ public class Credits extends JFrame {
         layout.putConstraint(SpringLayout.NORTH, backgroundLabel, 0, SpringLayout.NORTH, panel);
         layout.putConstraint(SpringLayout.EAST, backgroundLabel, 0, SpringLayout.EAST, panel);
         layout.putConstraint(SpringLayout.SOUTH, backgroundLabel, 0, SpringLayout.SOUTH, panel);
+        panel.add(backgroundLabel);
 
         add(panel);
         setVisible(true);
+    }
+
+    // Button Mouse Listeners
+    private void addButtonMouseListeners(JButton button, ActionListener clickAction) {
+        button.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                button.setForeground(Color.YELLOW);
+                audio.playHoverSFX();
+                Point originalLocation = button.getLocation();
+                timer = new Timer(50, new ActionListener() {
+                    int count = 0;
+                    boolean moveRight = true;
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (moveRight) {
+                            button.setLocation(originalLocation.x + 1, originalLocation.y + 1);
+                        } else {
+                            button.setLocation(originalLocation.x - 1, originalLocation.y - 1);
+                        }
+                        moveRight = !moveRight;
+                        count++;
+                        if (count >= 2) {
+                            ((Timer) e.getSource()).stop();
+                            button.setLocation(originalLocation);
+                        }
+                    }
+                });
+                timer.start();
+            }
+            public void mouseExited(MouseEvent evt) {
+                button.setForeground(Color.WHITE);
+            }
+            public void mouseClicked(MouseEvent evt) {
+                clickAction.actionPerformed(new ActionEvent(button, ActionEvent.ACTION_PERFORMED, null));
+            }
+        });
     }
 }
