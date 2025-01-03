@@ -316,15 +316,15 @@ public class SelectChapter extends JFrame {
     private String getChapterDescription(int chapter) {
         String[] descriptions = {
             "The first steps are always the hardest. A world that’s both familiar and alien, waiting to be explored.",
-            "The past isn’t always as clear as we remember. But sometimes, it’s the only thing we can hold onto.",
-            "Sometimes, the people we care about the most are the hardest to understand. But it’s the effort that matters.",
-            "Dreams are fragile. But it’s only when we lose them that we realize how much they meant.",
-            "We can’t rewrite the past, no matter how much we wish we could. But we can learn to live with the changes.",
-            "We can’t outrun our past, but we can choose how it shapes us. Sometimes, we have to break free to move forward.",
-            "The hardest person to face is the one in the mirror. But it’s only by understanding them that we can truly move on.",
-            "Leaving isn’t always about escape. Sometimes, it’s about understanding what we’re leaving behind; and why it matters.",
-            "Sometimes, the best outcomes come from letting go. And finding what we need in the places we least expect.",
-            "Some choices bind us to the past. And in the silence of the void, we must face what we’ve left behind."
+            "The past isn’t always as clear as we remember. But sometimes, it’s the only thing we can hold onto. \n\nWIP: Sound Effects",
+            "Sometimes, the people we care about the most are the hardest to understand. But it’s the effort that matters. \n\nWIP: Sound Effects",
+            "Dreams are fragile. But it’s only when we lose them that we realize how much they meant. \n\nWIP: Sound Effects",
+            "We can’t rewrite the past, no matter how much we wish we could. But we can learn to live with the changes. \n\nWIP: Sound Effects",
+            "We can’t outrun our past, but we can choose how it shapes us. Sometimes, we have to break free to move forward. \n\nWIP: Character Images, Background Images, Sound Effects",
+            "The hardest person to face is the one in the mirror. But it’s only by understanding them that we can truly move on. \n\nWIP: Integrated Script, Character Images, Background Images, Sound Effects",
+            "Leaving isn’t always about escape. Sometimes, it’s about understanding what we’re leaving behind; and why it matters. \n\nWIP: Integrated Script, Character Images, Background Images, Sound Effects",
+            "Sometimes, the best outcomes come from letting go. And finding what we need in the places we least expect. \n\nWIP: Integrated Script, Character Images, Background Images, Sound Effects",
+            "Some choices bind us to the past. And in the silence of the void, we must face what we’ve left behind. \n\nWIP: Integrated Script, Character Images, Background Images, Sound Effects"
         };
         return descriptions[chapter];
     }

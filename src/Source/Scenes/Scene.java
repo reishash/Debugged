@@ -127,7 +127,7 @@ public class Scene extends JFrame {
             button.setBorderPainted(false);
             button.setCursor(new Cursor(Cursor.HAND_CURSOR));
             layout.putConstraint(SpringLayout.WEST, button, (int)(screenWidth * 0.15) + i * (int)(screenWidth * 0.1), SpringLayout.WEST, panel);
-            layout.putConstraint(SpringLayout.NORTH, button, (int)(screenHeight * 0.01), SpringLayout.NORTH, panel);
+            layout.putConstraint(SpringLayout.NORTH, button, (int)(screenHeight * 0.05), SpringLayout.NORTH, panel);
             addButtonMouseListeners(button, buttonActions[i]);
             if (buttonNames[i].equals("Back")) {
                 addKeyListener(new KeyAdapter() {
@@ -429,7 +429,7 @@ public class Scene extends JFrame {
         // Character image
         characterImage = new ImageIcon(charPath);
         characterLabel.setIcon(characterImage);
-        characterLabel.setIcon(new ImageIcon(characterImage.getImage().getScaledInstance((int)(screenHeight * 0.75), (int)(screenHeight * 0.75), Image.SCALE_FAST)));
+        characterLabel.setIcon(new ImageIcon(characterImage.getImage().getScaledInstance((int)(screenHeight * 0.85), (int)(screenHeight * 0.85), Image.SCALE_FAST)));
         panel.add(characterLabel);
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, characterLabel, 0, SpringLayout.HORIZONTAL_CENTER, panel);
         layout.putConstraint(SpringLayout.SOUTH, characterLabel, 0, SpringLayout.SOUTH, panel);
