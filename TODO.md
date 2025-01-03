@@ -8,11 +8,11 @@
 
 ## Story
 
-- Write the story for Chapter 8+.
-- Integrate the story for Chapter 5+.
+- Write the story for Chapter 7+.
+- Integrate the story for Chapter 6+.
 
 ## Source
 
 - Develop a game over screen that appears when the player reaches the end.
-- Improve the save/load system to handle multiple save slots.
+- Make the save/load function works on the FileWriter/Reader.
 - Enhance the smoothness and visual appeal of UI transitions and animations. (adding fade-in/out effects, sliding transitions, etc.)

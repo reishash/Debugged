@@ -35,7 +35,7 @@ package Assets.Scripts; public class ScriptRaw { public static final String[] st
         "But that’s gonna take more than just fixing bugs.",
         "You’ll need to fix... well, you...",
         "Great. Just what I needed.",
-        "",
+        "", //1 Raina
         "MEMORY LEAK.",
         "Black screen.",
         "A soft, steady breath from Elara fills the silence.",
@@ -82,7 +82,7 @@ package Assets.Scripts; public class ScriptRaw { public static final String[] st
         "Elara takes a deep breath, looking at the now-stable image of Raina.",
         "I don’t know what this place is or why I’m here.",
         "But maybe... maybe I’ve been avoiding more than just bugs.",
-        "",
+        "", //2 Grandma
         "CODE RED.",
         "Black screen.",
         "The soft hum of the laptop fills the silence.",
@@ -125,7 +125,7 @@ package Assets.Scripts; public class ScriptRaw { public static final String[] st
         "It’s not easy. But you’re getting there.",
         "I always thought I had time.",
         "But time... time doesn’t wait for anyone.",
-        "",
+        "", //3 Dream
         "SEGMENTATION FAULT.",
         "Black screen.",
         "The faint hum of the laptop continues, accompanied by the rhythmic ticking of a clock.",
@@ -172,7 +172,7 @@ package Assets.Scripts; public class ScriptRaw { public static final String[] st
         "Forgotten doesn’t mean gone.",
         "Maybe I don’t have to give up.",
         "Maybe... it’s time to try again.",
-        "",
+        "", //4 Breakup
         "STACK OVERFLOW.",
         "Black screen.",
         "The familiar hum of the laptop returns, accompanied by the faint sound of breaking glass.",
@@ -224,7 +224,7 @@ package Assets.Scripts; public class ScriptRaw { public static final String[] st
         "She takes a deep breath, her voice steady but soft.",
         "I’ll do better.",
         "Next time, I’ll do better.",
-        "",
+        "", //5 Friends
         "INFINITE LOOP.",
         "Black screen.",
         "The hum of the laptop feels unsteady, like a song out of tune.",
@@ -270,9 +270,8 @@ package Assets.Scripts; public class ScriptRaw { public static final String[] st
         "The weight of Byte’s words settles over her.",
         "She closes her eyes, the memories swirling around her like a storm.",
         "I don’t want to keep running from this.",
-        "Byte:",
         "Then stop. Reach out. The past isn’t coming back, but the present is still here.",
-        "",
+        "", //6 Reflection
         "REFLECTION BUG",
         "Black screen.",
         "The hum of the laptop is louder now, like static on a broken radio.",
@@ -349,6 +348,6 @@ package Assets.Scripts; public class ScriptRaw { public static final String[] st
         "I’m ready to move forward.",
         "To let go of the past. To accept who I am, flaws and all.",
         "Imperfect, but whole.",
-        "",  
+        "", //7 Choice
     };
 }

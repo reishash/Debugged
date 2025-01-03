@@ -142,7 +142,7 @@ public class Credits extends JFrame {
             creditLabel = new JLabel(credits[i]);
             creditLabel.setFont(helvetiHandFont);
             creditLabel.setForeground(Color.WHITE);
-            creditLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            creditLabel.setHorizontalAlignment(SwingConstants.LEFT);
             panel.add(creditLabel);
             if (i == 0 || i == 2 || i == 7) {
                 layout.putConstraint(SpringLayout.WEST, creditLabel, 150, SpringLayout.EAST, profileLabel);

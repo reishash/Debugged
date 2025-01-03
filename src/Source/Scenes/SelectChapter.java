@@ -259,11 +259,11 @@ public class SelectChapter extends JFrame {
                     dispose();
                     break;
                 case 6:
-                    new Scene(276);
+                    new Scene(271);
                     dispose();
                     break;
                 case 7:
-                    new Scene(353);
+                    new Scene(999);
                     dispose();
                     break;
                 case 8:

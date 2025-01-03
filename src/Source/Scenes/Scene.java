@@ -266,11 +266,11 @@ public class Scene extends JFrame {
                     audio.stopMusic();
                     audio.playMusic("src/Assets/Audio/Music/5.wav");
                     break;
-                case 276:
+                case 271:
                     audio.stopMusic();
                     audio.playMusic("src/Assets/Audio/Music/6.wav");
                     break;
-                case 353:
+                case 999:
                     audio.stopMusic();
                     audio.playMusic("src/Assets/Audio/Music/7.wav");
                     break;
@@ -312,7 +312,7 @@ public class Scene extends JFrame {
         if (storyText != null) {
             storyText.setFont(helvetiHandFont);
             storyText.setForeground(new Color(255, 255, 197));
-            if (sceneID == 1 || sceneID == 39 || sceneID == 86 || sceneID == 129 || sceneID == 176 || sceneID == 228 || sceneID == 276 || sceneID == 353) {
+            if (sceneID == 1 || sceneID == 39 || sceneID == 86 || sceneID == 129 || sceneID == 176 || sceneID == 228 || sceneID == 271) {
                 storyText.setVerticalAlignment(SwingConstants.CENTER);
                 storyText.setHorizontalAlignment(SwingConstants.CENTER);
                 layout.putConstraint(SpringLayout.VERTICAL_CENTER, storyText, 0, SpringLayout.VERTICAL_CENTER, panel);
@@ -444,7 +444,7 @@ public class Scene extends JFrame {
         triangleButton.setForeground(Color.WHITE);
         triangleButton.setContentAreaFilled(false);
         triangleButton.setBorderPainted(false);
-        if (sceneID != 1 && sceneID != 39 && sceneID != 86 && sceneID != 129 && sceneID != 176 && sceneID != 228 && sceneID != 276 && sceneID != 353) {
+        if (sceneID != 1 && sceneID != 39 && sceneID != 86 && sceneID != 129 && sceneID != 176 && sceneID != 228 && sceneID != 271) {
             panel.add(triangleButton);
         }
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, triangleButton, 0, SpringLayout.HORIZONTAL_CENTER, panel);

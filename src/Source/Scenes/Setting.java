@@ -101,7 +101,6 @@ public class Setting extends JFrame {
 
         // Sliders
         String[] sliderNames = {"Music Volume", "SFX Volume", "Voice Volume"};
-        int[] sliderOffsets = {200, 300, 400};
         int[] sliderValues = {(int) Audio.getMusicVolume(), (int) Audio.getSFXVolume(), (int) Audio.getVoiceVolume()};
         for (int i = 0; i < sliderNames.length; i++) {
             slider = new JSlider(0, 100, sliderValues[i]);
@@ -109,7 +108,7 @@ public class Setting extends JFrame {
             slider.setOpaque(false);
             slider.setForeground(Color.WHITE);
             layout.putConstraint(SpringLayout.EAST, slider, -250, SpringLayout.EAST, panel);
-            layout.putConstraint(SpringLayout.NORTH, slider, sliderOffsets[i], SpringLayout.NORTH, panel);
+            layout.putConstraint(SpringLayout.NORTH, slider, 200 + i * 100, SpringLayout.NORTH, panel);
             int index = i;
             slider.addChangeListener(e -> {
                 int volume = slider.getValue();
@@ -123,7 +122,7 @@ public class Setting extends JFrame {
                     }
                     case 2 -> {
                         audio.setVoiceVolume(volume);
-                        audio.playSFX("src/Assets/Audio/SFX/voice.wav");
+                        // audio.playSFX("src/Assets/Audio/SFX/voice.wav");
                     }
                 }
             });
