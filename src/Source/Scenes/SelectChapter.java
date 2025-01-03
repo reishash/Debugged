@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -24,7 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
 import javax.swing.ImageIcon;
+import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -100,7 +103,6 @@ public class SelectChapter extends JFrame {
         // Chapter Selection
         JButton[] chapterButtons = new JButton[11];
         ActionListener[] buttonActions = new ActionListener[11];
-        int [] currentIndex = {0};
         for (int i = 0; i < 11; i++) {
             if (i == 10) {
                 button = new JButton("Back");
@@ -116,19 +118,16 @@ public class SelectChapter extends JFrame {
             button.setCursor(new Cursor(Cursor.HAND_CURSOR));
             chapterButtons[i] = button;
             panel.add(button);
-
             if (i == 0 || i == 4 || i == 7 || i == 10) {
                 layout.putConstraint(SpringLayout.WEST, button, 250, SpringLayout.WEST, panel);
             } else {
                 layout.putConstraint(SpringLayout.WEST, button, 300, SpringLayout.WEST, panel);
             }
-
             if (i == 10) {
                 layout.putConstraint(SpringLayout.SOUTH, button, -100, SpringLayout.SOUTH, panel);
             } else {
                 layout.putConstraint(SpringLayout.NORTH, button, 150 + i * 50, SpringLayout.NORTH, panel);
             }
-
             int chapter = i; 
             buttonActions[i] = e -> {
                 audio.playSelectSFX();
@@ -141,11 +140,22 @@ public class SelectChapter extends JFrame {
                 }
             };
             addButtonMouseListeners(button, buttonActions[i]);
+            // if (chapterButtons[i].getText().equals("Back")) {
+            //     addKeyListener(new KeyAdapter() {
+            //         @Override
+            //         public void keyPressed(KeyEvent evt) {
+            //             if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            //                 buttonActions[1].actionPerformed(new ActionEvent(button, ActionEvent.ACTION_PERFORMED, null));
+            //             }
+            //         }
+            //     });
+            // }
         }
-        panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "moveUp");
-        panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "moveDown");
-        panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "select");
-        panel.getActionMap().put("moveUp", new AbstractAction() {
+        int[] currentIndex = {0};
+        InputMap inputMap = panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = panel.getActionMap();
+        inputMap.put(KeyStroke.getKeyStroke("UP"), "navigateUp");
+        actionMap.put("navigateUp", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 chapterButtons[currentIndex[0]].setForeground(Color.WHITE);
@@ -153,7 +163,8 @@ public class SelectChapter extends JFrame {
                 chapterButtons[currentIndex[0]].setForeground(Color.YELLOW);
             }
         });
-        panel.getActionMap().put("moveDown", new AbstractAction() {
+        inputMap.put(KeyStroke.getKeyStroke("DOWN"), "navigateDown");
+        actionMap.put("navigateDown", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 chapterButtons[currentIndex[0]].setForeground(Color.WHITE);
@@ -161,7 +172,8 @@ public class SelectChapter extends JFrame {
                 chapterButtons[currentIndex[0]].setForeground(Color.YELLOW);
             }
         });
-        panel.getActionMap().put("select", new AbstractAction() {
+        inputMap.put(KeyStroke.getKeyStroke("ENTER"), "select");
+        actionMap.put("select", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (buttonActions[currentIndex[0]] != null) {

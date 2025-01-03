@@ -154,12 +154,9 @@ public class MainMenu extends JFrame {
                     }
                 });
             }
-            
-            // Keyboard Navigation
-            int[] currentIndex = {0}; // Track the current selected button index
+            int[] currentIndex = {0};
             InputMap inputMap = panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);
             ActionMap actionMap = panel.getActionMap();
-
             inputMap.put(KeyStroke.getKeyStroke("UP"), "navigateUp");
             actionMap.put("navigateUp", new AbstractAction() {
                 @Override
@@ -170,8 +167,6 @@ public class MainMenu extends JFrame {
                     buttons[currentIndex[0]].requestFocus();
                 }
             });
-
-            // Bind DOWN key to navigate down
             inputMap.put(KeyStroke.getKeyStroke("DOWN"), "navigateDown");
             actionMap.put("navigateDown", new AbstractAction() {
                 @Override
@@ -182,8 +177,6 @@ public class MainMenu extends JFrame {
                     buttons[currentIndex[0]].requestFocus();
                 }
             });
-
-            // Bind ENTER key to click the selected button
             inputMap.put(KeyStroke.getKeyStroke("ENTER"), "pressButton");
             actionMap.put("pressButton", new AbstractAction() {
                 @Override

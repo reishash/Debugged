@@ -16,7 +16,6 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
-
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
