@@ -4,18 +4,22 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.Font;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.io.File;
+import java.io.IOException;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -35,9 +39,10 @@ public class Scene extends JFrame {
     private Audio audio;
     private boolean isFirstScene;
     private Component previousComponent;
+    private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private Font helvetiHandFont;
     private ImageIcon backgroundImage, characterImage;
-    private int sceneID;
+    private int sceneID, screenWidth = screenSize.width, screenHeight = screenSize.height;
     private JLabel backgroundLabel, characterLabel;
     private JButton button, yesButton, noButton;
     private JDialog dialog;
@@ -52,15 +57,16 @@ public class Scene extends JFrame {
         sceneID = SceneID;
         isFirstScene = true;
         
-        // Load Font
+        
+
+        // Font
         try {
-            helvetiHandFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/Assets/Fonts/HelvetiHand.ttf")).deriveFont(30f);
+            helvetiHandFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/Assets/Fonts/HelvetiHand.ttf")).deriveFont(screenHeight/30f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(helvetiHandFont);
-        } catch (Exception e) {
+        } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
-
         // Music
         audio = new Audio();
         audio.stopMusic();
@@ -120,8 +126,8 @@ public class Scene extends JFrame {
             button.setFocusPainted(false);
             button.setBorderPainted(false);
             button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            layout.putConstraint(SpringLayout.WEST, button, 250 + i * 150, SpringLayout.WEST, panel);
-            layout.putConstraint(SpringLayout.NORTH, button, 50, SpringLayout.NORTH, panel);
+            layout.putConstraint(SpringLayout.WEST, button, (int)(screenWidth * 0.15) + i * (int)(screenWidth * 0.1), SpringLayout.WEST, panel);
+            layout.putConstraint(SpringLayout.NORTH, button, (int)(screenHeight * 0.01), SpringLayout.NORTH, panel);
             addButtonMouseListeners(button, buttonActions[i]);
             if (buttonNames[i].equals("Back")) {
                 addKeyListener(new KeyAdapter() {
@@ -319,10 +325,10 @@ public class Scene extends JFrame {
             } else {
                 storyText.setVerticalAlignment(SwingConstants.TOP);
                 storyText.setHorizontalAlignment(SwingConstants.LEFT);
-                layout.putConstraint(SpringLayout.SOUTH, storyText, -100, SpringLayout.SOUTH, panel);
+                layout.putConstraint(SpringLayout.SOUTH, storyText, -(int)(screenHeight * 0.10), SpringLayout.SOUTH, panel);
             }
-            layout.putConstraint(SpringLayout.WEST, storyText, 250, SpringLayout.WEST, panel);
-            layout.putConstraint(SpringLayout.EAST, storyText, -250, SpringLayout.EAST, panel);
+            layout.putConstraint(SpringLayout.WEST, storyText, (int)(screenWidth * 0.15), SpringLayout.WEST, panel);
+            layout.putConstraint(SpringLayout.EAST, storyText, -(int)(screenWidth * 0.15), SpringLayout.EAST, panel);
             panel.add(storyText, Integer.valueOf(0));
             previousComponent = storyText;
         }
@@ -423,7 +429,7 @@ public class Scene extends JFrame {
         // Character image
         characterImage = new ImageIcon(charPath);
         characterLabel.setIcon(characterImage);
-        characterLabel.setIcon(new ImageIcon(characterImage.getImage().getScaledInstance(800, 800, Image.SCALE_FAST)));
+        characterLabel.setIcon(new ImageIcon(characterImage.getImage().getScaledInstance((int)(screenHeight * 0.75), (int)(screenHeight * 0.75), Image.SCALE_FAST)));
         panel.add(characterLabel);
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, characterLabel, 0, SpringLayout.HORIZONTAL_CENTER, panel);
         layout.putConstraint(SpringLayout.SOUTH, characterLabel, 0, SpringLayout.SOUTH, panel);
@@ -448,7 +454,7 @@ public class Scene extends JFrame {
             panel.add(triangleButton);
         }
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, triangleButton, 0, SpringLayout.HORIZONTAL_CENTER, panel);
-        layout.putConstraint(SpringLayout.SOUTH, triangleButton, -10, SpringLayout.SOUTH, panel);
+        layout.putConstraint(SpringLayout.SOUTH, triangleButton, (int)(screenHeight * 0.01), SpringLayout.SOUTH, panel);
 
         panel.setBackground(Color.BLACK);
         panel.revalidate();

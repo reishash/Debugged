@@ -2,9 +2,9 @@
 
 ## Assets
 
-- Create and integrate background images for Chapter 5+.
+- Design and integrate background images for Chapter 5+.
 - Integrate character images for Chapter 5+.
-- Add voice for actions for Chapter 2+.
+- Add voiceovers for actions Chapter 2+.
 
 ## Story
 
@@ -14,5 +14,6 @@
 ## Source
 
 - Develop a game over screen that appears when the player reaches the end.
-- Make the save/load function works on the FileWriter/Reader.
-- Enhance the smoothness and visual appeal of UI transitions and animations. (adding fade-in/out effects, sliding transitions, etc.)
+- Ensure the save/load functionality works using FileWriter/Reader.
+- Enhance the smoothness and visual appeal of UI transitions and animations (e.g., adding fade-in/out effects, sliding transitions).
+- Enhance the constraint of Setting and SelectChapter based on screen resolutions.

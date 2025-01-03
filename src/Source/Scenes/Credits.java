@@ -4,23 +4,24 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Desktop;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsEnvironment;
-import java.awt.Image;
-import java.awt.Point;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.geom.Ellipse2D;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -44,19 +45,23 @@ public class Credits extends JFrame {
     private SpringLayout layout;
     private Timer timer;
 
+    // Constructor
     public Credits() {
-        // Music
-        audio = new Audio();
-        audio.playMusic("src/Assets/Audio/Music/setting_music.wav");
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
 
-        // Load Font
+        // Font
         try {
-            helvetiHandFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/Assets/Fonts/HelvetiHand.ttf")).deriveFont(30f);
+            helvetiHandFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/Assets/Fonts/HelvetiHand.ttf")).deriveFont(screenHeight/30f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(helvetiHandFont);
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
+        // Music
+        audio = new Audio();
+        audio.playMusic("src/Assets/Audio/Music/setting_music.wav");
 
         // Frame
         setTitle("Debugged: Credits");
@@ -73,18 +78,18 @@ public class Credits extends JFrame {
 
         // Title Image
         titleLabel = new JLabel("Credits");
-        titleLabel.setFont(helvetiHandFont.deriveFont(60f));
+        titleLabel.setFont(helvetiHandFont.deriveFont(screenHeight / 15f));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, titleLabel, 0, SpringLayout.HORIZONTAL_CENTER, panel);
-        layout.putConstraint(SpringLayout.NORTH, titleLabel, 40, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.NORTH, titleLabel, (int)(screenHeight * 0.025), SpringLayout.NORTH, panel);
         panel.add(titleLabel);
 
         // Profile Image
         profileImage = new ImageIcon("src/Assets/Images/profile.jpg");
         profileLabel = new JLabel(profileImage);
         profileLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        profileLabel.setIcon(new ImageIcon(profileImage.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)) {
+        profileLabel.setIcon(new ImageIcon(profileImage.getImage().getScaledInstance((int)(screenWidth * 0.1),(int)(screenWidth * 0.1), Image.SCALE_SMOOTH)) {
             @Override
             public void paintIcon(Component c, Graphics g, int x, int y) {
                 int width = getIconWidth();
@@ -95,8 +100,8 @@ public class Credits extends JFrame {
                 g2d.dispose();
             }
         });
-        layout.putConstraint(SpringLayout.WEST, profileLabel, 250, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, profileLabel, 150, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.WEST, profileLabel, (int)(screenWidth * 0.15), SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, profileLabel, (int)(screenHeight * 0.15), SpringLayout.NORTH, panel);
         panel.add(profileLabel);
 
         // Profile Name
@@ -105,7 +110,7 @@ public class Credits extends JFrame {
         profileNameLabel.setForeground(Color.WHITE);
         profileNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
         layout.putConstraint(SpringLayout.WEST, profileNameLabel, 0, SpringLayout.WEST, profileLabel);
-        layout.putConstraint(SpringLayout.NORTH, profileNameLabel, 50, SpringLayout.SOUTH, profileLabel);
+        layout.putConstraint(SpringLayout.NORTH, profileNameLabel, (int)(screenHeight * 0.05), SpringLayout.SOUTH, profileLabel);
         layout.putConstraint(SpringLayout.EAST, profileNameLabel, 0, SpringLayout.EAST, profileLabel);
         profileNameLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         profileNameLabel.addMouseListener(new MouseAdapter() {
@@ -145,11 +150,11 @@ public class Credits extends JFrame {
             creditLabel.setHorizontalAlignment(SwingConstants.LEFT);
             panel.add(creditLabel);
             if (i == 0 || i == 2 || i == 7) {
-                layout.putConstraint(SpringLayout.WEST, creditLabel, 150, SpringLayout.EAST, profileLabel);
+                layout.putConstraint(SpringLayout.WEST, creditLabel, (int)(screenWidth * 0.08), SpringLayout.EAST, profileLabel);
             } else {
-                layout.putConstraint(SpringLayout.WEST, creditLabel, 200, SpringLayout.EAST, profileLabel);
+                layout.putConstraint(SpringLayout.WEST, creditLabel, (int)(screenWidth * 0.1), SpringLayout.EAST, profileLabel);
             }
-            layout.putConstraint(SpringLayout.NORTH, creditLabel, 150 + i * 50, SpringLayout.NORTH, panel);
+            layout.putConstraint(SpringLayout.NORTH, creditLabel, (int)(screenHeight * 0.15) + i * (int)(screenHeight * 0.05), SpringLayout.NORTH, panel);
             if (i >= 3 && i <= 5 || i == 8 || i == 10) {
                 final int index = i;
                 creditLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -196,8 +201,8 @@ public class Credits extends JFrame {
         backButton.setFocusPainted(false);
         backButton.setBorderPainted(false);
         backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        layout.putConstraint(SpringLayout.WEST, backButton, 250, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.SOUTH, backButton, -100, SpringLayout.SOUTH, panel);
+        layout.putConstraint(SpringLayout.WEST, backButton, (int)(screenWidth * 0.15), SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.SOUTH, backButton, -(int)(screenHeight * 0.10), SpringLayout.SOUTH, panel);
         ActionListener backAction = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {

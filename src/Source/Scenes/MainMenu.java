@@ -3,12 +3,14 @@ package Source.Scenes;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -17,7 +19,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
@@ -48,10 +49,15 @@ public class MainMenu extends JFrame {
     private SpringLayout layout;
     private Timer timer;
 
+    // Constructor
     public MainMenu() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
         // Font
         try {
-            helvetiHandFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/Assets/Fonts/HelvetiHand.ttf")).deriveFont(30f);
+            helvetiHandFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/Assets/Fonts/HelvetiHand.ttf")).deriveFont(screenHeight/30f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(helvetiHandFont);
         } catch (FontFormatException | IOException e) {
@@ -80,9 +86,9 @@ public class MainMenu extends JFrame {
         titleImage = new ImageIcon("src/Assets/Images/title_image.png");
         titleLabel = new JLabel(titleImage);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        titleLabel.setIcon(new ImageIcon(titleImage.getImage().getScaledInstance(500,200, Image.SCALE_FAST)));
+        titleLabel.setIcon(new ImageIcon(titleImage.getImage().getScaledInstance((int)(screenWidth * 0.25), (int)(screenHeight * 0.2), Image.SCALE_FAST)));
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, titleLabel, 0, SpringLayout.HORIZONTAL_CENTER, panel);
-        layout.putConstraint(SpringLayout.NORTH, titleLabel, 25, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.NORTH, titleLabel, (int)(screenHeight * 0.025), SpringLayout.NORTH, panel);
         panel.add(titleLabel);
         
         // Button properties
@@ -130,16 +136,12 @@ public class MainMenu extends JFrame {
             button.setFocusPainted(false);
             button.setBorderPainted(false);
             button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            button.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.BLACK, 2),
-                BorderFactory.createEmptyBorder(5, 5, 5, 5)
-            ));
             if (buttonNames[i].equals("Credits")) {
-                layout.putConstraint(SpringLayout.EAST, button, -250, SpringLayout.EAST, panel);
-                layout.putConstraint(SpringLayout.SOUTH, button, -100, SpringLayout.SOUTH, panel);
+                layout.putConstraint(SpringLayout.EAST, button, -(int)(screenWidth * 0.15), SpringLayout.EAST, panel);
+                layout.putConstraint(SpringLayout.SOUTH, button, -(int)(screenHeight * 0.10), SpringLayout.SOUTH, panel);
             } else {
-                layout.putConstraint(SpringLayout.WEST, button, 250, SpringLayout.WEST, panel);
-                layout.putConstraint(SpringLayout.SOUTH, button, -100 - (i-1) * 75, SpringLayout.SOUTH, panel);
+                layout.putConstraint(SpringLayout.WEST, button, (int)(screenWidth * 0.15), SpringLayout.WEST, panel);
+                layout.putConstraint(SpringLayout.SOUTH, button, -(int)(screenHeight * 0.10) - (i-1) * (int)(screenHeight * 0.10), SpringLayout.SOUTH, panel);
             }
             addButtonMouseListeners(button, buttonActions[i]);
             if (buttonNames[i].equals("Exit Game")) {
