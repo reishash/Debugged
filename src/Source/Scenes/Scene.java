@@ -16,7 +16,6 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
@@ -29,11 +28,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
-import javax.swing.Timer;
 
 import Source.Logic.Audio;
 // import Source.Logic.Save;
 import Assets.Scripts.Script;
+import Source.Logic.UI;
 
 public class Scene extends JFrame {
     private Audio audio;
@@ -44,20 +43,17 @@ public class Scene extends JFrame {
     private ImageIcon backgroundImage, characterImage;
     private int sceneID, screenWidth = screenSize.width, screenHeight = screenSize.height;
     private JLabel backgroundLabel, characterLabel;
-    private JButton button, yesButton, noButton;
+    private JButton button, yesButton, noButton, triangleButton;
     private JDialog dialog;
     private JLabel messageLabel/*, savedLabel, errorLabel*/;
     private JPanel buttonPanel, panel, sceneUpdater;
     // private Save save;
     private SpringLayout layout;
-    private Timer timer;
 
     // Constructor
     public Scene(int SceneID) {
         sceneID = SceneID;
         isFirstScene = true;
-        
-        
 
         // Font
         try {
@@ -118,26 +114,19 @@ public class Scene extends JFrame {
 
         // Create and add buttons
         for (int i = 0; i < buttonNames.length; i++) {
-            button = new JButton(buttonNames[i]);
-            button.setFont(helvetiHandFont);
-            button.setForeground(Color.WHITE);
-            button.setContentAreaFilled(false);
-            button.setHorizontalAlignment(SwingConstants.LEFT);
-            button.setFocusPainted(false);
-            button.setBorderPainted(false);
-            button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            button = UI.createButton(buttonNames[i], helvetiHandFont);
             layout.putConstraint(SpringLayout.WEST, button, (int)(screenWidth * 0.15) + i * (int)(screenWidth * 0.1), SpringLayout.WEST, panel);
             layout.putConstraint(SpringLayout.NORTH, button, (int)(screenHeight * 0.05), SpringLayout.NORTH, panel);
-            addButtonMouseListeners(button, buttonActions[i]);
+            UI.addButtonMouseListeners(button, buttonActions[i]);
             if (buttonNames[i].equals("Back")) {
-                addKeyListener(new KeyAdapter() {
-                    @Override
-                    public void keyPressed(KeyEvent evt) {
-                        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                            buttonActions[0].actionPerformed(new ActionEvent(button, ActionEvent.ACTION_PERFORMED, null));
-                        }
-                    }
-                });
+            addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    buttonActions[0].actionPerformed(new ActionEvent(button, ActionEvent.ACTION_PERFORMED, null));
+                }
+                }
+            });
             }
             panel.add(button);
         }
@@ -446,10 +435,7 @@ public class Scene extends JFrame {
         layout.putConstraint(SpringLayout.SOUTH, backgroundLabel, 0, SpringLayout.SOUTH, panel);
 
         // Triangle Button
-        JButton triangleButton = new JButton("<html><h2>▼</h2></html>");
-        triangleButton.setForeground(Color.WHITE);
-        triangleButton.setContentAreaFilled(false);
-        triangleButton.setBorderPainted(false);
+        triangleButton = UI.createButton("<html><h2>▼</h2></html>", helvetiHandFont);
         if (sceneID != 1 && sceneID != 39 && sceneID != 86 && sceneID != 129 && sceneID != 176 && sceneID != 228 && sceneID != 271) {
             panel.add(triangleButton);
         }
@@ -465,42 +451,6 @@ public class Scene extends JFrame {
             new MainMenu();
             dispose();
         }
-    }
-
-    // Button Mouse Listeners
-    private void addButtonMouseListeners(JButton button, ActionListener clickAction) {
-        button.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-                button.setForeground(Color.YELLOW);
-                audio.playHoverSFX();
-                Point originalLocation = button.getLocation();
-                timer = new Timer(50, new ActionListener() {
-                    int count = 0;
-                    boolean moveRight = true;
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (moveRight) {
-                            button.setLocation(originalLocation.x + 1, originalLocation.y + 1);
-                        } else {
-                            button.setLocation(originalLocation.x - 1, originalLocation.y - 1);
-                        }
-                        moveRight = !moveRight;
-                        count++;
-                        if (count >= 2) {
-                            ((Timer) e.getSource()).stop();
-                            button.setLocation(originalLocation);
-                        }
-                    }
-                });
-                timer.start();
-            }
-            public void mouseExited(MouseEvent evt) {
-                button.setForeground(Color.WHITE);
-            }
-            public void mouseClicked(MouseEvent evt) {
-                clickAction.actionPerformed(new ActionEvent(button, ActionEvent.ACTION_PERFORMED, null));
-            }
-        });
     }
 
     // Confirm exit
@@ -519,13 +469,8 @@ public class Scene extends JFrame {
         buttonPanel = new JPanel();
         buttonPanel.setOpaque(false);
         buttonPanel.setLayout(new FlowLayout());
-        yesButton = new JButton("Yes");
-        yesButton.setFont(helvetiHandFont);
-        yesButton.setForeground(Color.WHITE);
-        yesButton.setContentAreaFilled(false);
-        yesButton.setBorderPainted(false);
-        yesButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        addButtonMouseListeners(yesButton, e -> {
+        yesButton = UI.createButton("Yes", helvetiHandFont);
+        UI.addButtonMouseListeners(yesButton, e -> {
             audio.stopMusic();
             audio.playSelectSFX();
             new MainMenu();
@@ -533,13 +478,8 @@ public class Scene extends JFrame {
             dispose();
         });
         buttonPanel.add(yesButton);
-        noButton = new JButton("No");
-        noButton.setFont(helvetiHandFont);
-        noButton.setForeground(Color.WHITE);
-        noButton.setContentAreaFilled(false);
-        noButton.setBorderPainted(false);
-        noButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        addButtonMouseListeners(noButton, e -> {
+        noButton = UI.createButton("No", helvetiHandFont);
+        UI.addButtonMouseListeners(noButton, e -> {
             audio.playSelectSFX();
             dialog.dispose();
         });
@@ -572,7 +512,7 @@ public class Scene extends JFrame {
     //     yesButton.setForeground(Color.WHITE);
     //     yesButton.setContentAreaFilled(false);
     //     yesButton.setBorderPainted(false);
-    //     addButtonMouseListeners(yesButton, e -> {
+    //     UI.addButtonMouseListeners(yesButton, e -> {
     //         save = new Save();
     //         save.saveGame(sceneID);
     //         dialog.dispose();
@@ -614,7 +554,7 @@ public class Scene extends JFrame {
     //     noButton.setForeground(Color.WHITE);
     //     noButton.setContentAreaFilled(false);
     //     noButton.setBorderPainted(false);
-    //     addButtonMouseListeners(noButton, e -> {
+    //     UI.addButtonMouseListeners(noButton, e -> {
     //         audio.playSelectSFX();
     //         dialog.dispose();
     //     });

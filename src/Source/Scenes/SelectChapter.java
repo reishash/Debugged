@@ -3,11 +3,8 @@ package Source.Scenes;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics2D;
@@ -15,7 +12,6 @@ import java.awt.geom.RoundRectangle2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.awt.Point;
 import java.awt.RenderingHints;
 import java.io.File;
 import java.io.IOException;
@@ -33,9 +29,9 @@ import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
-import javax.swing.Timer;
 
 import Source.Logic.Audio;
+import Source.Logic.UI;
 
 public class SelectChapter extends JFrame {
     private Audio audio;
@@ -48,7 +44,6 @@ public class SelectChapter extends JFrame {
     private JPanel dynamicPanel, panel;
     private List<Component> previousComponents = new ArrayList<>();
     private SpringLayout layout;
-    private Timer timer;
 
     // Constructor
     public SelectChapter() {
@@ -102,17 +97,10 @@ public class SelectChapter extends JFrame {
         ActionListener[] buttonActions = new ActionListener[11];
         for (int i = 0; i < 11; i++) {
             if (i == 10) {
-                button = new JButton("Back");
+            button = UI.createButton("Back", helvetiHandFont);
             } else {
-                button = new JButton(getChapterName(i));
+            button = UI.createButton(getChapterName(i), helvetiHandFont);
             }
-            button.setFont(helvetiHandFont);
-            button.setForeground(Color.WHITE);
-            button.setContentAreaFilled(false);
-            button.setHorizontalAlignment(SwingConstants.LEFT);
-            button.setFocusPainted(false);
-            button.setBorderPainted(false);
-            button.setCursor(new Cursor(Cursor.HAND_CURSOR));
             chapterButtons[i] = button;
             panel.add(button);
             if (i == 0 || i == 4 || i == 7 || i == 10) {
@@ -136,7 +124,7 @@ public class SelectChapter extends JFrame {
                     displayChapterContent(chapter);
                 }
             };
-            addButtonMouseListeners(button, buttonActions[i]);
+            UI.addButtonMouseListeners(button, buttonActions[i]);
             // if (chapterButtons[i].getText().equals("Back")) {
             //     addKeyListener(new KeyAdapter() {
             //         @Override
@@ -230,59 +218,50 @@ public class SelectChapter extends JFrame {
         dynamicPanel.add(chapterDescriptionTextArea);
 
         // Chapter Select
-        chapterSelectButton = new JButton("Select Chapter");
-        chapterSelectButton.setFont(helvetiHandFont);
-        chapterSelectButton.setForeground(Color.WHITE);
-        chapterSelectButton.setContentAreaFilled(false);
-        chapterSelectButton.setHorizontalAlignment(SwingConstants.RIGHT);
-        chapterSelectButton.setFocusPainted(false);
-        chapterSelectButton.setBorderPainted(false);
-        chapterSelectButton.setFont(helvetiHandFont);
-        chapterSelectButton.setForeground(Color.WHITE);
-        chapterSelectButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        addButtonMouseListeners(chapterSelectButton, e -> {
+        chapterSelectButton = UI.createButton("Select Chapter", helvetiHandFont);
+        UI.addButtonMouseListeners(chapterSelectButton, e -> {
             audio.playSelectSFX();
             switch (chapter) {
-                case 0:
-                    new Scene(1);
-                    dispose();
-                    break;
-                case 1:
-                    new Scene(39);
-                    dispose();
-                    break;
-                case 2:
-                    new Scene(86);
-                    dispose();
-                    break;
-                case 3:
-                    new Scene(129);
-                    dispose();
-                    break;
-                case 4:
-                    new Scene(176);
-                    dispose();
-                    break;
-                case 5:
-                    new Scene(228);
-                    dispose();
-                    break;
-                case 6:
-                    new Scene(271);
-                    dispose();
-                    break;
-                case 7:
-                    new Scene(999);
-                    dispose();
-                    break;
-                case 8:
-                    new Scene(999);
-                    dispose();
-                    break;
-                case 9:
-                    new Scene(999);
-                    dispose();
-                    break;
+            case 0:
+                new Scene(1);
+                dispose();
+                break;
+            case 1:
+                new Scene(39);
+                dispose();
+                break;
+            case 2:
+                new Scene(86);
+                dispose();
+                break;
+            case 3:
+                new Scene(129);
+                dispose();
+                break;
+            case 4:
+                new Scene(176);
+                dispose();
+                break;
+            case 5:
+                new Scene(228);
+                dispose();
+                break;
+            case 6:
+                new Scene(271);
+                dispose();
+                break;
+            case 7:
+                new Scene(999);
+                dispose();
+                break;
+            case 8:
+                new Scene(999);
+                dispose();
+                break;
+            case 9:
+                new Scene(999);
+                dispose();
+                break;
             }
         });
         layout.putConstraint(SpringLayout.EAST, chapterSelectButton, -250, SpringLayout.EAST, dynamicPanel);
@@ -350,41 +329,5 @@ public class SelectChapter extends JFrame {
         g2.drawImage(image, 0, 0, width, height, null);
         g2.dispose();
         return output;
-    }
-
-    // Button Mouse Listeners
-    private void addButtonMouseListeners(JButton button, ActionListener clickAction) {
-        button.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-                button.setForeground(Color.YELLOW);
-                audio.playHoverSFX();
-                Point originalLocation = button.getLocation();
-                timer = new Timer(50, new ActionListener() {
-                    int count = 0;
-                    boolean moveRight = true;
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (moveRight) {
-                            button.setLocation(originalLocation.x + 1, originalLocation.y + 1);
-                        } else {
-                            button.setLocation(originalLocation.x - 1, originalLocation.y - 1);
-                        }
-                        moveRight = !moveRight;
-                        count++;
-                        if (count >= 2) {
-                            ((Timer) e.getSource()).stop();
-                            button.setLocation(originalLocation);
-                        }
-                    }
-                });
-                timer.start();
-            }
-            public void mouseExited(MouseEvent evt) {
-                button.setForeground(Color.WHITE);
-            }
-            public void mouseClicked(MouseEvent evt) {
-                clickAction.actionPerformed(new ActionEvent(button, ActionEvent.ACTION_PERFORMED, null));
-            }
-        });
     }
 }

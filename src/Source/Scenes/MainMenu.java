@@ -2,14 +2,12 @@ package Source.Scenes;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,10 +30,10 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
-import javax.swing.Timer;
 
 import Source.Logic.Audio;
 // import Source.Logic.Save;
+import Source.Logic.UI;
 
 public class MainMenu extends JFrame {
     private Audio audio;
@@ -47,7 +45,6 @@ public class MainMenu extends JFrame {
     private ImageIcon titleImage, backgroundImage;
     // private Save save;
     private SpringLayout layout;
-    private Timer timer;
 
     // Constructor
     public MainMenu() {
@@ -127,15 +124,8 @@ public class MainMenu extends JFrame {
         // Create and add buttons
         JButton[] buttons = new JButton[buttonNames.length];
         for (int i = 0; i < buttonNames.length; i++) {
-            button = new JButton(buttonNames[i]);
+            button = UI.createButton(buttonNames[i], helvetiHandFont);
             buttons[i] = button;
-            button.setFont(helvetiHandFont);
-            button.setForeground(Color.WHITE);
-            button.setContentAreaFilled(false);
-            button.setHorizontalAlignment(SwingConstants.LEFT);
-            button.setFocusPainted(false);
-            button.setBorderPainted(false);
-            button.setCursor(new Cursor(Cursor.HAND_CURSOR));
             if (buttonNames[i].equals("Credits")) {
                 layout.putConstraint(SpringLayout.EAST, button, -(int)(screenWidth * 0.15), SpringLayout.EAST, panel);
                 layout.putConstraint(SpringLayout.SOUTH, button, -(int)(screenHeight * 0.10), SpringLayout.SOUTH, panel);
@@ -143,7 +133,7 @@ public class MainMenu extends JFrame {
                 layout.putConstraint(SpringLayout.WEST, button, (int)(screenWidth * 0.15), SpringLayout.WEST, panel);
                 layout.putConstraint(SpringLayout.SOUTH, button, -(int)(screenHeight * 0.10) - (i-1) * (int)(screenHeight * 0.10), SpringLayout.SOUTH, panel);
             }
-            addButtonMouseListeners(button, buttonActions[i]);
+            UI.addButtonMouseListeners(button, buttonActions[i]);
             if (buttonNames[i].equals("Exit Game")) {
                 addKeyListener(new KeyAdapter() {
                     @Override
@@ -204,42 +194,6 @@ public class MainMenu extends JFrame {
         setVisible(true);
     }
 
-    // Button Mouse Listeners
-    private void addButtonMouseListeners(JButton button, ActionListener clickAction) {
-        button.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-                button.setForeground(Color.YELLOW);
-                audio.playHoverSFX();
-                Point originalLocation = button.getLocation();
-                timer = new Timer(50, new ActionListener() {
-                    int count = 0;
-                    boolean moveRight = true;
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (moveRight) {
-                            button.setLocation(originalLocation.x + 1, originalLocation.y + 1);
-                        } else {
-                            button.setLocation(originalLocation.x - 1, originalLocation.y - 1);
-                        }
-                        moveRight = !moveRight;
-                        count++;
-                        if (count >= 2) {
-                            ((Timer) e.getSource()).stop();
-                            button.setLocation(originalLocation);
-                        }
-                    }
-                });
-                timer.start();
-            }
-            public void mouseExited(MouseEvent evt) {
-                button.setForeground(Color.WHITE);
-            }
-            public void mouseClicked(MouseEvent evt) {
-                clickAction.actionPerformed(new ActionEvent(button, ActionEvent.ACTION_PERFORMED, null));
-            }
-        });
-    }
-
     // Confirm Exit Dialog
     private void confirmExit() {
         dialog = new JDialog();
@@ -256,34 +210,24 @@ public class MainMenu extends JFrame {
         buttonPanel = new JPanel();
         buttonPanel.setOpaque(false);
         buttonPanel.setLayout(new FlowLayout());
-        yesButton = new JButton("Yes");
-        yesButton.setFont(helvetiHandFont);
-        yesButton.setForeground(Color.WHITE);
-        yesButton.setContentAreaFilled(false);
-        yesButton.setBorderPainted(false);
-        yesButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        addButtonMouseListeners(yesButton, e -> {
+        yesButton = UI.createButton("Yes", helvetiHandFont);
+        UI.addButtonMouseListeners(yesButton, e -> {
             audio.stopMusic();
             audio.playSelectSFX();
             System.exit(0);
         });
         yesButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseEntered(MouseEvent evt) {
+            public void mouseEntered(MouseEvent e) {
                 yesButton.setForeground(Color.RED);
             }
         });
-        noButton = new JButton("No");
-        noButton.setFont(helvetiHandFont);
-        noButton.setForeground(Color.WHITE);
-        noButton.setContentAreaFilled(false);
-        noButton.setBorderPainted(false);
-        noButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        addButtonMouseListeners(noButton, e -> {
+        buttonPanel.add(yesButton);
+        noButton = UI.createButton("No", helvetiHandFont);
+        UI.addButtonMouseListeners(noButton, e -> {
             audio.playSelectSFX();
             dialog.dispose();
         });
-        buttonPanel.add(yesButton);
         buttonPanel.add(noButton);
         panel.add(buttonPanel, BorderLayout.SOUTH);
         dialog.getContentPane().add(panel);

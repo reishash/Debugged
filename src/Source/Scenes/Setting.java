@@ -9,11 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
-import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.AbstractAction;
@@ -28,9 +25,9 @@ import javax.swing.JSlider;
 import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
-import javax.swing.Timer;
 
 import Source.Logic.Audio;
+import Source.Logic.UI;
 
 public class Setting extends JFrame {
     private Audio audio;
@@ -45,7 +42,6 @@ public class Setting extends JFrame {
     private JLabel label;
     private JSlider slider;
     private SpringLayout layout;
-    private Timer timer;
 
     // Constructor
     public Setting(Object parent) {
@@ -145,32 +141,25 @@ public class Setting extends JFrame {
             }
         };
         for (int i = 0; i < buttonNames.length; i++) {
-            button = new JButton(buttonNames[i].equals("Key Binding") ? KeyEvent.getKeyText(keyBinding) : buttonNames[i]);
+            button = UI.createButton(buttonNames[i].equals("Key Binding") ? KeyEvent.getKeyText(keyBinding) : buttonNames[i], helvetiHandFont);
             if (buttonNames[i].equals("Key Binding")) {
-                keyBindingButton = button;
+            keyBindingButton = button;
             }
-            button.setFont(helvetiHandFont);
-            button.setForeground(Color.WHITE);
-            button.setContentAreaFilled(false);
-            button.setHorizontalAlignment(SwingConstants.LEFT);
-            button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            button.setFocusPainted(false);
-            button.setBorderPainted(false);
             if (i == 0) {
-                layout.putConstraint(SpringLayout.EAST, button, -250, SpringLayout.EAST, panel);
-                layout.putConstraint(SpringLayout.NORTH, button, 500, SpringLayout.NORTH, panel);
+            layout.putConstraint(SpringLayout.EAST, button, -250, SpringLayout.EAST, panel);
+            layout.putConstraint(SpringLayout.NORTH, button, 500, SpringLayout.NORTH, panel);
             } else {
-                layout.putConstraint(SpringLayout.WEST, button, 250, SpringLayout.WEST, panel);
-                layout.putConstraint(SpringLayout.SOUTH, button, -100, SpringLayout.SOUTH, panel);
-                panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "escapeAction");
-                panel.getActionMap().put("escapeAction", new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        buttonActions[1].actionPerformed(new ActionEvent(button, ActionEvent.ACTION_PERFORMED, null));
-                    }
-                });
+            layout.putConstraint(SpringLayout.WEST, button, 250, SpringLayout.WEST, panel);
+            layout.putConstraint(SpringLayout.SOUTH, button, -100, SpringLayout.SOUTH, panel);
+            panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "escapeAction");
+            panel.getActionMap().put("escapeAction", new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                buttonActions[1].actionPerformed(new ActionEvent(button, ActionEvent.ACTION_PERFORMED, null));
+                }
+            });
             }
-            addButtonMouseListeners(button, buttonActions[i]);
+            UI.addButtonMouseListeners(button, buttonActions[i]);
             panel.add(button);
         }
 
@@ -232,41 +221,5 @@ public class Setting extends JFrame {
 
     // Constructor
     public Setting() {
-    }
-
-    // Button Mouse Listeners
-    private void addButtonMouseListeners(JButton button, ActionListener clickAction) {
-        button.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-                button.setForeground(Color.YELLOW);
-                audio.playHoverSFX();
-                Point originalLocation = button.getLocation();
-                timer = new Timer(50, new ActionListener() {
-                    int count = 0;
-                    boolean moveRight = true;
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (moveRight) {
-                            button.setLocation(originalLocation.x + 1, originalLocation.y + 1);
-                        } else {
-                            button.setLocation(originalLocation.x - 1, originalLocation.y - 1);
-                        }
-                        moveRight = !moveRight;
-                        count++;
-                        if (count >= 2) {
-                            ((Timer) e.getSource()).stop();
-                            button.setLocation(originalLocation);
-                        }
-                    }
-                });
-                timer.start();
-            }
-            public void mouseExited(MouseEvent evt) {
-                button.setForeground(Color.WHITE);
-            }
-            public void mouseClicked(MouseEvent evt) {
-                clickAction.actionPerformed(new ActionEvent(button, ActionEvent.ACTION_PERFORMED, null));
-            }
-        });
     }
 }

@@ -17,7 +17,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
@@ -31,9 +30,9 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
-import javax.swing.Timer;
 
 import Source.Logic.Audio;
+import Source.Logic.UI;
 
 public class Credits extends JFrame {
     private Audio audio;
@@ -43,7 +42,6 @@ public class Credits extends JFrame {
     private JPanel panel;
     private JLabel titleLabel, profileLabel, profileNameLabel, creditLabel, backgroundLabel;
     private SpringLayout layout;
-    private Timer timer;
 
     // Constructor
     public Credits() {
@@ -192,27 +190,19 @@ public class Credits extends JFrame {
         }
 
         // Back Button
-        backButton = new JButton("Back");
-        backButton.setFont(helvetiHandFont);
-        backButton.setForeground(Color.WHITE);
-        backButton.setContentAreaFilled(false);
-        backButton.setHorizontalAlignment(SwingConstants.LEFT);
-        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        backButton.setFocusPainted(false);
-        backButton.setBorderPainted(false);
-        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        backButton = UI.createButton("Back", helvetiHandFont);
         layout.putConstraint(SpringLayout.WEST, backButton, (int)(screenWidth * 0.15), SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.SOUTH, backButton, -(int)(screenHeight * 0.10), SpringLayout.SOUTH, panel);
         ActionListener backAction = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                audio.playSelectSFX();
-                audio.stopMusic();
-                new MainMenu();
-                dispose();
+            audio.playSelectSFX();
+            audio.stopMusic();
+            new MainMenu();
+            dispose();
             }
         };
-        addButtonMouseListeners(backButton, backAction);
+        UI.addButtonMouseListeners(backButton, backAction);
         panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "escapeAction");
         panel.getActionMap().put("escapeAction", new AbstractAction() {
             @Override
@@ -236,41 +226,5 @@ public class Credits extends JFrame {
 
         add(panel);
         setVisible(true);
-    }
-
-    // Button Mouse Listeners
-    private void addButtonMouseListeners(JButton button, ActionListener clickAction) {
-        button.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-                button.setForeground(Color.YELLOW);
-                audio.playHoverSFX();
-                Point originalLocation = button.getLocation();
-                timer = new Timer(50, new ActionListener() {
-                    int count = 0;
-                    boolean moveRight = true;
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (moveRight) {
-                            button.setLocation(originalLocation.x + 1, originalLocation.y + 1);
-                        } else {
-                            button.setLocation(originalLocation.x - 1, originalLocation.y - 1);
-                        }
-                        moveRight = !moveRight;
-                        count++;
-                        if (count >= 2) {
-                            ((Timer) e.getSource()).stop();
-                            button.setLocation(originalLocation);
-                        }
-                    }
-                });
-                timer.start();
-            }
-            public void mouseExited(MouseEvent evt) {
-                button.setForeground(Color.WHITE);
-            }
-            public void mouseClicked(MouseEvent evt) {
-                clickAction.actionPerformed(new ActionEvent(button, ActionEvent.ACTION_PERFORMED, null));
-            }
-        });
     }
 }
