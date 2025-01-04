@@ -328,7 +328,7 @@ public class Scene extends JFrame {
             case 63, 64, 66, 68, 69, 70, 71, 72, 73, 82, 83:
                 charPath = "src/Assets/Images/Characters/raina.png";
                 break;
-            case 103, 106, 113, 141, 142, 143, 144, 145, 146:
+            case 103, 106, 113, 141, 142, 143, 144, 145, 146, 245, 256, 257:
                 charPath = "src/Assets/Images/Characters/elara_young.png";
                 break;
             case 97, 98, 99, 101, 102, 105, 107, 109, 110, 111, 112, 114:
@@ -339,11 +339,15 @@ public class Scene extends JFrame {
                 break;
             case 22, 23, 24, 25, 26, 27, 28, 29, 30, 33, 34, 35, 36, 37, 47, 48, 
             49, 50, 51, 52, 55, 56, 74, 75, 78, 79, 80, 81, 123, 124, 125, 170, 
-            171, 172, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222:
+            171, 172, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 259, 
+            260, 261, 262, 263, 264, 265, 266:
                 charPath = "src/Assets/Images/Characters/byte.png";
                 break;
             case 186, 187, 193, 194, 196, 197, 208:
                 charPath = "src/Assets/Images/Characters/ex.png";
+                break;
+            case 252, 254, 255:
+                charPath = "src/Assets/Images/Characters/friend.png";
                 break;
             default:
                 charPath = "";
