@@ -144,54 +144,7 @@ public class Scene extends JFrame {
                 setFocusable(true);
                 requestFocusInWindow();
                 audio.playSelectSFX();
-                // Will be used for choices
-                // if (sceneID == 9999) {
-                //     // Choice
-                //     choiceDialog = new JDialog();
-                //     choiceDialog.setUndecorated(true);
-                //     choiceDialog.setModal(true);
-                //     choicePanel = new JPanel();
-                //     choicePanel.setBackground(Color.BLACK);
-                //     choicePanel.setLayout(new BorderLayout());
-                //     choiceLabel = new JLabel("[Choice:]", JLabel.CENTER);
-                //     choiceLabel.setForeground(Color.WHITE);
-                //     choiceLabel.setFont(helvetiHandFont);
-                //     choicePanel.add(choiceLabel, BorderLayout.CENTER);
-                //     choiceButtonPanel = new JPanel();
-                //     choiceButtonPanel.setBackground(Color.BLACK);
-                //     choiceButtonPanel.setLayout(new FlowLayout());
-                //     choiceAButton = new JButton("<html><h2>Sacrifice Byte to leave Nullspace.</h2></html>");
-                //     choiceAButton.setFont(helvetiHandFont);
-                //     choiceAButton.setForeground(Color.WHITE);
-                //     choiceAButton.setContentAreaFilled(false);
-                //     choiceAButton.setBorderPainted(false);
-                //     choiceAButton.addActionListener(e -> {
-                //         sceneID = 10000; 
-                //         choiceAButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                //         choiceDialog.dispose();
-                //         updateScene(panel);
-                //     });
-                //     choiceButtonPanel.add(choiceAButton);
-                //     choiceBButton = new JButton("<html><h2>Refuse to leave, staying with Byte.</h2></html>");
-                //     choiceBButton.setFont(helvetiHandFont);
-                //     choiceBButton.setForeground(Color.WHITE);
-                //     choiceBButton.setContentAreaFilled(false);
-                //     choiceBButton.setBorderPainted(false);
-                //     choiceBButton.addActionListener(e -> {
-                //         sceneID = 11000; 
-                //         choiceBButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                //         choiceDialog.dispose();
-                //         updateScene(panel);
-                //     });
-                //     choiceButtonPanel.add(choiceBButton);
-                //     choicePanel.add(choiceButtonPanel, BorderLayout.SOUTH);
-                //     choiceDialog.getContentPane().add(choicePanel);
-                //     choiceDialog.pack();
-                //     choiceDialog.setLocationRelativeTo(null);
-                //     choiceDialog.setVisible(true);
-                // } else {
                 sceneID++;
-                // }
                 updateScene(panel);
             }
         });
