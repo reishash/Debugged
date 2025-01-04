@@ -342,6 +342,7 @@ package Assets.Scripts; public class Script { public static final String[] story
         "To let go of the past. To accept who I am, flaws and all.",
         "Imperfect, but whole.",
         "", //7 Choice
-
+        "<html><b span style=color:#ed4337;>EXIT CODE.</b></html>",
+        "<html><i>Black screen.</i></html>",
     };
 }

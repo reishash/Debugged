@@ -9,7 +9,7 @@
 ## Story
 
 - Write the story for Chapter 7+.
-- Integrate the story for Chapter 6+.
+- Integrate the story for Chapter 7+.
 
 ## Source
 
