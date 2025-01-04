@@ -252,7 +252,7 @@ package Assets.Scripts; public class Script { public static final String[] story
         "<html><b span style=color:'red';>I’m still here, Elara. Why won’t you let me in?</span></html>",
         "<html><i>Elara’s chest tightens as the memory shifts to a coffee shop.</i></html>",
         "<html><i>Her friend sits across from her, their expression weary but hopeful.</i></html>",
-        "<html>span style=color:'red';>You don’t have to do this alone, you know.</span></html>",
+        "<html><b span style=color:'red';>You don’t have to do this alone, you know.</span></html>",
         "<html><i>Younger Elara looks away, her voice clipped.</i></html>",
         "<html><b span style=color:'red';>I’m fine. Really.</span></html>",
         "<html><i>The scene fades, leaving Elara standing in the empty arcade. The claw machine is still there, but the lights are dim, the laughter gone.</i></html>",

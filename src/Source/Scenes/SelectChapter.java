@@ -308,7 +308,7 @@ public class SelectChapter extends JFrame {
             "Sometimes, the people we care about the most are the hardest to understand. But it’s the effort that matters. \n\nWIP: Sound Effects",
             "Dreams are fragile. But it’s only when we lose them that we realize how much they meant. \n\nWIP: Sound Effects",
             "We can’t rewrite the past, no matter how much we wish we could. But we can learn to live with the changes. \n\nWIP: Sound Effects",
-            "We can’t outrun our past, but we can choose how it shapes us. Sometimes, we have to break free to move forward. \n\nWIP: Character Images, Background Images, Sound Effects",
+            "We can’t outrun our past, but we can choose how it shapes us. Sometimes, we have to break free to move forward. \n\nWIP: Sound Effects",
             "The hardest person to face is the one in the mirror. But it’s only by understanding them that we can truly move on. \n\nWIP: Integrated Script, Character Images, Background Images, Sound Effects",
             "Leaving isn’t always about escape. Sometimes, it’s about understanding what we’re leaving behind; and why it matters. \n\nWIP: Integrated Script, Character Images, Background Images, Sound Effects",
             "Sometimes, the best outcomes come from letting go. And finding what we need in the places we least expect. \n\nWIP: Integrated Script, Character Images, Background Images, Sound Effects",

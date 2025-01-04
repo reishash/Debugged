@@ -346,7 +346,7 @@ public class Scene extends JFrame {
             case 186, 187, 193, 194, 196, 197, 208:
                 charPath = "src/Assets/Images/Characters/ex.png";
                 break;
-            case 252, 254, 255:
+            case 252, 253, 254, 255:
                 charPath = "src/Assets/Images/Characters/friend.png";
                 break;
             default:
@@ -363,7 +363,7 @@ public class Scene extends JFrame {
                 break;
             case 16, 17, 61, 62, 63, 64, 65, 68, 69, 70, 71, 72, 73, 74, 
             75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 92, 107, 108, 109, 
-            114, 115, 116, 117, 122, 170, 179, 180, 191:
+            114, 115, 116, 117, 122, 170, 179, 180, 191, 231, 232, 246, 251:
                 bgPath = "src/Assets/Images/Backgrounds/bg_glitch.jpg";
                 break;
             case 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 
@@ -374,7 +374,7 @@ public class Scene extends JFrame {
             case 53, 54, 55, 56, 57, 58, 59, 60:
                 bgPath = "src/Assets/Images/Backgrounds/bg_nullspace2.jpg";
                 break;
-            case 66, 67, 93, 94, 95, 96, 134, 140, 147, 181, 200, 201, 202:
+            case 66, 67, 93, 94, 95, 96, 134, 140, 147, 181, 200, 201, 202, 233, 250:
                 bgPath = "src/Assets/Images/Backgrounds/bg_fracture.jpg";
                 break;
             case 97, 98, 99:
@@ -407,12 +407,21 @@ public class Scene extends JFrame {
             case 182, 183, 184, 185, 186, 187:
                 bgPath = "src/Assets/Images/Backgrounds/bg_room.jpg";
                 break;
-            case 188, 189, 190:
+            case 188, 189, 190, 252, 253, 254, 255, 256, 257:
                 bgPath = "src/Assets/Images/Backgrounds/bg_cafe.jpg";
                 break;
             case 192, 193, 194, 205, 206, 207, 208, 209, 210, 213, 214, 215,
             216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226:
                 bgPath = "src/Assets/Images/Backgrounds/bg_room2.jpg";
+                break;
+            case 234, 235, 236, 237, 238, 239, 240:
+                bgPath = "src/Assets/Images/Backgrounds/bg_arcade.jpg";
+                break;
+            case 241, 242, 243, 244, 245:
+                bgPath = "src/Assets/Images/Backgrounds/bg_park.jpg";
+                break;
+            case 258, 259, 260, 261, 262, 263, 264, 265, 266:
+                bgPath = "src/Assets/Images/Backgrounds/bg_arcade2.jpg";
                 break;
             default:
                 bgPath = "";
