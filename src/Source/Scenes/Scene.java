@@ -323,7 +323,8 @@ public class Scene extends JFrame {
                 break;
             case 16, 17, 61, 62, 63, 64, 65, 68, 69, 70, 71, 72, 73, 74, 
             75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 92, 107, 108, 109, 
-            114, 115, 116, 117, 122, 170, 179, 180, 191, 231, 232, 246, 251:
+            114, 115, 116, 117, 122, 170, 179, 180, 191, 231, 232, 246, 
+            251, 274, 275:
                 bgPath = "src/Assets/Images/Backgrounds/bg_glitch.jpg";
                 break;
             case 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 
@@ -334,7 +335,8 @@ public class Scene extends JFrame {
             case 53, 54, 55, 56, 57, 58, 59, 60:
                 bgPath = "src/Assets/Images/Backgrounds/bg_nullspace2.jpg";
                 break;
-            case 66, 67, 93, 94, 95, 96, 134, 140, 147, 181, 200, 201, 202, 233, 250:
+            case 66, 67, 93, 94, 95, 96, 134, 140, 147, 181, 200, 201, 
+            202, 233, 250, 276:
                 bgPath = "src/Assets/Images/Backgrounds/bg_fracture.jpg";
                 break;
             case 97, 98, 99:
@@ -361,7 +363,8 @@ public class Scene extends JFrame {
             case 148, 149, 150, 151, 152, 153, 154:
                 bgPath = "src/Assets/Images/Backgrounds/bg_roomclass.jpg";
                 break;
-            case 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167:
+            case 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 
+            166, 167:
                 bgPath = "src/Assets/Images/Backgrounds/bg_roomflag2.jpg";
                 break;
             case 182, 183, 184, 185, 186, 187:
@@ -370,8 +373,8 @@ public class Scene extends JFrame {
             case 188, 189, 190, 252, 253, 254, 255, 256, 257:
                 bgPath = "src/Assets/Images/Backgrounds/bg_cafe.jpg";
                 break;
-            case 192, 193, 194, 205, 206, 207, 208, 209, 210, 213, 214, 215,
-            216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226:
+            case 192, 193, 194, 205, 206, 207, 208, 209, 210, 213, 214, 
+            215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226:
                 bgPath = "src/Assets/Images/Backgrounds/bg_room2.jpg";
                 break;
             case 234, 235, 236, 237, 238, 239, 240:
@@ -382,6 +385,22 @@ public class Scene extends JFrame {
                 break;
             case 258, 259, 260, 261, 262, 263, 264, 265, 266:
                 bgPath = "src/Assets/Images/Backgrounds/bg_arcade2.jpg";
+                break;
+            case 277, 278, 324, 325, 326, 327, 328, 329, 336, 337, 338,
+            339, 340, 341, 342, 343:
+                bgPath = "src/Assets/Images/Backgrounds/bg_room3.jpg";
+                break;
+            case 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289,
+            290, 291, 292, 293, 294, 295, 296, 297, 298, 299, 300, 301,
+            302, 303, 304, 305, 306, 307, 308, 330, 331, 332, 333, 334:
+                bgPath = "src/Assets/Images/Backgrounds/bg_mirror.jpg";
+                break;
+            case 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321,
+            322, 323:
+                bgPath = "src/Assets/Images/Backgrounds/bg_room4.jpg";
+                break;
+            case 335:
+                bgPath = "src/Assets/Images/Backgrounds/bg_mirror2.jpg";
                 break;
             default:
                 bgPath = "";

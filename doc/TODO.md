@@ -2,7 +2,7 @@
 
 ## Assets
 
-- Design and integrate background images for Chapter 6+.
+- Design and integrate background images for Chapter 7+.
 - Integrate character images for Chapter 7+.
 - Add voiceovers for actions Chapter 2+.
 
